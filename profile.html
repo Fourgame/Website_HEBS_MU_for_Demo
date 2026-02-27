@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="th">
+<head> 
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>ข้อมูลบุคลากร | คณะสาธารณสุขศาสตร์</title>
+    <link href="./assets/favicon.png" rel="icon"/>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              fontFamily: {
+                sans: ["Inter", "Noto Sans Thai", "sans-serif"],
+              },
+              colors: {
+                'mah-blue': '#1D4699',
+                'mah-dark': '#10254F',
+                'mah-orange': '#E89266',
+                'mah-orange-hover': '#d67848',
+              },
+              animation: {
+                'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+              },
+              keyframes: {
+                fadeInUp: {
+                  '0%': { opacity: '0', transform: 'translateY(20px)' },
+                  '100%': { opacity: '1', transform: 'translateY(0)' },
+                },
+              }
+            },
+          },
+        };
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', 'Noto Sans Thai', sans-serif; }
+        .nav-thumb { transition: all 0.3s ease; border: 2px solid transparent; }
+        .nav-thumb:hover { transform: scale(1.1); border-color: #E89266; }
+        .nav-thumb.active { border-color: #1D4699; transform: scale(1.15); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-600 flex flex-col min-h-screen">
+
+    <header class="sticky top-0 z-50">
+        <div class="bg-mah-blue text-white shadow-lg shadow-blue-900/10">
+            <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="h-11 w-11">
+                        <img src="./assets/Mahidol_Logo.png" alt="Mahidol Logo" class="h-full w-full object-cover" />
+                    </div>
+                    <div class="leading-tight">
+                        <div class="font-semibold text-lg tracking-tight">คณะสาธารณสุขศาสตร์</div>
+                        <div class="text-xs text-blue-200 font-light">ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์</div>
+                    </div>
+                </div>
+                <nav class="hidden md:flex items-center text-sm tracking-wide gap-6">
+                    <a href="staff.html" class="hover:text-mah-orange transition">กลับหน้าทำเนียบ</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow py-10 px-6">
+        
+        <div class="max-w-6xl mx-auto mb-6 animate-fade-in-up">
+            <a href="staff.html" class="inline-flex items-center gap-2 text-slate-500 hover:text-mah-orange transition-colors font-medium">
+                <div class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center shadow-sm">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> 
+                </div>
+                กลับหน้าทำเนียบ
+            </a>
+        </div>
+
+        <div class="max-w-6xl w-full bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row min-h-[600px] mx-auto animate-fade-in-up" id="profile-card">
+            
+            <div class="md:w-4/12 bg-slate-100 relative group overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-t from-mah-blue/90 to-transparent opacity-60 z-10"></div>
+                
+                <img id="profile-img" src="" alt="Profile" 
+                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105 z-0"
+                     style="object-position: top !important;"
+                     onerror="this.src='https://ui-avatars.com/api/?name=Staff&background=e2e8f0&color=64748b&size=512'">
+                
+                <div class="absolute bottom-0 left-0 p-8 text-white z-20">
+                    <p id="profile-position-badge" class="inline-block px-3 py-1 bg-mah-orange rounded-full text-xs font-bold tracking-wider mb-2 uppercase shadow-sm">
+                        -
+                    </p>
+                    <h1 id="profile-name-overlay" class="text-2xl md:text-3xl font-bold leading-tight shadow-black drop-shadow-md">-</h1>
+                </div>
+            </div>
+
+            <div class="md:w-8/12 p-8 md:p-10 flex flex-col overflow-y-auto max-h-[800px]"> 
+                <div id="info-container" class="fade-in">
+                    
+                    <div class="flex flex-wrap items-start justify-between mb-6 gap-4 border-b border-slate-100 pb-6">
+                        <div>
+                            <h2 id="profile-name" class="text-2xl md:text-3xl font-bold text-mah-blue mb-1">-</h2>
+                            <p id="profile-position" class="text-slate-500 font-medium text-lg">-</p>
+                            
+                            <div class="mt-4 flex flex-col gap-2 text-sm text-slate-600">
+                                <span class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4 text-mah-orange"></i> <span id="profile-email">-</span></span>
+                                <span class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-mah-orange"></i> <span id="profile-phone">-</span></span>
+                            </div>
+                        </div>
+                        
+                        <a id="cv-link" href="#" target="_blank" class="flex items-center gap-2 bg-orange-50 text-mah-orange hover:bg-mah-orange hover:text-white px-5 py-2.5 rounded-xl border border-orange-100 transition-all font-semibold shadow-sm text-sm hidden">
+                            <i data-lucide="file-down" class="w-4 h-4"></i>
+                            <span>ดาวน์โหลด CV เต็ม (PDF)</span>
+                        </a>
+                    </div>
+
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                                <i data-lucide="graduation-cap" class="w-5 h-5 text-mah-blue"></i> คุณวุฒิการศึกษา
+                            </h3>
+                            <div class="bg-slate-50 rounded-2xl p-5 border border-slate-100">
+                                <div id="profile-edu" class="space-y-3 text-sm">
+                                    <span class="text-slate-400 italic">- ไม่มีข้อมูล -</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                                <i data-lucide="award" class="w-5 h-5 text-mah-blue"></i> ความเชี่ยวชาญ
+                            </h3>
+                            <div id="profile-expert" class="flex flex-wrap gap-2">
+                                <span class="text-slate-400 italic text-sm">- ไม่มีข้อมูล -</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                                <i data-lucide="book-open" class="w-5 h-5 text-mah-blue"></i> ผลงานวิชาการ (คัดสรร)
+                            </h3>
+                            <div id="profile-research" class="space-y-2 text-sm text-slate-700">
+                                <span class="text-slate-400 italic">- ไม่มีข้อมูล -</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="bg-white border-t border-slate-200 py-6 overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6 relative">
+            <button onclick="scrollNav(-1)" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-12 z-10 w-10 h-10 bg-white rounded-full shadow-lg border border-slate-100 flex items-center justify-center hover:bg-slate-50 text-slate-600 transition-transform hover:scale-110 cursor-pointer"><i data-lucide="chevron-left" class="w-6 h-6 pointer-events-none"></i></button>
+            <button onclick="scrollNav(1)" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-12 z-10 w-10 h-10 bg-white rounded-full shadow-lg border border-slate-100 flex items-center justify-center hover:bg-slate-50 text-slate-600 transition-transform hover:scale-110 cursor-pointer"><i data-lucide="chevron-right" class="w-6 h-6 pointer-events-none"></i></button>
+            
+            <div id="nav-scroll" class="flex gap-4 overflow-x-auto py-4 px-2 scroll-smooth no-scrollbar" style="scrollbar-width: none;"></div>
+        </div>
+    </div>
+
+    <footer class="bg-mah-blue text-white py-8 border-t border-white/10 mt-auto">
+        <div class="text-center text-xs text-blue-200/60">
+          © 2025 Department of Health Education and Behavioral Sciences. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+        });
+
+        let staffData = [];
+
+        async function init() {
+            try {
+                const response = await fetch('./staff.json');
+                if (!response.ok) throw new Error('Cannot load staff.json');
+                
+                const rawData = await response.json();
+                staffData = rawData.filter(item => item.type !== 'header');
+
+                const navContainer = document.getElementById('nav-scroll');
+                navContainer.innerHTML = '';
+                
+                staffData.forEach((staff, index) => {
+                    const thumb = document.createElement('button');
+                    thumb.className = `nav-thumb w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden flex-shrink-0 cursor-pointer bg-slate-200 box-content`;
+                    const imgSrc = (staff.image && staff.image.trim() !== "") ? staff.image : 'https://ui-avatars.com/api/?name=Staff&background=e2e8f0&color=64748b&size=512';
+                    
+                    thumb.innerHTML = `<img src="${imgSrc}" class="w-full h-full object-cover object-top" style="object-position: top !important;" onerror="this.src='https://ui-avatars.com/api/?name=Staff&background=e2e8f0&color=64748b&size=512'">`;
+                    
+                    thumb.onclick = () => {
+                        loadProfile(index);
+                        thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    };
+                    navContainer.appendChild(thumb);
+                });
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const requestID = urlParams.get('id');
+                let foundIndex = staffData.findIndex(p => p.id === requestID);
+                if (foundIndex === -1) foundIndex = 0;
+                loadProfile(foundIndex);
+
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+
+        function loadProfile(index) {
+            if (!staffData[index]) return;
+            const data = staffData[index];
+            const container = document.getElementById('info-container');
+            
+            container.classList.remove('fade-in');
+            void container.offsetWidth; 
+            container.classList.add('fade-in');
+
+            // --- Basic Info ---
+            const imgSrc = (data.image && data.image.trim() !== "") ? data.image : 'https://ui-avatars.com/api/?name=Staff&background=e2e8f0&color=64748b&size=512';
+            document.getElementById('profile-img').src = imgSrc;
+            
+            // 🔥 เพิ่ม Title (คำนำหน้า) กลับเข้าไปให้แล้วครับ!
+            const fullNameHTML = (data.title ? `<span class="text-lg md:text-xl block font-medium text-slate-500 mb-1">${data.title}</span>` : '') + data.name;
+            
+            document.getElementById('profile-name').innerHTML = fullNameHTML;
+            document.getElementById('profile-name-overlay').innerText = data.name; // อันนี้ที่รูปภาพ โชว์แค่ชื่อพอ
+            
+            document.getElementById('profile-position').innerText = data.position || 'บุคลากร';
+            document.getElementById('profile-position-badge').innerText = data.position || 'Staff';
+            document.getElementById('profile-email').innerText = data.email || '-';
+            document.getElementById('profile-phone').innerText = data.phone || '-';
+
+            const cvBtn = document.getElementById('cv-link');
+            if (data.cv && data.cv !== "#") {
+                cvBtn.href = data.cv;
+                cvBtn.classList.remove('hidden');
+            } else {
+                cvBtn.classList.add('hidden');
+            }
+
+            // --- Education (Limit 3) ---
+            const eduList = document.getElementById('profile-edu');
+            if (data.education && data.education.length > 0) {
+                const limit = 3;
+                const showItems = data.education.slice(0, limit);
+                let html = showItems.map(edu => `
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-center border-b border-slate-200 last:border-0 pb-2 mb-2 last:pb-0 last:mb-0">
+                        <span class="font-semibold text-mah-blue">${edu.degree || '-'}</span>
+                        <div class="text-xs text-slate-500 mt-1 md:mt-0 text-right">
+                            <span class="block md:inline">${edu.institute || ''}</span>
+                            ${edu.year ? `<span class="hidden md:inline mx-1">•</span><span class="text-mah-orange font-medium">${edu.year}</span>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+
+                if (data.education.length > limit) {
+                    html += `<div class="pt-2 text-slate-400 text-xs italic text-center">...และวุฒิอื่นๆ อีก ${data.education.length - limit} รายการ (ดูเพิ่มเติมใน CV)</div>`;
+                }
+                eduList.innerHTML = html;
+            } else {
+                eduList.innerHTML = `<span class="text-slate-400 italic text-sm">- ไม่มีข้อมูล -</span>`;
+            }
+
+            // --- Expertise (Limit 5) ---
+            const expList = document.getElementById('profile-expert');
+            if (data.expertise && data.expertise.length > 0) {
+                const limit = 5;
+                const showItems = data.expertise.slice(0, limit);
+                let html = showItems.map(exp => 
+                    `<span class="px-3 py-1 bg-blue-50 text-mah-blue text-xs font-semibold rounded-lg border border-blue-100 cursor-default">${exp}</span>`
+                ).join('');
+                
+                if (data.expertise.length > limit) {
+                    html += `<span class="px-3 py-1 text-slate-400 text-xs italic">...และอื่นๆ อีก ${data.expertise.length - limit} รายการ</span>`;
+                }
+                expList.innerHTML = html;
+            } else {
+                expList.innerHTML = `<span class="text-slate-400 italic text-sm">- ไม่มีข้อมูล -</span>`;
+            }
+
+            // --- Research (Limit 3) ---
+            const resList = document.getElementById('profile-research');
+            if (data.research && data.research.length > 0) {
+                const limit = 3;
+                const showItems = data.research.slice(0, limit);
+                let html = showItems.map(res => `
+                    <div class="border-l-2 border-slate-200 pl-3 py-1 hover:border-mah-orange transition-colors">
+                        <p class="leading-relaxed text-slate-700">${res}</p>
+                    </div>
+                `).join('');
+
+                if (data.research.length > limit) {
+                    html += `<div class="pt-2 text-slate-400 text-xs italic pl-3">...และผลงานอื่นๆ อีก ${data.research.length - limit} รายการ (ดูเพิ่มเติมใน CV)</div>`;
+                }
+                resList.innerHTML = html;
+            } else {
+                resList.innerHTML = `<span class="text-slate-400 text-xs">- ไม่มีข้อมูลแสดงในส่วนนี้ -</span>`;
+            }
+
+            // Update Active Nav State
+            document.querySelectorAll('.nav-thumb').forEach((btn, i) => {
+                if(i === index) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        // 🔥 แก้ตรงนี้: ฟังก์ชันสำหรับเลื่อนซ้ายขวาแบบชัวร์ๆ
+        window.scrollNav = function(direction) {
+            const container = document.getElementById('nav-scroll');
+            if (container) {
+                container.scrollBy({ left: direction * 300, behavior: 'smooth' });
+            }
+        };
+
+        init();
+    </script>
+</body>
+</html>

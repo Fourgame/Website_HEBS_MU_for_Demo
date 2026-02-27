@@ -1,302 +1,353 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="th">
-<head> <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>บุคลากร | คณะสาธารณสุขศาสตร์</title>
-<meta content="ทำเนียบบุคลากรภาควิชาสุขศึกษาและพฤติกรรมศาสตร์" name="description"/>
-<link href="./assets/favicon.png" rel="icon"/>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <title>บุคลากร | คณะสาธารณสุขศาสตร์</title>
+  <link rel="icon" href="./assets/favicon.png" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: [
-              "Inter",
-              "Noto Sans Thai",
-              "ui-sans-serif",
-              "system-ui",
-              "-apple-system",
-              "Segoe UI",
-              "Roboto",
-              "Helvetica",
-              "Arial",
-              "sans-serif"
-            ]
+            sans: ["Inter", "Noto Sans Thai", "sans-serif"],
+          },
+          colors: {
+            'mah-blue': '#1D4699',
+            'mah-dark': '#10254F',
+            'mah-orange': '#E89266',
+            'mah-orange-hover': '#d67848',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
           }
-        }
-      }
+        },
+      },
     };
   </script>
-<script src="https://unpkg.com/lucide@latest"></script>
-<style>
-    .primary-nav {
-      gap: 2rem;
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    html { scroll-behavior: smooth; }
+    
+    /* Navigation */
+    .primary-nav { gap: 2rem; }
+    .primary-nav .nav-item { position: relative; }
+    .primary-nav a { position: relative; padding-bottom: 2px; color: rgba(255, 255, 255, 0.85); transition: color 0.2s ease; font-weight: 500; }
+    .primary-nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 3px; background: #E89266; transform: scaleX(0); transform-origin: left; transition: transform 0.2s ease; border-radius: 2px; }
+    .primary-nav a:hover { color: #E89266; }
+    .primary-nav a:hover::after, .primary-nav a.active::after { transform: scaleX(1); }
+    .primary-nav a.active { color: #fff; font-weight: 600; }
+    
+    .nav-dropdown { position: absolute; top: 100%; margin-top: 0.5rem; left: 0; min-width: 11rem; background: #fff; color: #0f172a; border-radius: 1rem; box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15); padding: 0.5rem 0; opacity: 0; pointer-events: none; transform: translateY(-8px); transition: opacity 0.18s ease, transform 0.18s ease; z-index: 50; }
+    .primary-nav .nav-item:hover .nav-dropdown { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .nav-dropdown a { display: flex; align-items: center; padding: 0.6rem 1.2rem; color: #334155; gap: 0.5rem; opacity: 1; font-weight: 400; transition: all 0.2s; }
+    .nav-dropdown a:hover { background: #f8fafc; color: #1D4699; }
+
+    /* Staff Card Hover Effects */
+    .person-img { transition: transform 0.5s ease, filter 0.3s ease; transform-origin: bottom center; }
+    .staff-card-container:hover .person-img {
+       transform: scale(1.05);
+       filter: brightness(1.1);
     }
-    .primary-nav .nav-item {
-      position: relative;
+    
+    /* Big Card Hover */
+    .card-box { transition: all 0.3s ease; }
+    .staff-card-container:hover .card-box { 
+        background-color: #1D4699; 
+        border-color: #1D4699;
     }
-    .primary-nav a {
-      position: relative;
-      padding-bottom: 2px;
-      color: rgba(255, 255, 255, 0.85);
-      transition: color 0.2s ease;
-      font-weight: 600;
-    }
-    .primary-nav a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -6px;
-      height: 2px;
-      background: #f97316;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.2s ease;
-    }
-    .primary-nav a:hover {
-      color: #fff;
-    }
-    .primary-nav a:hover::after,
-    .primary-nav a.active::after {
-      transform: scaleX(1);
-    }
-    .primary-nav a.active {
-      color: #fff;
-    }
-    .nav-dropdown {
-      position: absolute;
-      top: calc(100% + 0.5rem);
-      left: 0;
-      min-width: 11rem;
-      background: #fff;
-      color: #0f172a;
-      border-radius: 0.9rem;
-      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15);
-      padding: 0.5rem 0;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-8px);
-      transition: opacity 0.18s ease, transform 0.18s ease;
-      z-index: 50;
-    }
-    .primary-nav .nav-item:hover .nav-dropdown {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-    .nav-dropdown a {
-      display: flex;
-      align-items: center;
-      padding: 0.45rem 1rem;
-      color: #0f172a;
-      gap: 0.4rem;
-      opacity: 0.85;
-    }
-    .nav-dropdown a:hover {
-      background: rgba(15, 23, 42, 0.04);
-      opacity: 1;
-    }
+    .staff-card-container:hover .card-box span, 
+    .staff-card-container:hover .card-box p,
+    .staff-card-container:hover .text-force-white { color: white !important; }
+    .staff-card-container:hover .card-tag { background-color: rgba(255,255,255,0.2); color: white; }
   </style>
 </head>
-<body class="min-h-screen bg-white text-slate-900"> <!-- Navigation -->
-<header class="sticky top-0 z-50">
-<div class="bg-[#1D4699] text-white shadow">
-<div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="h-11 w-11 rounded-2xl bg-gradient-to-br from-orange-400 via-pink-500 to-purple-500 grid place-items-center text-lg font-semibold">
-            ส
+<body class="min-h-screen bg-slate-50 text-slate-600 flex flex-col"> 
+
+  <header class="sticky top-0 z-50">
+    <div class="bg-mah-blue text-white shadow-lg shadow-blue-900/10">
+      <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="h-11 w-11">
+            <img src="./assets/Mahidol_Logo.png" alt="Mahidol Logo" class="h-full w-full object-cover" />
           </div>
-<div class="leading-tight">
-<div class="font-semibold text-lg">คณะสาธารณสุขศาสตร์</div>
-<div class="text-xs text-[#C9DAFF]">ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์</div>
-</div>
-</div>
-<button class="md:hidden inline-flex items-center justify-center rounded-xl border border-white/30 text-white h-10 w-12 transition hover:bg-white/10 focus:outline-none" id="mobile-nav-toggle">
-<i class="w-5 h-5" data-lucide="menu" id="mobile-icon-open"></i>
-<i class="w-5 h-5 hidden" data-lucide="x" id="mobile-icon-close"></i>
-</button>
-<nav class="hidden md:flex items-center text-sm tracking-wide primary-nav">
-<div class="nav-item">
-<a href="index.html">หน้าแรก</a>
-</div>
-<div class="nav-item">
-<a href="program.html">หลักสูตร</a>
-</div>
-<div class="nav-item">
-<a href="news.html">ข่าว/ประกาศ</a>
-</div>
-<div class="nav-item">
-<a class="active" href="staff.html">บุคลากร</a>
-</div>
-<div class="nav-item">
-<a href="student.html">นักศึกษา</a>
-<div class="nav-dropdown">
-<a href="student.html#current"><i class="w-4 h-4" data-lucide="user-round"></i>ศิษย์ปัจจุบัน</a>
-<a href="student.html#alumni"><i class="w-4 h-4" data-lucide="user-check"></i>ศิษย์เก่า</a>
-</div>
-</div>
-<div class="nav-item">
-<a href="about.html">เกี่ยวกับเรา</a>
-<div class="nav-dropdown">
-<a href="about.html#history"><i class="w-4 h-4" data-lucide="book-open"></i>ประวัติ</a>
-<a href="about.html#vision"><i class="w-4 h-4" data-lucide="eye"></i>วิสัยทัศน์</a>
-<a href="about.html#leadership"><i class="w-4 h-4" data-lucide="award"></i>ทำเนียบหัวหน้าภาควิชา</a>
-<a href="contact.html"><i class="w-4 h-4" data-lucide="phone"></i>ติดต่อเรา</a>
-</div>
-</div>
-<div class="nav-item">
-<a href="Services.html">บริการวิชาการ</a>
-<div class="nav-dropdown">
-<a href="Services.html#training"><i class="w-4 h-4" data-lucide="presentation"></i>ฝึกอบรม</a>
-<a href="Services.html#journal"><i class="w-4 h-4" data-lucide="newspaper"></i>วารสารสุขศึกษา</a>
-<a href="Services.html#consult"><i class="w-4 h-4" data-lucide="handshake"></i>ให้คำปรึกษา</a>
-</div>
-</div>
-<div class="nav-item">
-<a href="contact.html">ติดต่อ</a>
-</div>
-</nav>
-</div>
-</div>
-<div class="md:hidden bg-white text-[#1D4699] border-t border-white/10 shadow-lg hidden" id="mobile-nav-panel">
-<div class="px-6 py-4 space-y-4 text-sm font-semibold">
-<div class="space-y-1">
-<a class="flex items-center gap-2 py-1" href="index.html">หน้าแรก</a>
-<a class="flex items-center gap-2 py-1" href="program.html">หลักสูตร</a>
-<a class="flex items-center gap-2 py-1" href="news.html">ข่าว/ประกาศ</a>
-<a class="flex items-center gap-2 py-1" href="staff.html">บุคลากร</a>
-<a class="flex items-center gap-2 py-1" href="contact.html">ติดต่อ</a>
-</div>
-<div>
-<p class="text-xs uppercase tracking-widest text-slate-400">นักศึกษา</p>
-<div class="mt-1 space-y-1 pl-3 text-[0.9rem] font-normal text-slate-600">
-<a class="block py-1" href="student.html#current">ศิษย์ปัจจุบัน</a>
-<a class="block py-1" href="student.html#alumni">ศิษย์เก่า</a>
-</div>
-</div>
-<div>
-<p class="text-xs uppercase tracking-widest text-slate-400">เกี่ยวกับเรา</p>
-<div class="mt-1 space-y-1 pl-3 text-[0.9rem] font-normal text-slate-600">
-<a class="block py-1" href="about.html#history">ประวัติ</a>
-<a class="block py-1" href="about.html#vision">วิสัยทัศน์</a>
-<a class="block py-1" href="about.html#leadership">ทำเนียบหัวหน้าภาควิชา</a>
-<a class="block py-1" href="contact.html">ติดต่อเรา</a>
-</div>
-</div>
-<div>
-<p class="text-xs uppercase tracking-widest text-slate-400">บริการวิชาการ</p>
-<div class="mt-1 space-y-1 pl-3 text-[0.9rem] font-normal text-slate-600">
-<a class="block py-1" href="Services.html#training">ฝึกอบรม</a>
-<a class="block py-1" href="Services.html#journal">วารสารสุขศึกษา</a>
-<a class="block py-1" href="Services.html#consult">ให้คำปรึกษา</a>
-</div>
-</div>
-</div>
-</div>
-</header>
-<header class="relative overflow-hidden">
-<div class="absolute inset-0 -z-10 bg-gradient-to-br from-blue-600 via-indigo-500 to-sky-500 opacity-10"></div>
-<div class="max-w-7xl mx-auto px-6 py-12 md:py-16">
-<h1 class="text-2xl md:text-4xl font-extrabold">บุคลากร</h1>
-<p class="mt-2 text-slate-600">ทีมงานและอาจารย์ผู้เชี่ยวชาญ</p>
-</div>
-</header>
-<main class="max-w-7xl mx-auto px-6 py-10">
-<div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-<!-- Staff card sample -->
-<div class="rounded-xl border bg-white p-4">
-<div class="aspect-[3/2] bg-slate-100 rounded-lg mb-3 grid place-items-center text-slate-400 text-sm">
-<span>missing photo</span>
-</div>
-<div class="font-semibold">ชื่อ-นามสกุล</div>
-<div class="text-sm text-slate-600">ตำแหน่ง/ความเชี่ยวชาญ</div>
-<div class="mt-2 text-xs text-blue-100">ติดต่อ: name@example.com</div>
-</div>
-<div class="rounded-xl border bg-white p-4">
-<div class="aspect-[3/2] bg-slate-100 rounded-lg mb-3 grid place-items-center text-slate-400 text-sm">
-<span>missing photo</span>
-</div>
-<div class="font-semibold">ชื่อ-นามสกุล</div>
-<div class="text-sm text-slate-600">ตำแหน่ง/ความเชี่ยวชาญ</div>
-<div class="mt-2 text-xs text-blue-100">ติดต่อ: name@example.com</div>
-</div>
-<div class="rounded-xl border bg-white p-4">
-<div class="aspect-[3/2] bg-slate-100 rounded-lg mb-3 grid place-items-center text-slate-400 text-sm">
-<span>missing photo</span>
-</div>
-<div class="font-semibold">ชื่อ-นามสกุล</div>
-<div class="text-sm text-slate-600">ตำแหน่ง/ความเชี่ยวชาญ</div>
-<div class="mt-2 text-xs text-blue-100">ติดต่อ: name@example.com</div>
-</div>
-</div>
-</main>
-<!-- Footer -->
-<footer class="border-t bg-white">
-<div class="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-4 gap-8 text-sm">
-<div>
-<div class="font-semibold mb-2">คณะสาธารณสุขศาสตร์</div>
-<p class="text-slate-600">ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์ มหาวิทยาลัย (ตัวอย่าง)</p>
-</div>
-<div>
-<div class="font-semibold mb-2">ลิงก์ด่วน</div>
-<ul class="space-y-1 text-slate-600">
-<li><a class="hover:text-[#1D4699]" href="#">คู่มือนิสิต</a></li>
-<li><a class="hover:text-[#1D4699]" href="#">หน่วยงานภายใน</a></li>
-<li><a class="hover:text-[#1D4699]" href="#">ติดต่อ/แผนที่</a></li>
-</ul>
-</div>
-<div>
-<div class="font-semibold mb-2">ติดต่อเรา</div>
-<ul class="space-y-1 text-slate-600">
-<li>โทร 0-0000-0000</li>
-<li>อีเมล info@ph.edu</li>
-<li>เวลาทำการ จ.-ศ. 08:30–16:30 น.</li>
-</ul>
-</div>
-<div>
-<div class="font-semibold mb-2">ติดตามข่าวสาร</div>
-<p class="text-slate-600">Facebook • YouTube • Line Official</p>
-</div>
-</div>
-<div class="text-xs text-[#C9DAFF] text-center pb-6">© 2025 Faculty of Public Health — Demo Preview</div>
-</footer>
-<script>
+          <div class="leading-tight">
+            <div class="font-semibold text-lg tracking-tight">คณะสาธารณสุขศาสตร์</div>
+            <div class="text-xs text-blue-200 font-light">ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์</div>
+          </div>
+        </div>
+        <button id="mobile-nav-toggle" class="md:hidden inline-flex items-center justify-center rounded-xl border border-white/30 text-white h-10 w-12 transition hover:bg-white/10 focus:outline-none">
+          <i data-lucide="menu" class="w-5 h-5" id="mobile-icon-open"></i>
+          <i data-lucide="x" class="w-5 h-5 hidden" id="mobile-icon-close"></i>
+        </button>
+        <nav class="hidden md:flex items-center text-sm tracking-wide primary-nav">
+          <div class="nav-item"><a href="index.html">หน้าหลัก</a></div>
+          <div class="nav-item">
+            <a href="about.html">เกี่ยวกับเรา</a>
+            <div class="nav-dropdown">
+              <a href="about.html#history"><i data-lucide="book-open" class="w-4 h-4 text-mah-orange"></i>ประวัติ</a>
+              <a href="about.html#vision"><i data-lucide="eye" class="w-4 h-4 text-mah-orange"></i>วิสัยทัศน์</a>
+              <a href="about.html#leadership" class="items-start py-2"><i data-lucide="award" class="w-4 h-4 mt-1 shrink-0 text-mah-orange"></i><span class="leading-tight">ทำเนียบ<br>หัวหน้าภาควิชา</span></a>
+            </div>
+          </div>
+          <div class="nav-item"><a href="staff.html" class="active">บุคลากร</a></div>
+          <div class="nav-item"><a href="news.html">ข่าว/ประกาศ</a></div>
+          <div class="nav-item">
+            <a href="Services.html">บริการวิชาการ</a>
+            <div class="nav-dropdown">
+              <a href="Services.html#training"><i data-lucide="presentation" class="w-4 h-4 text-mah-orange"></i>ฝึกอบรม</a>
+              <a href="https://he01.tci-thaijo.org/index.php/muhed/issue/archive" target="_blank"><i data-lucide="newspaper" class="w-4 h-4 text-mah-orange"></i>วารสารสุขศึกษา</a>
+            </div>
+          </div>
+          <div class="nav-item"><a href="contact.html">ติดต่อ</a></div>
+        </nav>
+      </div>
+    </div>
+    <div id="mobile-nav-panel" class="md:hidden bg-white text-mah-blue border-t border-white/10 shadow-lg hidden">
+      <div class="px-6 py-4 space-y-4 text-sm font-semibold">
+        <a href="index.html" class="block py-2 border-b border-slate-50">หน้าแรก</a>
+        <a href="about.html" class="block py-2 border-b border-slate-50">เกี่ยวกับเรา</a>
+        <a href="staff.html" class="block py-2 border-b border-slate-50 text-mah-orange">บุคลากร</a>
+        <a href="news.html" class="block py-2 border-b border-slate-50">ข่าว/ประกาศ</a>
+        <a href="Services.html" class="block py-2 border-b border-slate-50">บริการวิชาการ</a>
+        <a href="contact.html" class="block py-2">ติดต่อ</a>
+      </div>
+    </div>
+  </header>
+
+  <header class="relative bg-mah-dark text-white py-20 overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-mah-blue via-mah-dark to-transparent"></div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10 text-center animate-fade-in-up">
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 tracking-tight">บุคลากรภาควิชา</h1>
+      <p class="text-blue-200 text-lg font-light">Faculty & Staff Members</p>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-12 flex-grow w-full" id="dynamic-content">
+    <div class="text-center py-20 text-slate-400">
+      <i class="animate-spin" data-lucide="loader-2"></i> กำลังโหลดข้อมูล...
+    </div>
+  </main>
+
+  <footer class="bg-mah-blue text-white pt-12 pb-8 border-t border-white/10 mt-auto">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10 text-sm">
+      <div class="md:col-span-1">
+        <div class="h-20 mb-5 p-2 bg-white rounded-lg inline-block">
+          <img src="./assets/images/logo-footer.png" alt="Faculty Logo" class="h-full w-auto object-contain" />
+        </div>
+        <p class="text-blue-100 leading-relaxed font-light">
+          มุ่งมั่นผลิตบัณฑิตและสร้างสรรค์งานวิจัยด้านสุขศึกษาและพฤติกรรมศาสตร์ เพื่อสุขภาวะที่ดีของสังคม
+        </p>
+      </div>
+      <div>
+        <div class="font-bold text-white mb-4 text-base">ลิงก์ที่เกี่ยวข้อง</div>
+        <ul class="space-y-3">
+          <li><a class="text-blue-100 hover:text-mah-orange hover:no-underline transition-colors block" href="https://www.ph.mahidol.ac.th/" target="_blank">คณะสาธารณสุขศาสตร์</a></li>
+          <li><a class="text-blue-100 hover:text-mah-orange hover:no-underline transition-colors block" href="http://www.grad.mahidol.ac.th/" target="_blank">บัณฑิตวิทยาลัย</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-bold text-white mb-4 text-base">ติดต่อเรา</div>
+        <ul class="space-y-3 text-blue-100 font-light">
+          <li class="leading-relaxed">ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์<br>คณะสาธารณสุขศาสตร์ มหาวิทยาลัยมหิดล</li>
+          <li>420/1 ถนนราชวิถี เขตราชเทวี<br>กรุงเทพฯ 10400</li>
+          <li class="mt-2">0 2354 8543 ต่อ 3604</li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-bold text-white mb-4 text-base">ติดตามข่าวสาร</div>
+        <a href="https://www.facebook.com/profile.php?id=100057184521181" target="_blank"
+           class="inline-flex items-center gap-3 px-4 py-3 bg-white/10 rounded-xl text-white hover:bg-white hover:text-mah-blue transition-all font-semibold group border border-white/20 hover:no-underline">
+          <i data-lucide="facebook" class="w-5 h-5 transition-transform group-hover:scale-110"></i>
+          <span>Facebook Page</span>
+        </a>
+      </div>
+    </div>
+    <div class="text-xs text-blue-200/60 text-center mt-12 pt-6 border-t border-white/10">
+      © 2025 Department of Health Education and Behavioral Sciences. All Rights Reserved.
+    </div>
+  </footer>
+
+  <button id="back-to-top" class="fixed bottom-8 right-8 bg-mah-orange text-white p-4 rounded-full shadow-2xl translate-y-20 opacity-0 transition-all duration-500 z-50 hover:bg-mah-blue hover:scale-110 focus:outline-none cursor-pointer">
+    <i data-lucide="arrow-up" class="w-6 h-6"></i>
+  </button>
+
+  <script>
+    // Helper: Image Fallback
+    const getSafeImage = (img) => (!img || img.trim() === '' || img === '#') 
+        ? 'https://ui-avatars.com/api/?name=Staff&background=e2e8f0&color=64748b&size=512' 
+        : img;
+
+    // 1. Template: Header
+    const createSectionHeader = (title) => `
+        <div class="w-full mb-8 mt-12 first:mt-0 animate-fade-in-up clear-both">
+            <h2 class="text-2xl md:text-3xl font-bold text-mah-blue flex items-center gap-2">
+                <span class="w-2 h-8 bg-mah-orange rounded-full inline-block"></span>
+                ${title}
+            </h2>
+            <div class="h-px w-full bg-slate-200 mt-4"></div>
+        </div>`;
+
+    // 2. Template: Big Card (Head) - 🔥 Updated for Title
+    const createBigCard = (staff) => `
+        <div class="w-full flex justify-center mb-10 animate-fade-in-up">
+            <a href="profile.html?id=${staff.id}" class="staff-card-container group relative w-full max-w-[380px] h-[480px] cursor-pointer block">
+                <div class="absolute inset-0 z-0 flex items-end justify-center pb-28 overflow-hidden rounded-t-[2.5rem]">
+                    <img src="${getSafeImage(staff.image)}" 
+                         class="person-img h-full w-full object-cover object-top drop-shadow-xl"
+                         onerror="this.src='https://placehold.co/400x500/e2e8f0/64748b?text=Head+Image'">
+                </div>
+                <div class="card-box absolute bottom-0 left-0 right-0 h-[140px] bg-white rounded-[2.5rem] shadow-2xl z-10 flex flex-col items-center justify-center text-center border-t-[5px] border-mah-orange overflow-hidden px-4">
+                    <span class="card-tag block text-slate-500 text-sm font-bold mb-1 px-3 py-1 rounded-full transition-colors">${staff.position}</span>
+                    
+                    ${staff.title ? `<span class="block text-base font-medium text-slate-500 text-force-white mb-0">${staff.title}</span>` : ''}
+                    <span class="block text-2xl font-extrabold text-mah-dark leading-tight">${staff.name}</span>
+                </div>
+            </a>
+        </div>`;
+
+    // 3. Template: Normal Card (Professor) - 🔥 Updated for Title
+    const createCard = (staff) => `
+        <a href="profile.html?id=${staff.id}" class="staff-card-container group relative w-full h-[400px] cursor-pointer mx-auto block animate-fade-in-up">
+            <div class="absolute inset-0 z-0 flex items-end justify-center pb-24 overflow-hidden rounded-t-3xl">
+                <img src="${getSafeImage(staff.image)}" 
+                     class="person-img h-full w-full object-cover object-top drop-shadow-md"
+                     onerror="this.src='https://placehold.co/300x400/e2e8f0/64748b?text=Staff'">
+            </div>
+            <div class="card-box absolute bottom-0 left-0 right-0 h-[120px] bg-white rounded-3xl shadow-lg z-10 flex flex-col items-center justify-center text-center border-t-2 border-slate-100 overflow-hidden px-4">
+                
+                ${staff.title ? `<span class="block text-xs font-semibold text-slate-500 text-force-white mb-0">${staff.title}</span>` : ''}
+                <span class="block text-lg font-bold text-mah-dark leading-tight mb-2 line-clamp-1">${staff.name}</span>
+                
+                <p class="card-tag text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded-lg inline-block line-clamp-1">${staff.position || ''}</p>
+            </div>
+        </a>`;
+
+    // 4. Template: Mini Card (Officer) - 🔥 Updated for Title
+    const createMiniCard = (staff) => `
+        <a href="profile.html?id=${staff.id}" class="bg-white rounded-xl p-5 text-center border border-slate-100 hover:border-mah-blue hover:shadow-lg transition group cursor-pointer block h-full flex flex-col items-center justify-center min-h-[200px] animate-fade-in-up">
+            <div class="w-24 h-24 bg-slate-50 rounded-full mb-4 overflow-hidden group-hover:scale-110 transition-transform shadow-inner border border-slate-100 mx-auto">
+                <img src="${getSafeImage(staff.image)}" 
+                     class="w-full h-full object-cover object-top"
+                     onerror="this.src='https://ui-avatars.com/api/?name=${staff.name}&background=e2e8f0&color=64748b'">
+            </div>
+            
+            ${staff.title ? `<span class="block text-xs text-slate-500 mb-0 group-hover:text-white">${staff.title}</span>` : ''}
+            <h4 class="font-bold text-mah-dark text-sm group-hover:text-mah-blue leading-tight mb-1">${staff.name}</h4>
+            
+            <p class="text-xs text-slate-400">${staff.position || 'เจ้าหน้าที่'}</p>
+        </a>`;
+
+    // --- Main Logic ---
     window.addEventListener('DOMContentLoaded', () => {
-      if (window.lucide && typeof window.lucide.createIcons === 'function') {
-        window.lucide.createIcons();
-      }
-      const mobileToggle = document.getElementById('mobile-nav-toggle');
-      const mobilePanel = document.getElementById('mobile-nav-panel');
-      const mobileIconOpen = document.getElementById('mobile-icon-open');
-      const mobileIconClose = document.getElementById('mobile-icon-close');
+        if (window.lucide) lucide.createIcons();
 
-      function closeMobileNav() {
-        if (!mobilePanel) return;
-        mobilePanel.classList.add('hidden');
-        if (mobileIconOpen) mobileIconOpen.classList.remove('hidden');
-        if (mobileIconClose) mobileIconClose.classList.add('hidden');
-      }
+        // Mobile Menu
+        const mobileToggle = document.getElementById('mobile-nav-toggle');
+        const mobilePanel = document.getElementById('mobile-nav-panel');
+        const mobileIconOpen = document.getElementById('mobile-icon-open');
+        const mobileIconClose = document.getElementById('mobile-icon-close');
 
-      if (mobileToggle && mobilePanel) {
-        mobileToggle.addEventListener('click', () => {
-          const willOpen = mobilePanel.classList.contains('hidden');
-          mobilePanel.classList.toggle('hidden');
-          if (willOpen) {
-            if (mobileIconOpen) mobileIconOpen.classList.add('hidden');
-            if (mobileIconClose) mobileIconClose.classList.remove('hidden');
-          } else {
-            if (mobileIconOpen) mobileIconOpen.classList.remove('hidden');
-            if (mobileIconClose) mobileIconClose.classList.add('hidden');
-          }
-        });
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', () => {
+                const willOpen = mobilePanel.classList.contains('hidden');
+                mobilePanel.classList.toggle('hidden');
+                if (willOpen) {
+                    mobileIconOpen.classList.add('hidden');
+                    mobileIconClose.classList.remove('hidden');
+                } else {
+                    mobileIconOpen.classList.remove('hidden');
+                    mobileIconClose.classList.add('hidden');
+                }
+            });
+        }
 
-        mobilePanel.querySelectorAll('a').forEach((link) => {
-          link.addEventListener('click', closeMobileNav);
-        });
-      }
+        // Fetch Data & Render Logic
+        fetch('./staff.json')
+            .then(r => r.json())
+            .then(data => {
+                const container = document.getElementById('dynamic-content');
+                container.innerHTML = ''; 
+
+                let currentGrid = null;
+                let currentGridType = null; 
+
+                data.forEach(item => {
+                    // Type: Header
+                    if (item.type === 'header') {
+                        container.innerHTML += createSectionHeader(item.title);
+                        currentGrid = null; 
+                        currentGridType = null;
+                    } 
+                    // Type: Staff
+                    else {
+                        const pos = (item.position || '').toLowerCase();
+                        const isHead = (item.id === 'head' || pos.includes('หัวหน้าภาค'));
+                        const isOfficer = (pos.includes('เจ้าหน้าที่') || pos.includes('officer') || pos.includes('ธุรการ') || pos.includes('การเงิน') || pos.includes('นักวิชาการ') || pos.includes('พนักงาน'));
+
+                        if (isHead) {
+                            // Head gets its own row
+                            container.innerHTML += createBigCard(item);
+                            currentGrid = null; 
+                            currentGridType = null;
+                        } else {
+                            // Check Grid Type
+                            const targetGridType = isOfficer ? 'mini' : 'normal';
+
+                            // Create Grid if not exists OR if type changed
+                            if (!currentGrid || currentGridType !== targetGridType) {
+                                currentGrid = document.createElement('div');
+                                if (isOfficer) {
+                                    currentGrid.className = 'grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-12';
+                                } else {
+                                    currentGrid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 mb-12';
+                                }
+                                container.appendChild(currentGrid);
+                                currentGridType = targetGridType;
+                            }
+
+                            // Append Card
+                            if (isOfficer) {
+                                currentGrid.innerHTML += createMiniCard(item);
+                            } else {
+                                currentGrid.innerHTML += createCard(item);
+                            }
+                        }
+                    }
+                });
+
+                if (window.lucide) lucide.createIcons();
+            })
+            .catch(err => {
+                console.error(err);
+                document.getElementById('dynamic-content').innerHTML = `<p class="text-red-500 text-center py-10">ไม่สามารถโหลดข้อมูลได้ (Error: ${err.message})</p>`;
+            });
+            
+        // Back to Top
+        const backToTopBtn = document.getElementById('back-to-top');
+        if(backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if(window.scrollY > 300) backToTopBtn.classList.remove('translate-y-20', 'opacity-0');
+                else backToTopBtn.classList.add('translate-y-20', 'opacity-0');
+            });
+            backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        }
     });
   </script>
 </body>

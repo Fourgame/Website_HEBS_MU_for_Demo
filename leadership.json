@@ -1,0 +1,92 @@
+[
+    {
+        "title": "รองศาสตราจารย์",
+        "name": "ดร.ยุพา อุดมศักดิ์",
+        "period": "2510 - 2515",
+        "image": "./assets/images/Leadership/13.webp"
+    },
+    {
+        "title": "ผู้ช่วยศาสตรจารย์",
+        "name": "วารุณี สุรสิทธิ์",
+        "period": "2515 - 2519",
+        "image": ""
+    },
+    {
+        "title": "รองศาสตราจารย์",
+        "name": "ดร.สมจิตต์ สุพรรณทัสน์",
+        "period": "2519 - 2535",
+        "image": "./assets/images/Leadership/5.webp"
+    },
+    {
+        "title": "รองศาสตราจารย์",
+        "name": "ดร.วสันต์ ศิลปสุวรรณ",
+        "period": "2535 - 2539",
+        "image": "./assets/images/Leadership/4.webp"
+    },
+    {
+        "title": "รองศาสตราจารย์",
+        "name": "ดร.ประภาเพ็ญ สุวรรณ",
+        "period": "2539 - 2542",
+        "image": "./assets/images/Leadership/9.webp"
+    },
+    {
+        "title": "รองศาสตราจารย์",
+        "name": "ดร.วสันต์ ศิลปสุวรรณ",
+        "period": "2542 - 2545",
+        "image": "./assets/images/Leadership/4.webp"
+    },
+    {
+        "title": "รองศาสตราจารย์",
+        "name": "ดร.นิรัตน์ อิมามี",
+        "period": "2545 - 2547",
+        "image": "./assets/images/Leadership/6.webp"
+    },
+    {
+        "title": "รองศาสตราจารย์",
+        "name": "ดร.สุปรียา ต้นสกุล",
+        "period": "2545 - 2547",
+        "image": "./assets/images/Leadership/10.webp"
+    },
+    {
+        "title": "รองศาสตราจารย์",
+        "name": "ดร.ประสิทธิ์ ลีระพันธ์",
+        "period": "2550 - 2552",
+        "image": "./assets/images/Leadership/3.webp"
+    },
+    {
+        "title": "ผู้ช่วยศาสตรจารย์",
+        "name": "ดร.ลักขณา เติมศิริกุลชัย",
+        "period": "2552 - 2557",
+        "image": "./assets/images/Leadership/2.webp"
+    },
+    {
+        "title": "รองศาสตราจารย์",
+        "name": "ดร.สุปรียา ต้นสกุล",
+        "period": "2557 - 2561",
+        "image": "./assets/images/Leadership/7.webp"
+    },
+    {
+        "title": "รองศาสตราจารย์",
+        "name": "ดร.ขวัญเมือง แก้วดำเภิง",
+        "period": "2561 - 2562",
+        "image": "./assets/images/Leadership/1.webp"
+    },
+    {
+        "title": "รองศาสตราจารย์",
+        "name": "ดร.มณีรัตน์ ธีระวิวัฒน์",
+        "period": "2562 - 2564",
+        "image": "./assets/images/Leadership/8.webp"
+    },
+    {
+        "title": "รองศาสตราจารย์",
+        "name": "ดร.มณฑา เก่งการพานิช",
+        "period": "2564 - 2566",
+        "image": "./assets/images/Leadership/12.webp"
+    },
+    {
+        "title": "รองศาสตราจารย์",
+        "name": "ดร.มลินี สมภพเจริญ",
+        "period": "2566 - ปัจจุบัน",
+        "image": "./assets/images/Leadership/14.webp"
+    }
+]

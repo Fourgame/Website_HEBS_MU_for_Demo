@@ -1,274 +1,464 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="th">
-<head> <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>เกี่ยวกับเรา | คณะสาธารณสุขศาสตร์</title>
-<meta content="ข้อมูลแนะนำคณะและภาควิชา วิสัยทัศน์ พันธกิจ และจุดเด่น" name="description"/>
-<link href="./assets/favicon.png" rel="icon"/>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>เกี่ยวกับเรา | คณะสาธารณสุขศาสตร์</title>
+  <link rel="icon" href="./assets/favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: [
-              "Inter",
-              "Noto Sans Thai",
-              "ui-sans-serif",
-              "system-ui",
-              "-apple-system",
-              "Segoe UI",
-              "Roboto",
-              "Helvetica",
-              "Arial",
-              "sans-serif"
-            ]
+            sans: ["Inter", "Noto Sans Thai", "sans-serif"],
+          },
+          colors: {
+            'mah-blue': '#1D4699',
+            'mah-dark': '#10254F',
+            'mah-orange': '#E89266',
+            'mah-orange-hover': '#d67848',
+            'ph': {
+                blue: '#1D4699',
+                dark: '#10254F',
+                orange: '#E89266',
+                light: '#F8FAFC'
+            }
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            bounceSlow: {
+              '0%, 100%': { transform: 'translateY(-25%)', animationTimingFunction: 'cubic-bezier(0.8,0,1,1)' },
+              '50%': { transform: 'translateY(0)', animationTimingFunction: 'cubic-bezier(0,0,0.2,1)' },
+            }
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 1s ease-out forwards',
+            'bounce-slow': 'bounceSlow 2s infinite',
           }
-        }
-      }
+        },
+      },
     };
   </script>
-<script src="https://unpkg.com/lucide@latest"></script>
-<style>
-    .primary-nav {
-      gap: 2rem;
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
     }
-    .primary-nav .nav-item {
-      position: relative;
-    }
-    .primary-nav a {
-      position: relative;
-      padding-bottom: 2px;
-      color: rgba(255, 255, 255, 0.85);
-      transition: color 0.2s ease;
-      font-weight: 600;
-    }
-    .primary-nav a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -6px;
-      height: 2px;
-      background: #f97316;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.2s ease;
-    }
-    .primary-nav a:hover {
-      color: #fff;
-    }
-    .primary-nav a:hover::after,
-    .primary-nav a.active::after {
-      transform: scaleX(1);
-    }
-    .primary-nav a.active {
-      color: #fff;
-    }
-    .nav-dropdown {
-      position: absolute;
-      top: calc(100% + 0.5rem);
-      left: 0;
-      min-width: 11rem;
-      background: #fff;
-      color: #0f172a;
-      border-radius: 0.9rem;
-      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15);
-      padding: 0.5rem 0;
+
+    .reveal {
       opacity: 0;
-      pointer-events: none;
-      transform: translateY(-8px);
-      transition: opacity 0.18s ease, transform 0.18s ease;
-      z-index: 50;
+      transform: translateY(50px);
+      transition: all 1s ease-out;
     }
-    .primary-nav .nav-item:hover .nav-dropdown {
+
+    .reveal.active {
       opacity: 1;
       transform: translateY(0);
-      pointer-events: auto;
     }
-    .nav-dropdown a {
-      display: flex;
-      align-items: center;
-      padding: 0.45rem 1rem;
-      color: #0f172a;
-      gap: 0.4rem;
-      opacity: 0.85;
-    }
-    .nav-dropdown a:hover {
-      background: rgba(15, 23, 42, 0.04);
-      opacity: 1;
-    }
+
+    .primary-nav { gap: 2rem; }
+    .primary-nav .nav-item { position: relative; }
+    .primary-nav a { position: relative; padding-bottom: 2px; color: rgba(255, 255, 255, 0.85); transition: color 0.2s ease; font-weight: 500; }
+    .primary-nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 3px; background: #E89266; transform: scaleX(0); transform-origin: left; transition: transform 0.2s ease; border-radius: 2px; }
+    .primary-nav a:hover { color: #E89266; }
+    .primary-nav a:hover::after, .primary-nav a.active::after { transform: scaleX(1); }
+    .primary-nav a.active { color: #fff; font-weight: 600; }
+
+    .nav-dropdown { position: absolute; top: 100%; margin-top: 0.5rem; left: 0; min-width: 11rem; background: #fff; color: #0f172a; border-radius: 1rem; box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15); padding: 0.5rem 0; opacity: 0; pointer-events: none; transform: translateY(-8px); transition: opacity 0.18s ease, transform 0.18s ease; z-index: 50; }
+    .nav-dropdown::before { content: ""; position: absolute; top: -1rem; left: 0; width: 100%; height: 1rem; background: transparent; }
+    .primary-nav .nav-item:hover .nav-dropdown { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .nav-dropdown a { display: flex; align-items: center; padding: 0.6rem 1.2rem; color: #334155; gap: 0.5rem; opacity: 1; font-weight: 400; transition: all 0.2s; }
+    .nav-dropdown a:hover { background: #f8fafc; color: #1D4699; }
+
+    .perspective-1000 { perspective: 1000px; }
+    .transform-style-3d { transform-style: preserve-3d; }
+    .backface-hidden { backface-visibility: hidden; }
+    .rotate-y-180 { transform: rotateY(180deg); }
+    .group:hover .flip-card-inner { transform: rotateY(180deg); }
   </style>
 </head>
-<body class="min-h-screen bg-white text-slate-900"> <!-- Navigation -->
-<header class="sticky top-0 z-50">
-<div class="bg-[#1D4699] text-white shadow">
-<div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="h-11 w-11 rounded-2xl bg-gradient-to-br from-orange-400 via-pink-500 to-purple-500 grid place-items-center text-lg font-semibold">
-            ส
+
+<body class="min-h-screen bg-slate-50 text-slate-600 font-sans">
+  
+  <header class="sticky top-0 z-50">
+    <div class="bg-mah-blue text-white shadow-lg shadow-blue-900/10">
+      <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="h-11 w-11">
+            <img src="./assets/Mahidol_Logo.png" alt="Mahidol Logo" class="h-full w-full object-cover" />
           </div>
-<div class="leading-tight">
-<div class="font-semibold text-lg">คณะสาธารณสุขศาสตร์</div>
-<div class="text-xs text-[#C9DAFF]">ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์</div>
-</div>
-</div>
-<button class="md:hidden inline-flex items-center justify-center rounded-xl border border-white/30 text-white h-10 w-12 transition hover:bg-white/10 focus:outline-none" id="mobile-nav-toggle">
-<i class="w-5 h-5" data-lucide="menu" id="mobile-icon-open"></i>
-<i class="w-5 h-5 hidden" data-lucide="x" id="mobile-icon-close"></i>
-</button>
-<nav class="hidden md:flex items-center text-sm tracking-wide primary-nav">
-<div class="nav-item">
-<a href="index.html">หน้าแรก</a>
-</div>
-<div class="nav-item">
-<a href="program.html">หลักสูตร</a>
-</div>
-<div class="nav-item">
-<a href="news.html">ข่าว/ประกาศ</a>
-</div>
-<div class="nav-item">
-<a href="staff.html">บุคลากร</a>
-</div>
-<div class="nav-item">
-<a href="student.html">นักศึกษา</a>
-<div class="nav-dropdown">
-<a href="student.html#current"><i class="w-4 h-4" data-lucide="user-round"></i>ศิษย์ปัจจุบัน</a>
-<a href="student.html#alumni"><i class="w-4 h-4" data-lucide="user-check"></i>ศิษย์เก่า</a>
-</div>
-</div>
-<div class="nav-item">
-<a class="active" href="about.html">เกี่ยวกับเรา</a>
-<div class="nav-dropdown">
-<a href="about.html#history"><i class="w-4 h-4" data-lucide="book-open"></i>ประวัติ</a>
-<a href="about.html#vision"><i class="w-4 h-4" data-lucide="eye"></i>วิสัยทัศน์</a>
-<a href="about.html#leadership"><i class="w-4 h-4" data-lucide="award"></i>ทำเนียบหัวหน้าภาควิชา</a>
-<a href="contact.html"><i class="w-4 h-4" data-lucide="phone"></i>ติดต่อเรา</a>
-</div>
-</div>
-<div class="nav-item">
-<a href="Services.html">บริการวิชาการ</a>
-<div class="nav-dropdown">
-<a href="Services.html#training"><i class="w-4 h-4" data-lucide="presentation"></i>ฝึกอบรม</a>
-<a href="Services.html#journal"><i class="w-4 h-4" data-lucide="newspaper"></i>วารสารสุขศึกษา</a>
-<a href="Services.html#consult"><i class="w-4 h-4" data-lucide="handshake"></i>ให้คำปรึกษา</a>
-</div>
-</div>
-<div class="nav-item">
-<a href="contact.html">ติดต่อ</a>
-</div>
-</nav>
-</div>
-</div>
-<div class="md:hidden bg-white text-[#1D4699] border-t border-white/10 shadow-lg hidden" id="mobile-nav-panel">
-<div class="px-6 py-4 space-y-4 text-sm font-semibold">
-<div class="space-y-1">
-<a class="flex items-center gap-2 py-1" href="index.html">หน้าแรก</a>
-<a class="flex items-center gap-2 py-1" href="program.html">หลักสูตร</a>
-<a class="flex items-center gap-2 py-1" href="news.html">ข่าว/ประกาศ</a>
-<a class="flex items-center gap-2 py-1" href="staff.html">บุคลากร</a>
-<a class="flex items-center gap-2 py-1" href="contact.html">ติดต่อ</a>
-</div>
-<div>
-<p class="text-xs uppercase tracking-widest text-slate-400">นักศึกษา</p>
-<div class="mt-1 space-y-1 pl-3 text-[0.9rem] font-normal text-slate-600">
-<a class="block py-1" href="student.html#current">ศิษย์ปัจจุบัน</a>
-<a class="block py-1" href="student.html#alumni">ศิษย์เก่า</a>
-</div>
-</div>
-<div>
-<p class="text-xs uppercase tracking-widest text-slate-400">เกี่ยวกับเรา</p>
-<div class="mt-1 space-y-1 pl-3 text-[0.9rem] font-normal text-slate-600">
-<a class="block py-1" href="about.html#history">ประวัติ</a>
-<a class="block py-1" href="about.html#vision">วิสัยทัศน์</a>
-<a class="block py-1" href="about.html#leadership">ทำเนียบหัวหน้าภาควิชา</a>
-<a class="block py-1" href="contact.html">ติดต่อเรา</a>
-</div>
-</div>
-<div>
-<p class="text-xs uppercase tracking-widest text-slate-400">บริการวิชาการ</p>
-<div class="mt-1 space-y-1 pl-3 text-[0.9rem] font-normal text-slate-600">
-<a class="block py-1" href="Services.html#training">ฝึกอบรม</a>
-<a class="block py-1" href="Services.html#journal">วารสารสุขศึกษา</a>
-<a class="block py-1" href="Services.html#consult">ให้คำปรึกษา</a>
-</div>
-</div>
-</div>
-</div>
-</header>
-<!-- Navigation -->
-<header class="relative overflow-hidden">
-<div class="absolute inset-0 -z-10 bg-gradient-to-br from-blue-600 via-indigo-500 to-sky-500 opacity-10"></div>
-<div class="max-w-7xl mx-auto px-6 py-12 md:py-16">
-<h1 class="text-2xl md:text-4xl font-extrabold">เกี่ยวกับเรา</h1>
-<p class="mt-2 text-slate-600">สังคมสุขภาวะ • ปฏิบัติการจริง • นวัตกรรมสุขภาพ</p>
-</div>
-</header>
-<main class="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-2 gap-10 items-start">
-<div>
-<h2 class="font-semibold text-xl">ทำไมต้องที่นี่?</h2>
-<ul class="mt-3 space-y-3 text-white/90">
-<li class="flex gap-3"><span class="mt-1">•</span> หลักสูตรเน้นปฏิบัติจริง ร่วมมือกับชุมชนและหน่วยงานภาคี</li>
-<li class="flex gap-3"><span class="mt-1">•</span> ที่ปรึกษาใกล้ชิด โครงงาน/วิจัยเชิงปฏิบัติการตั้งแต่ปี 2</li>
-<li class="flex gap-3"><span class="mt-1">•</span> โครงสร้างพื้นฐานดิจิทัล ห้องสตูดิโอสื่อสารสุขภาพ</li>
-<li class="flex gap-3"><span class="mt-1">•</span> โอกาสทุนการศึกษาและแลกเปลี่ยนต่างประเทศ</li>
-</ul>
-</div>
-<div class="grid grid-cols-2 gap-4">
-<div class="rounded-2xl overflow-hidden ring-1 ring-slate-200"><img alt="campus" class="h-full w-full object-cover" src="./assets/images/about-1.jpg"/></div>
-<div class="rounded-2xl overflow-hidden ring-1 ring-slate-200"><img alt="students" class="h-full w-full object-cover" src="./assets/images/about-2.jpg"/></div>
-<div class="rounded-2xl overflow-hidden ring-1 ring-slate-200"><img alt="lab" class="h-full w-full object-cover" src="./assets/images/about-3.jpg"/></div>
-<div class="rounded-2xl overflow-hidden ring-1 ring-slate-200"><img alt="community" class="h-full w-full object-cover" src="./assets/images/about-4.jpg"/></div>
-</div>
-</main>
-<!-- Footer -->
-<!-- Footer -->
-<footer class="border-t bg-white">
-<div class="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-4 gap-8 text-sm">
-<div>
-<div class="font-semibold mb-2">คณะสาธารณสุขศาสตร์</div>
-<p class="text-slate-600">ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์ มหาวิทยาลัย (ตัวอย่าง)</p>
-</div>
-<div>
-<div class="font-semibold mb-2">ลิงก์ด่วน</div>
-<ul class="space-y-1 text-slate-600">
-<li><a class="hover:text-[#1D4699]" href="#">คู่มือนิสิต</a></li>
-<li><a class="hover:text-[#1D4699]" href="#">หน่วยงานภายใน</a></li>
-<li><a class="hover:text-[#1D4699]" href="#">ติดต่อ/แผนที่</a></li>
-</ul>
-</div>
-<div>
-<div class="font-semibold mb-2">ติดต่อเรา</div>
-<ul class="space-y-1 text-slate-600">
-<li>โทร 0-0000-0000</li>
-<li>อีเมล info@ph.edu</li>
-<li>เวลาทำการ จ.-ศ. 08:30–16:30 น.</li>
-</ul>
-</div>
-<div>
-<div class="font-semibold mb-2">ติดตามข่าวสาร</div>
-<p class="text-slate-600">Facebook • YouTube • Line Official</p>
-</div>
-</div>
-<div class="text-xs text-[#C9DAFF] text-center pb-6">© 2025 Faculty of Public Health — Demo Preview</div>
-</footer>
-<script>
+          <div class="leading-tight">
+            <div class="font-semibold text-lg tracking-tight">คณะสาธารณสุขศาสตร์</div>
+            <div class="text-xs text-blue-200 font-light">ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์</div>
+          </div>
+        </div>
+        <button id="mobile-nav-toggle"
+          class="md:hidden inline-flex items-center justify-center rounded-xl border border-white/30 text-white h-10 w-12 transition hover:bg-white/10 focus:outline-none">
+          <i data-lucide="menu" class="w-5 h-5" id="mobile-icon-open"></i>
+          <i data-lucide="x" class="w-5 h-5 hidden" id="mobile-icon-close"></i>
+        </button>
+        <nav class="hidden md:flex items-center text-sm tracking-wide primary-nav">
+          <div class="nav-item"><a href="index.html">หน้าหลัก</a></div>
+          
+          <div class="nav-item">
+            <a href="about.html" class="active">เกี่ยวกับเรา</a>
+            <div class="nav-dropdown">
+              <a href="about.html#history"><i data-lucide="book-open" class="w-4 h-4 text-mah-orange"></i>ประวัติ</a>
+              <a href="about.html#vision"><i data-lucide="eye" class="w-4 h-4 text-mah-orange"></i>วิสัยทัศน์</a>
+              <a href="about.html#leadership" class="items-start py-2"><i data-lucide="award" class="w-4 h-4 mt-1 shrink-0 text-mah-orange"></i><span class="leading-tight">ทำเนียบ<br>หัวหน้าภาควิชา</span></a>
+            </div>
+          </div>
+
+          <div class="nav-item"><a href="staff.html">บุคลากร</a></div>
+          <div class="nav-item"><a href="news.html">ข่าว/ประกาศ</a></div>
+          <div class="nav-item">
+            <a href="Services.html">บริการวิชาการ</a>
+            <div class="nav-dropdown">
+              <a href="Services.html#training"><i data-lucide="presentation" class="w-4 h-4 text-mah-orange"></i>ฝึกอบรม</a>
+              <a href="https://he01.tci-thaijo.org/index.php/muhed/issue/archive" target="_blank"><i data-lucide="newspaper" class="w-4 h-4 text-mah-orange"></i>วารสารสุขศึกษา</a>
+            </div>
+          </div>
+          <div class="nav-item"><a href="contact.html">ติดต่อ</a></div>
+        </nav>
+      </div>
+    </div>
+    <div id="mobile-nav-panel" class="md:hidden bg-white text-mah-blue border-t border-white/10 shadow-lg hidden">
+      <div class="px-6 py-4 space-y-4 text-sm font-semibold">
+        <div class="space-y-1">
+          <a href="index.html" class="flex items-center gap-2 py-2 border-b border-slate-50">หน้าแรก</a>
+          <a href="about.html" class="flex items-center gap-2 py-2 border-b border-slate-50 text-mah-orange">เกี่ยวกับเรา</a>
+          <a href="staff.html" class="flex items-center gap-2 py-2 border-b border-slate-50">บุคลากร</a>
+          <a href="news.html" class="flex items-center gap-2 py-2 border-b border-slate-50">ข่าว/ประกาศ</a>
+          <a href="Services.html" class="flex items-center gap-2 py-2 border-b border-slate-50">บริการวิชาการ</a>
+          <a href="contact.html" class="flex items-center gap-2 py-2">ติดต่อ</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <header class="relative bg-ph-dark text-white py-20 overflow-hidden">
+    <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-ph-blue via-ph-dark to-black/80"></div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+      <h1 class="text-3xl md:text-5xl font-extrabold mb-4">เกี่ยวกับเรา</h1>
+      <p class="text-blue-200 font-light">ประวัติความเป็นมา วิสัยทัศน์ และคณะผู้บริหาร</p>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-16">
+
+    <section id="history" class="scroll-mt-24 pb-20">
+
+      <div class="text-center mb-8 pt-10">
+        <h2 class="text-4xl md:text-6xl font-extrabold text-ph-blue tracking-tight">ประวัติภาควิชา</h2>
+        <div class="w-24 h-2 bg-ph-orange rounded-full mx-auto mt-4"></div>
+      </div>
+
+      <div class="w-full mb-32 reveal">
+        <img src="./assets/images/history/history-banner.webp"
+          onerror="this.src='https://placehold.co/3712x1152/e2e8f0/1D4699?text=History+Banner+(3712x1152)'"
+          alt="ภาพประวัติภาควิชา"
+          class="w-full h-auto rounded-3xl shadow-xl object-cover border border-slate-200">
+      </div>
+
+      <div class="flex flex-col md:flex-row items-center gap-16 md:gap-24 mb-40 reveal">
+        <div class="md:w-1/2 w-full text-center">
+          <img src="./assets/images/history/founder.webp"
+            onerror="this.src='https://placehold.co/600x800/e2e8f0/1D4699?text=Founder+Transparent'"
+            alt="ศ.นพ.จรัส ยามะรัต"
+            class="w-full h-auto drop-shadow-2xl mb-6 mx-auto max-h-[600px] object-contain">
+          <p class="text-lg font-semibold text-ph-blue">ศาสตราจารย์ นายแพทย์จรัส ยามะรัต</p>
+        </div>
+        <div class="md:w-1/2 w-full space-y-6">
+          <div class="flex items-baseline gap-4 border-b border-slate-200 pb-2">
+            <span class="text-5xl font-extrabold text-ph-orange">2508</span>
+            <span class="text-xl text-slate-400 font-medium">จุดกำเนิด</span>
+          </div>
+          <h3 class="text-3xl font-bold text-ph-blue leading-tight">จาก "แผนกสุขศึกษา"
+            <br>สู่การแก้ปัญหาสาธารณสุข</h3>
+          <p class="text-slate-600 leading-relaxed text-lg indent-8">
+            ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์ ก่อตั้งเมื่อปี พ.ศ. 2508 ในชื่อเดิมว่า
+            <strong>"แผนกสุขศึกษา"</strong> เพื่อผลิตนักวิชาการสุขศึกษา
+            เนื่องจาก <strong>ศาสตราจารย์ <br>นายแพทย์จรัส ยามะรัต</strong> และ <strong>รองศาสตราจารย์
+              ดร.ยุพา อุดมศักดิ์</strong>
+            ได้ตระหนักว่าการแก้ปัญหาสาธารณสุขของประเทศ
+            จำเป็นต้องมีนักวิชาการสุขศึกษาเข้าไปปฏิบัติงานในสำนักงานสาธารณสุข โรงพยาบาล และโรงเรียน
+            เพื่อสนับสนุนการปรับเปลี่ยนพฤติกรรมสุขภาพของประชาชนให้ถูกต้องและยั่งยืน
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col md:flex-row-reverse items-center gap-16 md:gap-24 mb-40 reveal">
+        <div class="md:w-1/2 w-full text-center">
+          <img src="./assets/images/history/founder-yupa.webp"
+            onerror="this.src='https://placehold.co/600x800/e2e8f0/1D4699?text=Dr.+Yupa+Transparent'"
+            alt="รศ.ดร.ยุพา อุดมศักดิ์"
+            class="w-full h-auto drop-shadow-2xl mb-6 mx-auto max-h-[600px] object-contain">
+          <p class="text-lg font-semibold text-ph-blue">รองศาสตราจารย์ ดร.ยุพา อุดมศักดิ์</p>
+        </div>
+        <div class="md:w-1/2 w-full space-y-6 text-right md:text-left">
+          <div class="flex items-baseline gap-4 border-b border-slate-200 pb-2 flex-row-reverse md:flex-row">
+            <span class="text-5xl font-extrabold text-ph-orange">ยุคบุกเบิก</span>
+            <span class="text-xl text-slate-400 font-medium">ภารกิจเพื่อสังคม</span>
+          </div>
+          <h3 class="text-3xl font-bold text-ph-blue leading-tight">ภารกิจเพื่อ "พื้นที่สีแดง" และ
+            ถิ่นทุรกันดาร</h3>
+          <p class="text-slate-600 leading-relaxed text-lg indent-8">
+            ด้วยปัญหาสุขภาพในชนบทสมัยนั้นมีความรุนแรงมาก <strong>รศ.ดร.ยุพา อุดมศักดิ์</strong>
+            จึงกำหนดนโยบาย <strong>สนับสนุนข้าราชการที่ปฏิบัติงานในชนบทเป็นพิเศษ</strong>
+            โดยเฉพาะในถิ่นทุรกันดารหรือพื้นที่ที่มีผู้ก่อการร้ายคอมมิวนิสต์ (พื้นที่สีแดง)
+            ให้เข้ามาศึกษาต่อในหลักสูตร <strong>วิทยาศาสตรบัณฑิต (สุขศึกษา)</strong>
+            ซึ่งเปิดสอนเป็นแห่งแรกในไทย เพื่อให้นำความรู้กลับไปพัฒนาสุขภาพประชาชนในท้องถิ่นของตนเองต่อไป
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center gap-10 mb-40 reveal">
+        <div class="w-full">
+          <img src="./assets/images/history/mahidol.webp"
+            onerror="this.src='https://placehold.co/2784x1536/e2e8f0/1D4699?text=Mahidol+University+(Landscape)'"
+            alt="มหาวิทยาลัยมหิดล" class="w-full h-auto rounded-3xl shadow-lg object-cover">
+        </div>
+
+        <div class="w-full max-w-4xl space-y-6 text-center mx-auto">
+          <div class="flex items-baseline justify-center gap-4 border-b border-slate-200 pb-2">
+            <span class="text-5xl font-extrabold text-ph-orange">2512</span>
+            <span class="text-xl text-slate-400 font-medium">การเปลี่ยนแปลง</span>
+          </div>
+          <h3 class="text-3xl font-bold text-ph-blue leading-tight">ก้าวสู่ "ภาควิชาสุขศึกษา"</h3>
+          <p class="text-slate-600 leading-relaxed text-lg text-left indent-8">
+            มีการปรับปรุงและแก้ไขพระราชบัญญัติมหาวิทยาลัยแพทยศาสตร์ใหม่เป็น
+            <strong>"มหาวิทยาลัยมหิดล"</strong>
+            ทำให้แผนกต่างๆ ได้รับการยกฐานะขึ้น ดังนั้น แผนกสุขศึกษาจึงเปลี่ยนชื่อเป็น
+            <strong>"ภาควิชาสุขศึกษา"</strong> อย่างเป็นทางการ
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col md:flex-row-reverse items-center gap-16 md:gap-24 mb-40 reveal">
+        <div class="md:w-1/2 w-full text-center">
+          <img src="./assets/images/history/evolution.webp"
+            onerror="this.src='https://placehold.co/600x800/e2e8f0/1D4699?text=Assoc.Prof.Somjit+Transparent'"
+            alt="รศ.ดร.สมจิตต์ สุพรรณทัสน์"
+            class="w-full h-auto drop-shadow-2xl mb-6 mx-auto max-h-[600px] object-contain">
+          <p class="text-lg font-semibold text-ph-blue">รองศาสตราจารย์ ดร.สมจิตต์ สุพรรณทัสน์</p>
+        </div>
+        <div class="md:w-1/2 w-full space-y-6 text-right md:text-left">
+          <div class="flex items-baseline gap-4 border-b border-slate-200 pb-2 flex-row-reverse md:flex-row">
+            <span class="text-5xl font-extrabold text-ph-orange">2532</span>
+            <span class="text-xl text-slate-400 font-medium">การพัฒนา</span>
+          </div>
+          <h3 class="text-3xl font-bold text-ph-blue leading-tight">การผนวกศาสตร์ "พฤติกรรมศาสตร์"</h3>
+          <p class="text-slate-600 leading-relaxed text-lg indent-8">
+            <strong>รศ.ดร.สมจิตต์ สุพรรณทัสน์</strong> หัวหน้าภาควิชาในขณะนั้น
+            เล็งเห็นว่าหลักสูตรเป็นการผสมผสาน 2 ศาสตร์ใหญ่ คือ สุขศึกษาและพฤติกรรมศาสตร์
+            จึงดำเนินการเปลี่ยนชื่อเป็น <strong>"ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์"</strong>
+            โดยผ่านกระบวนการยาวนานกว่า 2 ปี
+            และได้รับอนุมัติจากคณะรัฐมนตรีเมื่อวันที่ <strong><br>9 พฤศจิกายน 2534</strong>
+            ให้ใช้ชื่อนี้มาจนถึงปัจจุบัน
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-blue-50 rounded-[3rem] p-10 md:p-16 reveal mb-32 border border-blue-100">
+        <div class="flex flex-col md:flex-row gap-10 items-center justify-center text-center">
+          <div class="md:w-3/4 space-y-6">
+            <div
+              class="inline-block px-6 py-2 bg-ph-blue text-white rounded-full font-bold text-sm tracking-widest mb-4">
+              TODAY</div>
+            <h3 class="text-4xl font-bold text-ph-blue">ภาควิชาในปัจจุบัน</h3>
+            <p class="text-slate-700 leading-relaxed text-xl">
+              ปัจจุบัน ภาควิชาเปิดสอนหลักสูตรสุขศึกษาและส่งเสริมสุขภาพระดับ <strong>ปริญญาตรีและโท</strong>
+              มุ่งเน้นสร้างบัณฑิตที่เป็นผู้นำทางวิชาการและการวิจัยเพื่อปรับเปลี่ยนพฤติกรรมสุขภาพ
+              สร้างสิ่งแวดล้อมที่เอื้อต่อสุขภาพ
+              และให้บริการวิชาการแก่หน่วยงานทั้งภาครัฐและเอกชน
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <hr class="border-slate-200 mb-32">
+
+    <section id="vision" class="scroll-mt-24 reveal mb-32">
+
+      <div class="grid gap-12 max-w-4xl mx-auto px-4">
+
+        <div class="group h-[400px] w-full perspective-1000 cursor-pointer">
+          <div
+            class="flip-card-inner relative h-full w-full transition-all duration-700 transform-style-3d shadow-xl rounded-[2rem]">
+            <div
+              class="absolute inset-0 backface-hidden bg-gradient-to-br from-ph-blue to-ph-dark rounded-[2rem] flex flex-col items-center justify-center text-white border-2 border-ph-blue">
+              <div
+                class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mb-6 backdrop-blur-sm">
+                <i data-lucide="lightbulb" class="w-10 h-10 text-ph-orange"></i>
+              </div>
+              <h3 class="text-4xl font-bold">ปรัชญา</h3>
+              <p class="text-sm opacity-60 mt-2 uppercase tracking-widest">Philosophy</p>
+              <div class="absolute bottom-6 text-sm opacity-50 animate-bounce">แตะเพื่อดูรายละเอียด</div>
+            </div>
+            <div
+              class="absolute inset-0 backface-hidden rotate-y-180 bg-white rounded-[2rem] flex flex-col items-center justify-center text-center p-8 border-2 border-slate-100">
+              <h3 class="text-2xl font-bold text-ph-orange mb-6">ปรัชญา (Philosophy)</h3>
+              <p class="text-xl text-slate-600 leading-relaxed font-medium">
+                "จัดการศึกษานำไปสู่การพัฒนาพฤติกรรมสุขภาพและคุณภาพชีวิตของทรัพยากรมนุษย์"
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="group h-[400px] w-full perspective-1000 cursor-pointer">
+          <div
+            class="flip-card-inner relative h-full w-full transition-all duration-700 transform-style-3d shadow-xl rounded-[2rem]">
+            <div
+              class="absolute inset-0 backface-hidden bg-gradient-to-br from-ph-blue to-ph-dark rounded-[2rem] flex flex-col items-center justify-center text-white border-2 border-ph-blue">
+              <div
+                class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mb-6 backdrop-blur-sm">
+                <i data-lucide="eye" class="w-10 h-10 text-ph-orange"></i>
+              </div>
+              <h3 class="text-4xl font-bold">วิสัยทัศน์</h3>
+              <p class="text-sm opacity-60 mt-2 uppercase tracking-widest">Vision</p>
+              <div class="absolute bottom-6 text-sm opacity-50 animate-bounce">แตะเพื่อดูรายละเอียด</div>
+            </div>
+            <div
+              class="absolute inset-0 backface-hidden rotate-y-180 bg-white rounded-[2rem] flex flex-col items-center justify-center text-center p-8 border-2 border-slate-100">
+              <h3 class="text-2xl font-bold text-ph-blue mb-6">วิสัยทัศน์ (Vision)</h3>
+              <p class="text-xl text-slate-600 leading-relaxed italic font-medium">
+                "องค์กรแห่งการเรียนรู้ เพื่อพัฒนาวิชาการ
+                และส่งเสริมวิชาชีพสุขศึกษาให้มีคุณภาพได้มาตรฐาน"
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="group h-[400px] w-full perspective-1000 cursor-pointer">
+          <div
+            class="flip-card-inner relative h-full w-full transition-all duration-700 transform-style-3d shadow-xl rounded-[2rem]">
+            <div
+              class="absolute inset-0 backface-hidden bg-gradient-to-br from-ph-blue to-ph-dark rounded-[2rem] flex flex-col items-center justify-center text-white border-2 border-ph-blue">
+              <div
+                class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mb-6 backdrop-blur-sm">
+                <i data-lucide="rocket" class="w-10 h-10 text-ph-orange"></i>
+              </div>
+              <h3 class="text-4xl font-bold">พันธกิจ</h3>
+              <p class="text-sm opacity-60 mt-2 uppercase tracking-widest">Mission</p>
+              <div class="absolute bottom-6 text-sm opacity-50 animate-bounce">แตะเพื่อดูรายละเอียด</div>
+            </div>
+            <div
+              class="absolute inset-0 backface-hidden rotate-y-180 bg-white rounded-[2rem] flex flex-col items-center justify-center p-8 border-2 border-slate-100 overflow-y-auto">
+              <h3 class="text-2xl font-bold text-ph-blue mb-4 shrink-0">พันธกิจ (Mission)</h3>
+              <ul class="space-y-3 text-slate-600 text-left text-base leading-relaxed">
+                <li class="flex gap-3 items-start">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 mt-1 shrink-0 text-ph-orange"></i>
+                  <span>ผลิตบัณฑิตให้เป็นนักวิชาการที่มีคุณภาพ คุณธรรม
+                    และมีสุขภาวะที่เหมาะสมตามมาตรฐานวิชาชีพ</span>
+                </li>
+                <li class="flex gap-3 items-start">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 mt-1 shrink-0 text-ph-orange"></i>
+                  <span>สร้างองค์ความรู้ที่มีคุณภาพ และชี้แนะนโยบาย
+                    บริการวิชาการให้สอดคล้องกับปัญหาและความต้องการของสังคม</span>
+                </li>
+                <li class="flex gap-3 items-start">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 mt-1 shrink-0 text-ph-orange"></i>
+                  <span>มีระบบการบริหารจัดการที่มีคุณภาพโปร่งใส และตรวจสอบได้</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <hr class="border-slate-200 mb-32">
+
+    <section id="leadership" class="scroll-mt-24 mb-32">
+
+      <div class="text-center mb-32 reveal">
+        <h2 class="text-4xl md:text-6xl font-extrabold text-ph-blue mb-4">ทำเนียบหัวหน้าภาควิชา</h2>
+        <div class="w-24 h-2 bg-ph-orange rounded-full mx-auto"></div>
+        <p class="text-slate-500 text-xl mt-4">ผู้นำในการขับเคลื่อนภาควิชาตั้งแต่อดีตจนถึงปัจจุบัน</p>
+      </div>
+
+      <div id="leadership-list" class="relative max-w-7xl mx-auto px-6">
+        <div class="text-center text-slate-400 py-10">
+            <i class="animate-spin" data-lucide="loader-2"></i> กำลังโหลดข้อมูล...
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="bg-mah-blue text-white pt-12 pb-8 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10 text-sm">
+      <div class="md:col-span-1">
+        <div class="h-14 mb-5 p-2 bg-white rounded-lg inline-block">
+          <img src="./assets/images/logo-footer.png" alt="Faculty Logo" class="h-full object-contain" />
+        </div>
+        <p class="text-blue-100 leading-relaxed font-light">
+          มุ่งมั่นผลิตบัณฑิตและสร้างสรรค์งานวิจัยด้านสุขศึกษาและพฤติกรรมศาสตร์ เพื่อสุขภาวะที่ดีของสังคม
+        </p>
+      </div>
+      <div>
+        <div class="font-bold text-white mb-4 text-base">ลิงก์ที่เกี่ยวข้อง</div>
+        <ul class="space-y-3">
+          <li><a class="text-blue-100 hover:text-mah-orange transition-colors flex items-center gap-2" href="https://www.ph.mahidol.ac.th/" target="_blank"><i class="w-1.5 h-1.5 bg-mah-orange rounded-full"></i> คณะสาธารณสุขศาสตร์</a></li>
+          <li><a class="text-blue-100 hover:text-mah-orange transition-colors flex items-center gap-2" href="http://www.grad.mahidol.ac.th/" target="_blank"><i class="w-1.5 h-1.5 bg-mah-orange rounded-full"></i> บัณฑิตวิทยาลัย</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-bold text-white mb-4 text-base">ติดต่อเรา</div>
+        <ul class="space-y-3 text-blue-100 font-light">
+          <li class="leading-relaxed">ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์<br>คณะสาธารณสุขศาสตร์ มหาวิทยาลัยมหิดล</li>
+          <li>420/1 ถนนราชวิถี เขตราชเทวี<br>กรุงเทพฯ 10400</li>
+          <li class="mt-2 flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-mah-orange"></i> 0 2354 8543 ต่อ 3604</li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-bold text-white mb-4 text-base">ติดตามข่าวสาร</div>
+        <a href="https://www.facebook.com/profile.php?id=100057184521181" target="_blank"
+           class="inline-flex items-center gap-3 px-4 py-3 bg-white/10 rounded-xl text-white hover:bg-white hover:text-mah-blue transition-all font-semibold group border border-white/20">
+          <i data-lucide="facebook" class="w-5 h-5 transition-transform group-hover:scale-110"></i>
+          <span>Facebook Page</span>
+        </a>
+      </div>
+    </div>
+    <div class="text-xs text-blue-200/60 text-center mt-12 pt-6 border-t border-white/10">
+      © 2025 Department of Health Education and Behavioral Sciences. All Rights Reserved.
+    </div>
+  </footer>
+
+  <button id="back-to-top"
+    class="fixed bottom-8 right-8 bg-mah-orange text-white p-4 rounded-full shadow-2xl translate-y-20 opacity-0 transition-all duration-500 z-50 hover:bg-mah-blue hover:scale-110 focus:outline-none cursor-pointer">
+    <i data-lucide="arrow-up" class="w-6 h-6"></i>
+  </button>
+
+  <script>
     window.addEventListener('DOMContentLoaded', () => {
-      if (window.lucide && typeof window.lucide.createIcons === 'function') {
-        window.lucide.createIcons();
-      }
+      // เรียกใช้ Icon
+      if (window.lucide) lucide.createIcons();
+
+      // Mobile Menu
       const mobileToggle = document.getElementById('mobile-nav-toggle');
       const mobilePanel = document.getElementById('mobile-nav-panel');
       const mobileIconOpen = document.getElementById('mobile-icon-open');
       const mobileIconClose = document.getElementById('mobile-icon-close');
-
-      function closeMobileNav() {
-        if (!mobilePanel) return;
-        mobilePanel.classList.add('hidden');
-        if (mobileIconOpen) mobileIconOpen.classList.remove('hidden');
-        if (mobileIconClose) mobileIconClose.classList.add('hidden');
-      }
 
       if (mobileToggle && mobilePanel) {
         mobileToggle.addEventListener('click', () => {
@@ -282,48 +472,127 @@
             if (mobileIconClose) mobileIconClose.classList.add('hidden');
           }
         });
+      }
 
-        mobilePanel.querySelectorAll('a').forEach((link) => {
-          link.addEventListener('click', closeMobileNav);
+      // Scroll Animation
+      const observerOptions = { threshold: 0.2 };
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
         });
-      }
-    });
-  </script>
-<script>
-    window.addEventListener('DOMContentLoaded', () => {
-      if (window.lucide && typeof window.lucide.createIcons === 'function') {
-        window.lucide.createIcons();
-      }
-      const mobileToggle = document.getElementById('mobile-nav-toggle');
-      const mobilePanel = document.getElementById('mobile-nav-panel');
-      const mobileIconOpen = document.getElementById('mobile-icon-open');
-      const mobileIconClose = document.getElementById('mobile-icon-close');
+      }, observerOptions);
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-      function closeMobileNav() {
-        if (!mobilePanel) return;
-        mobilePanel.classList.add('hidden');
-        if (mobileIconOpen) mobileIconOpen.classList.remove('hidden');
-        if (mobileIconClose) mobileIconClose.classList.add('hidden');
-      }
-
-      if (mobileToggle && mobilePanel) {
-        mobileToggle.addEventListener('click', () => {
-          const willOpen = mobilePanel.classList.contains('hidden');
-          mobilePanel.classList.toggle('hidden');
-          if (willOpen) {
-            if (mobileIconOpen) mobileIconOpen.classList.add('hidden');
-            if (mobileIconClose) mobileIconClose.classList.remove('hidden');
+      // Back to Top Button
+      const backToTopBtn = document.getElementById('back-to-top');
+      if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 300) {
+            backToTopBtn.classList.remove('translate-y-20', 'opacity-0');
           } else {
-            if (mobileIconOpen) mobileIconOpen.classList.remove('hidden');
-            if (mobileIconClose) mobileIconClose.classList.add('hidden');
+            backToTopBtn.classList.add('translate-y-20', 'opacity-0');
           }
         });
 
-        mobilePanel.querySelectorAll('a').forEach((link) => {
-          link.addEventListener('click', closeMobileNav);
+        backToTopBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       }
     });
+
+    // --- Leadership Rendering Logic (JSON) ---
+    fetch('./leadership.json')
+      .then(response => response.json())
+      .then(data => {
+          const container = document.getElementById('leadership-list');
+          if(!data || data.length === 0) {
+              container.innerHTML = '<p class="text-center text-slate-400">ยังไม่มีข้อมูล</p>';
+              return;
+          }
+          
+          let html = '<div class="md:hidden absolute top-0 bottom-0 left-8 w-1 bg-slate-200 z-0"></div>';
+          
+          data.forEach((leader, index) => {
+              const num = String(index + 1).padStart(2, '0');
+              const isEven = (index % 2 !== 0);
+              
+              // --- SVG Curve ---
+              let svgCurve = '';
+              if (index < data.length - 1) {
+                  const curvePath = isEven 
+                      ? 'M 25 0 C 25 200, 75 100, 75 300' 
+                      : 'M 75 0 C 75 200, 25 100, 25 300'; 
+                  
+                  svgCurve = `
+                      <div class="hidden md:block w-full h-[600px] relative -mt-64 -mb-64 z-0 pointer-events-none opacity-40">
+                          <svg width="100%" height="100%" viewBox="0 0 100 300" preserveAspectRatio="none" class="text-mah-blue">
+                              <path d="${curvePath}" stroke="currentColor" stroke-width="1.5" fill="none" vector-effect="non-scaling-stroke" stroke-dasharray="10,10" />
+                          </svg>
+                      </div>
+                  `;
+              }
+
+              const imgOrder = isEven ? 'order-1 md:order-1 justify-center md:justify-end' : 'order-1 md:order-2 justify-center md:justify-start';
+              const textOrder = isEven ? 'order-2 md:order-2 pl-20 md:pl-0 md:items-start text-left' : 'order-2 md:order-1 pl-20 md:pl-0 md:items-end text-left md:text-right';
+              
+              const numStyle = isEven ? '-ml-6 text-mah-blue/20' : 'md:-mr-8 text-mah-orange/20';
+              const nameColor = 'text-mah-blue group-hover:text-mah-orange transition-colors duration-300';
+              const yearBg = isEven ? 'bg-mah-blue text-white' : 'bg-mah-orange text-white';
+              const rot = isEven ? 'group-hover:rotate-2' : 'group-hover:-rotate-2';
+              const dotColor = isEven ? 'bg-white border-4 border-mah-blue' : 'bg-mah-orange border-4 border-white';
+
+              // 🔥 Updated Layout with Title Field
+              html += `
+              <div class="relative z-20 flex flex-col md:flex-row items-center gap-10 md:gap-20 mb-64 md:mb-0 reveal group">
+                  
+                  <div class="md:hidden absolute left-8 top-32 -translate-x-1/2 w-5 h-5 rounded-full z-10 ${dotColor}"></div>
+                  
+                  <div class="md:w-1/2 flex flex-col ${textOrder}">
+                      <div class="text-[8rem] md:text-[10rem] font-black leading-[0.8] select-none z-0 ${numStyle}">
+                          ${num}
+                      </div>
+                      <div class="relative z-10 mt-4">
+                          ${leader.title ? `<h5 class="text-lg md:text-xl font-medium text-slate-500 mb-1">${leader.title}</h5>` : ''}
+                          <h4 class="text-3xl md:text-4xl font-bold mb-3 ${nameColor}">
+                              ${leader.name}
+                          </h4>
+                          <div class="inline-block px-6 py-2 rounded-full shadow-md font-bold mt-1 ${yearBg}">
+                              ${leader.period}
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="md:w-1/2 flex ${imgOrder}">
+                      <div class="w-full max-w-[400px] md:max-w-[500px] relative z-10 transition-transform duration-500 group-hover:scale-105 ${rot}">
+                          <img src="${leader.image}" onerror="this.src='https://placehold.co/600x600/e2e8f0/64748b?text=${num}'" class="w-full h-auto object-contain drop-shadow-2xl">
+                      </div>
+                  </div>
+              </div>
+              ${svgCurve}
+              `;
+          });
+
+          container.innerHTML = html;
+          
+          const observer = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                      entry.target.classList.add('active');
+                  }
+              });
+          }, { threshold: 0.1 });
+          
+          document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      })
+      .catch(err => {
+          console.error(err);
+          document.getElementById('leadership-list').innerHTML = '<p class="text-center text-red-500">ไม่สามารถโหลดข้อมูลได้</p>';
+      });
   </script>
 </body>
+
 </html>

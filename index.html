@@ -10,385 +10,109 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
     rel="stylesheet" />
   <title>คณะสาธารณสุขศาสตร์ | ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์</title>
-  <meta name="description"
-    content="หน้าใหม่ของคณะสาธารณสุขศาสตร์ ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์ แสดงข้อมูลหลักสูตร ข่าว/ประกาศ และกิจกรรมสำคัญ" />
   <link rel="icon" href="./assets/favicon.png" />
 
-  <!-- Tailwind CSS (CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: [
-              "Inter",
-              "Noto Sans Thai",
-              "ui-sans-serif",
-              "system-ui",
-              "-apple-system",
-              "Segoe UI",
-              "Roboto",
-              "Helvetica",
-              "Arial",
-              "sans-serif",
-            ],
+            sans: ["Inter", "Noto Sans Thai", "sans-serif"],
           },
+          colors: {
+            'mah-blue': '#1D4699',
+            'mah-dark': '#10254F',
+            'mah-orange': '#E89266',      
+            'mah-orange-hover': '#d67848', 
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            bounceSlow: {
+              '0%, 100%': { transform: 'translateY(-25%)', animationTimingFunction: 'cubic-bezier(0.8,0,1,1)' },
+              '50%': { transform: 'translateY(0)', animationTimingFunction: 'cubic-bezier(0,0,0.2,1)' },
+            }
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 1s ease-out forwards',
+            'bounce-slow': 'bounceSlow 2s infinite',
+          }
         },
       },
     };
   </script>
-  <!-- Lucide icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  
   <style>
-    .primary-nav {
-      gap: 2rem;
-    }
+    html { scroll-behavior: smooth; }
+    
+    /* --- General Styles --- */
+    .primary-nav { gap: 2rem; }
+    .primary-nav .nav-item { position: relative; }
+    .primary-nav a { position: relative; padding-bottom: 2px; color: rgba(255, 255, 255, 0.85); transition: color 0.2s ease; font-weight: 500; }
+    
+    .primary-nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 3px; background: #E89266; transform: scaleX(0); transform-origin: left; transition: transform 0.2s ease; border-radius: 2px; }
+    .primary-nav a:hover { color: #E89266; }
+    .primary-nav a:hover::after, .primary-nav a.active::after { transform: scaleX(1); }
+    .primary-nav a.active { color: #fff; font-weight: 600; }
 
-    .primary-nav .nav-item {
-      position: relative;
-    }
+    .nav-dropdown { position: absolute; top: 100%; margin-top: 0.5rem; left: 0; min-width: 11rem; background: #fff; color: #0f172a; border-radius: 1rem; box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15); padding: 0.5rem 0; opacity: 0; pointer-events: none; transform: translateY(-8px); transition: opacity 0.18s ease, transform 0.18s ease; z-index: 50; }
+    .nav-dropdown::before { content: ""; position: absolute; top: -1rem; left: 0; width: 100%; height: 1rem; background: transparent; }
+    .primary-nav .nav-item:hover .nav-dropdown { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .nav-dropdown a { display: flex; align-items: center; padding: 0.6rem 1.2rem; color: #334155; gap: 0.5rem; opacity: 1; font-weight: 400; transition: all 0.2s; }
+    .nav-dropdown a:hover { background: #f8fafc; color: #1D4699; }
 
-    .primary-nav a {
-      position: relative;
-      padding-bottom: 2px;
-      color: rgba(255, 255, 255, 0.85);
-      transition: color 0.2s ease;
-      font-weight: 600;
-    }
+    /* --- Cards & Carousel --- */
+    .program-list { display: flex; flex-direction: column; gap: 1.5rem; max-width: 900px; margin: 3rem auto 0; margin-top: 5rem; }
+    @media (min-width: 1024px) { .program-card { transition: transform 0.3s ease, box-shadow 0.3s ease; } .program-card:nth-child(odd) { margin-right: 1.5rem; } .program-card:nth-child(even) { margin-left: 1.5rem; } }
+    .program-card { overflow: visible; position: relative; }
+    .program-card-inner { display: flex; flex-direction: row; align-items: center; min-height: 220px; gap: 0.75rem; flex-wrap: nowrap; }
+    .program-card-inner>* { flex: 1 1 0%; }
+    .program-card:nth-child(even) .program-card-inner { flex-direction: row-reverse; }
+    .program-content { padding: 1.5rem; }
+    .program-card:nth-child(even) .program-content { text-align: right; align-items: flex-end; }
+    @media (min-width: 640px) { .program-card:nth-child(even) .program-content { flex: 0 0 55%; margin-left: auto; padding-right: 2.25rem; padding-left: 1.25rem; } }
+    .program-card .stand-scene { background: #fff4ee; position: relative; overflow: visible; display: flex; align-items: flex-end; justify-content: center; padding: 0; min-height: 200px; border-radius: 1rem 0 0 1rem; flex: 0 0 clamp(140px, 42%, 260px); max-width: clamp(160px, 45%, 300px); }
+    .program-card:nth-child(even) .stand-scene { border-radius: 0 1rem 1rem 0; }
+    @media (min-width: 640px) { .program-card .stand-scene { flex: 0 0 38%; max-width: 320px; min-height: 220px; } }
+    .program-card .stand-figure { position: absolute; left: 50%; bottom: -20px !important; transform: translateX(-50%); width: clamp(180px, 60vw, 260px); }
+    @media (min-width: 640px) { .program-card .stand-figure { left: 55%; bottom: -55px; width: min(300px, 45vw); } .program-card:nth-child(even) .stand-figure { left: 45%; } }
+    @media (min-width: 1024px) { .program-card .stand-figure { width: 360px; bottom: -60px; } }
+    .program-card .stand-image { display: block; width: 100%; height: auto; position: relative; z-index: 1; transition: transform 0.45s ease, opacity 0.3s ease; transform-origin: center bottom; }
+    .program-card .stand-image.hover-state { position: absolute; inset: 0; opacity: 0; }
+    .program-card .stand-shadow { position: absolute; left: 50%; bottom: -10px; transform: translate(-50%, 0); width: 70%; height: 20px; background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.4), transparent 70%); filter: blur(6px); opacity: 0.3; z-index: 0; transition: transform 0.35s ease, opacity 0.35s ease; pointer-events: none; }
+    .program-card:hover .stand-image.base-state { opacity: 0; transform: scale(0.95); }
+    .program-card:hover .stand-image.hover-state { opacity: 1; transform: scale(1.08); }
+    .program-card:hover .stand-shadow { opacity: 0.45; transform: translate(-50%, 0) scaleX(1.1); }
+    
+    .modal-gallery-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.95); border-radius: 999px; width: 2.5rem; height: 2.5rem; border: none; display: inline-flex; align-items: center; justify-content: center; color: #1D4699; box-shadow: 0 10px 25px rgba(16, 37, 79, 0.2); opacity: 0.9; cursor: pointer; transition: all 0.2s; }
+    .modal-gallery-nav:hover { background: #fff; opacity: 1; transform: translateY(-50%) scale(1.1); }
+    .modal-gallery-nav[data-gallery-dir="prev"] { left: 0.5rem; }
+    .modal-gallery-nav[data-gallery-dir="next"] { right: 0.5rem; }
 
-    .primary-nav a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -6px;
-      height: 2px;
-      background: #f97316;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.2s ease;
-    }
-
-    .primary-nav a:hover {
-      color: #f97316;
-    }
-
-    .primary-nav a:hover::after,
-    .primary-nav a.active::after {
-      transform: scaleX(1);
-    }
-
-    .primary-nav a.active {
-      color: #fff;
-    }
-
-    .nav-dropdown {
-      position: absolute;
-      top: calc(100% + 0.5rem);
-      left: 0;
-      min-width: 11rem;
-      background: #fff;
-      color: #0f172a;
-      border-radius: 0.9rem;
-      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15);
-      padding: 0.5rem 0;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-8px);
-      transition: opacity 0.18s ease, transform 0.18s ease;
-      z-index: 50;
-    }
-
-    .primary-nav .nav-item:hover .nav-dropdown {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-
-    .nav-dropdown a {
-      display: flex;
-      align-items: center;
-      padding: 0.45rem 1rem;
-      color: #0f172a;
-      gap: 0.4rem;
-      opacity: 0.85;
-    }
-
-    .nav-dropdown a:hover {
-      background: rgba(15, 23, 42, 0.04);
-      opacity: 1;
-    }
-
-    .hero-slider {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-slider-track {
-      display: flex;
-      transition: transform 0.45s ease;
-    }
-
-    .hero-slider-track img {
-      width: 100%;
-      flex-shrink: 0;
-    }
-
-    .hero-slider button {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.85);
-      border-radius: 999px;
-      padding: 0.4rem;
-      border: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #1D4699;
-      box-shadow: 0 10px 25px rgba(16, 37, 79, 0.2);
-    }
-
-    .hero-slider button:hover {
-      background: rgb(0, 0, 0);
-    }
-
-    .hero-slider button[data-dir="prev"] {
-      left: 0.65rem;
-    }
-
-    .hero-slider button[data-dir="next"] {
-      right: 0.65rem;
-    }
-
-    .modal-gallery-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 999px;
-      width: 2.5rem;
-      height: 2.5rem;
-      border: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #1D4699;
-      box-shadow: 0 10px 25px rgba(16, 37, 79, 0.2);
-      opacity: 0.9;
-    }
-
-    .modal-gallery-nav:hover {
-      background: #fff;
-      opacity: 1;
-    }
-
-    .modal-gallery-nav[data-gallery-dir="prev"] {
-      left: 0.5rem;
-    }
-
-    .modal-gallery-nav[data-gallery-dir="next"] {
-      right: 0.5rem;
-    }
-
-    .hero-video {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.85;
-    }
-
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.9) 45%, rgba(255, 255, 255, 1) 90%);
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    /* Program highlight cards (shared with program.html) */
-    .program-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      max-width: 900px;
-      margin: 3rem auto 0;
-      margin-top: 5rem;
-    }
-
-    @media (min-width: 1024px) {
-      .program-card {
-        transition: transform 0.25s ease;
-      }
-
-      .program-card:nth-child(odd) {
-        margin-right: 1.5rem;
-      }
-
-      .program-card:nth-child(even) {
-        margin-left: 1.5rem;
-      }
-    }
-
-    .program-card {
-      overflow: visible;
-      position: relative;
-    }
-
-    .program-card-inner {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      min-height: 220px;
-      gap: 0.75rem;
-      flex-wrap: nowrap;
-    }
-
-    .program-card-inner>* {
-      flex: 1 1 0%;
-    }
-
-    .program-card:nth-child(even) .program-card-inner {
-      flex-direction: row-reverse;
-    }
-
-    .program-content {
-      padding: 1.5rem;
-    }
-
-    .program-card:nth-child(even) .program-content {
-      text-align: right;
-      align-items: flex-end;
-    }
-
-    @media (min-width: 640px) {
-      .program-card:nth-child(even) .program-content {
-        flex: 0 0 55%;
-        margin-left: auto;
-        padding-right: 2.25rem;
-        padding-left: 1.25rem;
-      }
-    }
-
-    .program-card .stand-scene {
-      background: #fff4ee;
-      position: relative;
-      overflow: visible;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      padding: 0;
-      min-height: 200px;
-      border-radius: 1.25rem 0 0 1.25rem;
-      flex: 0 0 clamp(140px, 42%, 260px);
-      max-width: clamp(160px, 45%, 300px);
-    }
-
-    .program-card:nth-child(even) .stand-scene {
-      border-radius: 0 1.25rem 1.25rem 0;
-    }
-
-    @media (min-width: 640px) {
-      .program-card .stand-scene {
-        flex: 0 0 38%;
-        max-width: 320px;
-        min-height: 220px;
-      }
-    }
-
-    .program-card .stand-figure {
-      position: absolute;
-      left: 50%;
-      bottom: -20px !important;
-      transform: translateX(-50%);
-      width: clamp(180px, 60vw, 260px);
-      /* z-index: 10; */
-    }
-
-    @media (min-width: 640px) {
-      .program-card .stand-figure {
-        left: 55%;
-        bottom: -55px;
-        width: min(300px, 45vw);
-      }
-
-      .program-card:nth-child(even) .stand-figure {
-        left: 45%;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .program-card .stand-figure {
-        width: 360px;
-        bottom: -60px;
-      }
-    }
-
-    .program-card .stand-image {
-      display: block;
-      width: 100%;
-      height: auto;
-      position: relative;
-      z-index: 1;
-      transition: transform 0.45s ease, opacity 0.3s ease;
-      transform-origin: center bottom;
-    }
-
-    .program-card .stand-image.hover-state {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-    }
-
-    .program-card .stand-shadow {
-      position: absolute;
-      left: 50%;
-      bottom: -10px;
-      transform: translate(-50%, 0);
-      width: 70%;
-      height: 20px;
-      background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.4), transparent 70%);
-      filter: blur(6px);
-      opacity: 0.3;
-      z-index: 0;
-      transition: transform 0.35s ease, opacity 0.35s ease;
-      pointer-events: none;
-    }
-
-    .program-card:hover .stand-image.base-state {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-
-    .program-card:hover .stand-image.hover-state {
-      opacity: 1;
-      transform: scale(1.08);
-    }
-
-    .program-card:hover .stand-shadow {
-      opacity: 0.45;
-      transform: translate(-50%, 0) scaleX(1.1);
-    }
+    /* Highlight Carousel Styles */
+    .news-slide { transition: opacity 0.5s ease-in-out; opacity: 0; position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+    .news-slide.active { opacity: 1; pointer-events: auto; z-index: 10; }
+    .slide-indicator { transition: all 0.3s ease; }
+    .slide-indicator.active { background-color: #E89266; width: 2rem; }
   </style>
 </head>
 
-<body class="min-h-screen bg-white text-slate-900">
-  <!-- Navigation -->
+<body class="min-h-screen bg-slate-50 text-slate-600 font-sans">
+  
   <header class="sticky top-0 z-50">
-    <div class="bg-[#1D4699] text-white shadow">
+    <div class="bg-mah-blue text-white shadow-lg shadow-blue-900/10">
       <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <div class="h-11 w-11">
-            <img src="./assets/Mahidol_Logo.png" alt="ภาพตัวอย่างกิจกรรมของนิสิต" class="h-full w-full object-cover" />
+            <img src="./assets/Mahidol_Logo.png" alt="Mahidol Logo" class="h-full w-full object-cover" />
           </div>
           <div class="leading-tight">
-            <div class="font-semibold text-lg">คณะสาธารณสุขศาสตร์</div>
-            <div class="text-xs text-[#C9DAFF]">ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์</div>
+            <div class="font-semibold text-lg tracking-tight">คณะสาธารณสุขศาสตร์</div>
+            <div class="text-xs text-blue-200 font-light">ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์</div>
           </div>
         </div>
         <button id="mobile-nav-toggle"
@@ -397,250 +121,142 @@
           <i data-lucide="x" class="w-5 h-5 hidden" id="mobile-icon-close"></i>
         </button>
         <nav class="hidden md:flex items-center text-sm tracking-wide primary-nav">
-          <div class="nav-item">
-            <a href="index.html" class="active">หน้าหลัก</a>
-          </div>
-          <div class="nav-item">
-            <a href="program.html">หลักสูตร</a>
-          </div>
-          <div class="nav-item">
-            <a href="news.html">ข่าว/ประกาศ</a>
-          </div>
-          <div class="nav-item">
-            <a href="staff.html">บุคลากร</a>
-          </div>
-          <div class="nav-item">
-            <a href="student.html">นักศึกษา</a>
-            <div class="nav-dropdown">
-              <a href="student.html#current"><i data-lucide="user-round" class="w-4 h-4"></i>ศิษย์ปัจจุบัน</a>
-              <a href="student.html#alumni"><i data-lucide="user-check" class="w-4 h-4"></i>ศิษย์เก่า</a>
-            </div>
-          </div>
-          <div class="nav-item">
-            <a href="Services.html">บริการวิชาการ</a>
-            <div class="nav-dropdown">
-              <a href="Services.html#training"><i data-lucide="presentation" class="w-4 h-4"></i>ฝึกอบรม</a>
-              <a href="Services.html#journal"><i data-lucide="newspaper" class="w-4 h-4"></i>วารสารสุขศึกษา</a>
-              <a href="Services.html#consult"><i data-lucide="handshake" class="w-4 h-4"></i>ให้คำปรึกษา</a>
-            </div>
-          </div>
+          <div class="nav-item"><a href="index.html" class="active">หน้าหลัก</a></div>
+          
           <div class="nav-item">
             <a href="about.html">เกี่ยวกับเรา</a>
             <div class="nav-dropdown">
-              <a href="about.html#history"><i data-lucide="book-open" class="w-4 h-4"></i>ประวัติ</a>
-              <a href="about.html#vision"><i data-lucide="eye" class="w-4 h-4"></i>วิสัยทัศน์</a>
-              <a href="about.html#leadership"><i data-lucide="award" class="w-4 h-4"></i>ทำเนียบหัวหน้าภาควิชา</a>
-              <a href="contact.html"><i data-lucide="phone" class="w-4 h-4"></i>ติดต่อเรา</a>
+              <a href="about.html#history"><i data-lucide="book-open" class="w-4 h-4 text-mah-orange"></i>ประวัติ</a>
+              <a href="about.html#vision"><i data-lucide="eye" class="w-4 h-4 text-mah-orange"></i>วิสัยทัศน์</a>
+              <a href="about.html#leadership" class="items-start py-2"><i data-lucide="award" class="w-4 h-4 mt-1 shrink-0 text-mah-orange"></i><span class="leading-tight">ทำเนียบ<br>หัวหน้าภาควิชา</span></a>
             </div>
           </div>
 
+          <div class="nav-item"><a href="staff.html">บุคลากร</a></div>
+          <div class="nav-item"><a href="news.html">ข่าว/ประกาศ</a></div>
+          <div class="nav-item">
+            <a href="Services.html">บริการวิชาการ</a>
+            <div class="nav-dropdown">
+              <a href="Services.html#training"><i data-lucide="presentation" class="w-4 h-4 text-mah-orange"></i>ฝึกอบรม</a>
+              <a href="https://he01.tci-thaijo.org/index.php/muhed/issue/archive" target="_blank"><i data-lucide="newspaper" class="w-4 h-4 text-mah-orange"></i>วารสารสุขศึกษา</a>
+            </div>
+          </div>
+          <div class="nav-item"><a href="contact.html">ติดต่อ</a></div>
         </nav>
       </div>
     </div>
-    <div id="mobile-nav-panel" class="md:hidden bg-white text-[#1D4699] border-t border-white/10 shadow-lg hidden">
+    <div id="mobile-nav-panel" class="md:hidden bg-white text-mah-blue border-t border-white/10 shadow-lg hidden">
       <div class="px-6 py-4 space-y-4 text-sm font-semibold">
         <div class="space-y-1">
-          <a href="index.html" class="flex items-center gap-2 py-1">หน้าแรก</a>
-          <a href="program.html" class="flex items-center gap-2 py-1">หลักสูตร</a>
-          <a href="news.html" class="flex items-center gap-2 py-1">ข่าว/ประกาศ</a>
-          <a href="staff.html" class="flex items-center gap-2 py-1">บุคลากร</a>
-          <a href="contact.html" class="flex items-center gap-2 py-1">ติดต่อ</a>
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-widest text-slate-400">นักศึกษา</p>
-          <div class="mt-1 space-y-1 pl-3 text-[0.9rem] font-normal text-slate-600">
-            <a href="student.html#current" class="block py-1">ศิษย์ปัจจุบัน</a>
-            <a href="student.html#alumni" class="block py-1">ศิษย์เก่า</a>
-          </div>
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-widest text-slate-400">เกี่ยวกับเรา</p>
-          <div class="mt-1 space-y-1 pl-3 text-[0.9rem] font-normal text-slate-600">
-            <a href="about.html#history" class="block py-1">ประวัติ</a>
-            <a href="about.html#vision" class="block py-1">วิสัยทัศน์</a>
-            <a href="about.html#leadership" class="block py-1">ทำเนียบหัวหน้าภาควิชา</a>
-            <a href="contact.html" class="block py-1">ติดต่อเรา</a>
-          </div>
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-widest text-slate-400">บริการวิชาการ</p>
-          <div class="mt-1 space-y-1 pl-3 text-[0.9rem] font-normal text-slate-600">
-            <a href="Services.html#training" class="block py-1">ฝึกอบรม</a>
-            <a href="Services.html#journal" class="block py-1">วารสารสุขศึกษา</a>
-            <a href="Services.html#consult" class="block py-1">ให้คำปรึกษา</a>
-          </div>
+          <a href="index.html" class="flex items-center gap-2 py-2 border-b border-slate-50 text-mah-orange">หน้าแรก</a>
+          <a href="news.html" class="flex items-center gap-2 py-2 border-b border-slate-50">ข่าว/ประกาศ</a>
+          <a href="staff.html" class="flex items-center gap-2 py-2 border-b border-slate-50">บุคลากร</a>
+          <a href="Services.html" class="flex items-center gap-2 py-2 border-b border-slate-50">บริการวิชาการ</a>
+          <a href="contact.html" class="flex items-center gap-2 py-2">ติดต่อ</a>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="relative overflow-hidden bg-gradient-to-br from-[#e3e9ff] via-white to-[#ffe5d4]">
-    <video class="hero-video" src="./assets/video_web.mp4" autoplay muted loop playsinline
-      poster="./assets/banner1.jpg"></video>
-    <div class="hero-overlay"></div>
-    <div class="absolute -top-32 -right-10 h-80 w-80 rounded-full blur-[160px] bg-[#1D4699]/25"></div>
-    <div class="absolute -bottom-40 -left-16 h-80 w-80 rounded-full blur-[160px] bg-[#E89266]/30"></div>
+  <section class="relative h-[600px] md:h-[700px] overflow-hidden flex items-center justify-center">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#e3e9ff] via-white to-[#ffe5d4] z-0"></div>
+    
+    <video class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-multiply" src="./assets/video_web.mp4" autoplay muted loop playsinline poster="./assets/banner1.jpg"></video>
+    
+    <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white/60 z-10"></div>
 
-    <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 relative z-10">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="space-y-6">
-          <span class="inline-flex items-center rounded-full px-3 py-1 text-sm text-[#1D4699] bg-white/80 shadow">
-            <i data-lucide="sparkles" class="w-4 h-4 mr-2 text-[#E89266]"></i>ปีการศึกษา 2567 เปิดรับสมัคร
-          </span>
-          <div>
-            <p class="text-sm uppercase tracking-[0.25em] text-[#1D4699]/70 font-semibold">คณะสาธารณสุขศาสตร์</p>
-            <h1 class="text-3xl md:text-5xl font-extrabold leading-tight text-[#10254F] mt-2">
-              ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์
-            </h1>
-          </div>
-          <p class="text-slate-600 md:text-lg">
-            มุ่งเน้นทักษะสุขศึกษา พฤติกรรมสุขภาพ นวัตกรรมดิจิทัล และการสื่อสารเพื่อสังคมสุขภาวะ
-            เชื่อมงานวิจัยสู่การปฏิบัติจริง
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <a href="#programs"
-              class="inline-flex items-center gap-2 px-5 h-11 rounded-xl bg-[#E89266] text-white text-sm font-semibold shadow hover:bg-[#cf7c52]">
-              <i data-lucide="graduation-cap" class="w-4 h-4"></i>ดูหลักสูตร
-            </a>
-            <a href="#news"
-              class="inline-flex items-center gap-2 px-5 h-11 rounded-xl border border-[#1D4699]/30 text-[#1D4699] text-sm font-semibold bg-white/80 hover:bg-white">
-              <i data-lucide="megaphone" class="w-4 h-4"></i>อ่านประกาศรับสมัคร
-            </a>
-          </div>
-
-          <div class="mt-10 grid grid-cols-3 gap-4 justify-center">
-            <div class="rounded-2xl bg-white/90 border border-[#dbe3ff] p-4 shadow-sm max-w-[250px]">
-              <i data-lucide="heart" class="w-6 h-6 text-[#1D4699]"></i>
-              <div class="mt-3 text-lg font-semibold text-[#10254F]">คุณธรรม</div>
-              <p class="text-xs text-slate-500">Morality</p>
-            </div>
-            <div class="rounded-2xl bg-white/90 border border-[#dbe3ff] p-4 shadow-sm max-w-[250px]">
-              <i data-lucide="shield-check" class="w-6 h-6 text-[#1D4699]"></i>
-              <div class="mt-3 text-lg font-semibold text-[#10254F]">คุณภาพ</div>
-              <p class="text-xs text-slate-500">Quality</p>
-            </div>
-            <div class="rounded-2xl bg-white/90 border border-[#dbe3ff] p-4 shadow-sm max-w-[250px]">
-              <i data-lucide="globe-2" class="w-6 h-6 text-[#1D4699]"></i>
-              <div class="mt-3 text-lg font-semibold text-[#10254F]">เพื่อมวลชน</div>
-              <p class="text-xs text-slate-500">For Mankind</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="relative">
-
-          <div class="hero-slider rounded-[40px] overflow-hidden border border-[#cfd8ff] bg-white shadow-xl"
-            data-slider>
-
-            <div class="hero-slider-track" data-slider-track>
-
-              <img src="./assets/banner1.jpg" alt="ภาพ1" class=" w-full object-cover" />
-
-              <img src="./assets/banner2.jpg" alt="ภาพ2" class=" w-full object-cover" />
-
-            </div>
-
-            <button type="button" data-dir="prev" aria-label="ก่อนหน้า">
-
-              <i data-lucide="chevron-left" class="w-5 h-5"></i>
-
-            </button>
-
-            <button type="button" data-dir="next" aria-label="ถัดไป">
-
-              <i data-lucide="chevron-right" class="w-5 h-5"></i>
-
-            </button>
-
-          </div>
-
-        </div>
+    <div class="relative z-20 text-center px-4 max-w-5xl mx-auto mt-[-30px]">
+      <h2 class="text-mah-blue text-sm md:text-lg font-semibold tracking-[0.2em] uppercase mb-4 opacity-0 animate-fade-in-up [text-shadow:_0_1px_3px_rgba(0,0,0,0.1)]">
+        คณะสาธารณสุขศาสตร์ มหาวิทยาลัยมหิดล
+      </h2>
+      <h1 class="text-3xl md:text-5xl lg:text-7xl font-extrabold text-mah-dark leading-tight mb-8 opacity-0 animate-fade-in-up delay-[200ms] [text-shadow:_0_4px_12px_rgba(0,0,0,0.1)]">
+        ภาควิชาสุขศึกษา<br>และพฤติกรรมศาสตร์
+      </h1>
+      <div class="flex justify-center gap-4 opacity-0 animate-fade-in-up delay-[400ms]">
+        <a href="#news" 
+           class="group inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-mah-orange text-white font-semibold text-lg shadow-xl shadow-orange-200 hover:bg-mah-orange-hover transition-all hover:-translate-y-1 ring-4 ring-orange-100/50">
+           <span>อ่านประกาศล่าสุด</span>
+           <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
+        </a>
       </div>
+    </div>
 
+    <div class="absolute bottom-10 z-30 text-mah-dark/40 animate-bounce-slow flex flex-col items-center gap-1">
+      <span class="text-[10px] uppercase tracking-widest opacity-80">Scroll Down</span>
+      <i data-lucide="chevron-down" class="w-8 h-8"></i>
     </div>
   </section>
 
-  <!-- News -->
-  <section id="news" class="py-14 md:py-20">
-    <div class="max-w-7xl mx-auto px-6 mb-8">
+  <section id="news" class="py-14 md:py-20 relative z-30">
+    <div class="max-w-7xl mx-auto px-6 mb-10">
       <div class="flex items-end gap-3">
-        <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-blue-800">ข่าว / ประกาศ</h2>
-        <span class="rounded-full bg-[#E89266] text-white text-xs px-3 py-1">อัปเดตล่าสุด</span>
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-mah-dark">ข่าว / ประกาศ</h2>
+        <span class="rounded-full bg-mah-orange text-white text-xs px-3 py-1 shadow-sm">อัปเดตล่าสุด</span>
       </div>
-      <div class="h-1.5 w-24 mt-3 rounded-full bg-gradient-to-r from-blue-500 to-orange-400"></div>
-    </div>
-    <div id="home-news-list" class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-6">
-      <!-- ข่าว/ประกาศจะถูกแสดงโดย JavaScript จากไฟล์ news.json -->
+      <div class="h-1.5 w-24 mt-3 rounded-full bg-gradient-to-r from-blue-500 to-mah-orange"></div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-6 mt-8">
-      <a href="news.html"
-        class="inline-flex items-center gap-2 text-[#1D4699] font-semibold hover:text-[#10254F]">ดูข่าว/ประกาศทั้งหมด
-        <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+    <div class="max-w-7xl mx-auto px-6 mb-16" id="news-featured-container" style="display: none;">
+        <div class="relative w-full h-[300px] md:h-[450px] rounded-2xl overflow-hidden shadow-xl border border-slate-100 group" id="news-carousel">
+            <div class="absolute inset-0" id="news-slides-track"></div>
+            
+            <button id="slide-prev" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-mah-orange text-white p-3 rounded-full backdrop-blur-sm transition opacity-0 group-hover:opacity-100 z-20">
+                <i data-lucide="chevron-left" class="w-6 h-6"></i>
+            </button>
+            <button id="slide-next" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-mah-orange text-white p-3 rounded-full backdrop-blur-sm transition opacity-0 group-hover:opacity-100 z-20">
+                <i data-lucide="chevron-right" class="w-6 h-6"></i>
+            </button>
+
+            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20" id="news-dots"></div>
+            
+            <div class="absolute inset-0 flex items-center justify-center bg-slate-50 z-0">
+                <i class="animate-spin text-slate-300" data-lucide="loader-2"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div id="home-news-list" class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8"></div>
+    
+    <div class="max-w-7xl mx-auto px-6 mt-10">
+      <a href="news.html" class="inline-flex items-center gap-2 text-mah-blue font-semibold hover:text-mah-dark transition-colors">
+        ดูข่าว/ประกาศทั้งหมด <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
     </div>
   </section>
 
-  <!-- PROGRAM LIST -->
-  <section>
-    <div class="max-w-7xl mx-auto px-6 mb-6">
-      <p class="text-xs uppercase tracking-[0.35em] text-blue-500">Programs Overview</p>
-      <h3 class="text-2xl font-bold text-slate-900 mt-1">หลักสูตรที่เปิดสอนในภาควิชา</h3>
+  <section class="py-16 relative z-30 bg-slate-50/50">
+    <div class="max-w-7xl mx-auto px-6 mb-12 flex flex-col items-end text-right">
+      <div class="flex items-center justify-end gap-3 w-full">
+        <span class="rounded-full bg-blue-50 text-mah-blue text-xs px-3 py-1 font-semibold uppercase tracking-wider border border-blue-100">Programs Overview</span>
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-mah-dark">หลักสูตรที่เปิดสอนในภาควิชา</h2>
+      </div>
+      <div class="h-1.5 w-24 mt-3 rounded-full bg-gradient-to-l from-blue-500 to-mah-orange"></div>
     </div>
 
     <div class="program-list">
-
-      <!-- BACHELOR NORMAL -->
-      <article
-        class="program-card rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-xl transition group">
+      
+      <a href="https://graduate.mahidol.ac.th/thai/prospective-students/?p=curriculum&id=2314M03G" target="_blank" class="program-card block rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-xl transition group text-left">
         <div class="program-card-inner">
           <div class="stand-scene">
             <div class="stand-figure">
               <span aria-hidden="true" class="stand-shadow"></span>
-              <img alt="นักศึกษาปริญญาตรี" class="stand-image base-state" src="./assets/stand_model/1.png" />
-              <img alt="บัณฑิตปริญญาตรี" class="stand-image hover-state" src="./assets/stand_model/2.png" />
+              <img alt="นักศึกษาปริญญาโท" class="stand-image base-state" src="./assets/stand_model/3.png" />
+              <img alt="บัณฑิตปริญญาโท" class="stand-image hover-state" src="./assets/stand_model/4.png" />
             </div>
           </div>
           <div class="program-content flex flex-col">
-            <span class="text-xs font-semibold uppercase tracking-widest text-orange-500">หลักสูตรระดับปริญญาตรี</span>
-            <h4 class="mt-2 text-lg font-semibold text-slate-900">หลักสูตรวิทยาศาสตรบัณฑิต (สาธารณสุขศาสตร์)</h4>
-            <h4 class="mt-2 text-lg font-semibold text-slate-900">สาขาวิชา สุขศึกษาและส่งเสริมสุขภาพ </h4>
-
-            <div class="mt-4 flex items-center gap-4 text-xs text-slate-500">
-              <span class="flex items-center gap-1"><i class="w-4 h-4" data-lucide="clock-4"></i>ระยะเวลาเรียน 4
-                ปี</span>
+            <span class="text-xs font-bold uppercase tracking-widest text-mah-orange mb-2">หลักสูตรระดับปริญญาโท</span>
+            <h4 class="text-xl font-bold text-mah-dark group-hover:text-mah-blue transition-colors">หลักสูตรวิทยาศาสตรมหาบัณฑิต </h4>
+            <h4 class="text-lg font-semibold text-slate-600 mt-1">สาขาวิชา สุขศึกษาและส่งเสริมสุขภาพ </h4>
+            <div class="mt-5 flex items-center gap-4 text-xs text-slate-500 font-medium">
+              <span class="flex items-center gap-1 bg-slate-100 px-3 py-1 rounded-full"><i class="w-4 h-4" data-lucide="clock-4"></i>ระยะเวลาโดยประมาณ 2 ปี</span>
+              <span class="flex items-center gap-1 text-mah-blue font-bold"><i class="w-3 h-3" data-lucide="external-link"></i> รายละเอียด</span>
             </div>
           </div>
         </div>
-      </article>
+      </a>
 
-      <!-- BACHELOR SPECIAL -->
-      <article
-        class="program-card rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-xl transition group">
-        <div class="program-card-inner">
-          <div class="stand-scene">
-            <div class="stand-figure">
-              <span aria-hidden="true" class="stand-shadow"></span>
-              <img alt="นักศึกษาปริญญาตรีต่อเนื่อง" class="stand-image base-state" src="./assets/stand_model/3.png" />
-              <img alt="บัณฑิตปริญญาตรีต่อเนื่อง" class="stand-image hover-state" src="./assets/stand_model/4.png" />
-            </div>
-          </div>
-          <div class="program-content flex flex-col">
-            <span class="text-xs font-semibold uppercase tracking-widest text-orange-500">หลักสูตรระดับปริญญาโท</span>
-            <h4 class="mt-2 text-lg font-semibold text-slate-900">หลักสูตรวิทยาศาสตรมหาบัณฑิต </h4>
-            <h4 class="mt-2 text-lg font-semibold text-slate-900">สาขาวิชา สุขศึกษาและส่งเสริมสุขภาพ </h4>
-
-            <div class="mt-4 flex items-center gap-4 text-xs text-slate-500">
-              <span class="flex items-center gap-1"><i class="w-4 h-4" data-lucide="clock-4"></i>ระยะเวลาโดยประมาณ 2
-                ปี</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- MASTER -->
-      <article
-        class="program-card rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-xl transition group">
+      <a href="https://graduate.mahidol.ac.th/thai/prospective-students/?p=curriculum&id=2314M04S" target="_blank" class="program-card rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-xl transition group block">
         <div class="program-card-inner">
           <div class="stand-scene">
             <div class="stand-figure">
@@ -650,21 +266,18 @@
             </div>
           </div>
           <div class="program-content flex flex-col">
-            <span class="text-xs font-semibold uppercase tracking-widest text-orange-500">หลักสูตรระดับปริญญาโท </span>
-            <h4 class="mt-2 text-lg font-semibold text-slate-900">หลักสูตรวิทยาศาสตรมหาบัณฑิต </h4>
-            <h4 class="mt-2 text-lg font-semibold text-slate-900">สาขาวิชา สุขศึกษาและส่งเสริมสุขภาพ (ภาคพิเศษ) </h4>
-
-            <div class="mt-4 flex items-center gap-4 text-xs text-slate-500">
-              <span class="flex items-center gap-1"><i class="w-4 h-4" data-lucide="clock-4"></i>ระยะเวลาโดยประมาณ 2
-                ปี</span>
+            <span class="text-xs font-bold uppercase tracking-widest text-mah-orange mb-2">หลักสูตรระดับปริญญาโท </span>
+            <h4 class="text-xl font-bold text-mah-dark group-hover:text-mah-blue transition-colors">หลักสูตรวิทยาศาสตรมหาบัณฑิต </h4>
+            <h4 class="text-lg font-semibold text-slate-600 mt-1">สาขาวิชา สุขศึกษาและส่งเสริมสุขภาพ (ภาคพิเศษ) </h4>
+            <div class="mt-5 flex items-center gap-4 text-xs text-slate-500 font-medium">
+              <span class="flex items-center gap-1 bg-slate-100 px-3 py-1 rounded-full"><i class="w-4 h-4" data-lucide="clock-4"></i>ระยะเวลาโดยประมาณ 2 ปี</span>
+              <span class="flex items-center gap-1 text-mah-blue font-bold"><i class="w-3 h-3" data-lucide="external-link"></i> รายละเอียด</span>
             </div>
           </div>
         </div>
-      </article>
+      </a>
 
-      <!-- DOCTORAL -->
-      <article
-        class="program-card rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-xl transition group">
+      <a href="https://graduate.mahidol.ac.th/Admission/announce/announce.php?id=2329DG05&y=2565" target="_blank" class="program-card rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-xl transition group block">
         <div class="program-card-inner">
           <div class="stand-scene">
             <div class="stand-figure">
@@ -674,387 +287,334 @@
             </div>
           </div>
           <div class="program-content flex flex-col">
-            <span class="text-xs font-semibold uppercase tracking-widest text-orange-500">หลักสูตรระดับปริญญาเอก</span>
-            <h4 class="mt-2 text-lg font-semibold text-slate-900">หลักสูตรสาธารณสุขศาสตรดุษฎีบัณฑิต</h4>
-            <h4 class="mt-2 text-lg font-semibold text-slate-900">(หลักสูตรนานาชาติ)</h4>
-            <div class="mt-4 flex items-center gap-4 text-xs text-slate-500">
-              <span class="flex items-center gap-1"><i class="w-4 h-4" data-lucide="clock-4"></i>ระยะเวลาเรียน 1
-                ปี</span>
+            <span class="text-xs font-bold uppercase tracking-widest text-mah-orange mb-2">หลักสูตรระดับปริญญาเอก</span>
+            <h4 class="text-xl font-bold text-mah-dark group-hover:text-mah-blue transition-colors">หลักสูตรสาธารณสุขศาสตรดุษฎีบัณฑิต</h4>
+            <h4 class="text-lg font-semibold text-slate-600 mt-1">(หลักสูตรนานาชาติ)</h4>
+            <div class="mt-5 flex items-center gap-4 text-xs text-slate-500 font-medium">
+              <span class="flex items-center gap-1 bg-slate-100 px-3 py-1 rounded-full"><i class="w-4 h-4" data-lucide="clock-4"></i>ระยะเวลาเรียน 1 ปี</span>
+              <span class="flex items-center gap-1 text-mah-blue font-bold"><i class="w-3 h-3" data-lucide="external-link"></i> รายละเอียด</span>
             </div>
           </div>
         </div>
-      </article>
-
+      </a>
     </div>
   </section>
 
-
-
-
-
-  <!-- Partners (inspired by original index) -->
-  <section class="py-12 bg-white">
+  <section class="pt-10 pb-20 bg-white">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="max-w-6xl mx-auto mb-6 text-center">
-        <h3 class="text-xl md:text-2xl font-semibold">ภาคีเครือข่ายและหน่วยงานที่ร่วมขับเคลื่อน</h3>
-        <div class="h-1 w-20 mx-auto mt-3 rounded-full bg-gradient-to-r from-blue-500 to-orange-400"></div>
+      <div class="max-w-6xl mx-auto mb-12 text-center">
+        <h3 class="text-2xl md:text-3xl font-bold tracking-tight text-mah-dark">ภาคีเครือข่ายและหน่วยงานที่ร่วมขับเคลื่อน</h3>
+        <div class="h-1.5 w-24 mx-auto mt-3 rounded-full bg-gradient-to-r from-blue-500 to-mah-orange"></div>
       </div>
-      <div class="flex flex-wrap items-center justify-center gap-6 opacity-90">
-        <a href="http://www.ashthailand.or.th/th/" target="_blank" rel="noopener"
-          class="p-3 rounded hover:bg-slate-50"><img src="./assets/images/logo-ash.png" alt="ASH"
-            class="h-12 object-contain" /></a>
-        <a href="http://www.hed.go.th/" target="_blank" rel="noopener" class="p-3 rounded hover:bg-slate-50"><img
-            src="./assets/images/logo-hed.png" alt="HED" class="h-12 object-contain" /></a>
-        <a href="http://hepa.or.th/" target="_blank" rel="noopener" class="p-3 rounded hover:bg-slate-50"><img
-            src="./assets/images/logo-hepa.png" alt="HEPA" class="h-12 object-contain" /></a>
-        <a href="http://www.trc.or.th/" target="_blank" rel="noopener" class="p-3 rounded hover:bg-slate-50"><img
-            src="./assets/images/logo-trc.png" alt="TRC" class="h-12 object-contain" /></a>
-        <a href="http://www.thaihealth.or.th/" target="_blank" rel="noopener" class="p-3 rounded hover:bg-slate-50"><img
-            src="./assets/images/logo-thaihealth.png" alt="ThaiHealth" class="h-12 object-contain" /></a>
-        <a href="http://www.path2health.or.th/" target="_blank" rel="noopener"
-          class="p-3 rounded hover:bg-slate-50"><img src="./assets/images/logo-path2health.png" alt="Path2Health"
-            class="h-12 object-contain" /></a>
+      
+      <div class="flex flex-wrap items-center justify-center gap-4 md:gap-6 lg:gap-10 opacity-90">
+        <a href="https://www.ashthailand.or.th/" target="_blank" rel="noopener" class="group transition-all">
+            <img src="./assets/images/partner/logo_ash.png" alt="ASH" class="h-24 md:h-32 lg:h-36 w-auto object-contain transition-transform duration-300 group-hover:scale-110" />
+        </a>
+        <a href="https://hed.hss.moph.go.th/" target="_blank" rel="noopener" class="group transition-all">
+            <img src="./assets/images/partner/logo_hed.png" alt="HED" class="h-24 md:h-32 lg:h-36 w-auto object-contain transition-transform duration-300 group-hover:scale-110" />
+        </a>
+        <a href="http://hepa.or.th/" target="_blank" rel="noopener" class="group transition-all">
+            <img src="./assets/images/partner/logo_hepa.png" alt="HEPA" class="h-24 md:h-32 lg:h-36 w-auto object-contain transition-transform duration-300 group-hover:scale-110" />
+        </a>
+        <a href="http://www.trc.or.th/" target="_blank" rel="noopener" class="group transition-all">
+            <img src="./assets/images/partner/logo_trc.png" alt="TRC" class="h-24 md:h-32 lg:h-36 w-auto object-contain transition-transform duration-300 group-hover:scale-110" />
+        </a>
+        <a href="http://www.thaihealth.or.th/" target="_blank" rel="noopener" class="group transition-all">
+            <img src="./assets/images/partner/logo_thaihealth.png" alt="ThaiHealth" class="h-24 md:h-32 lg:h-36 w-auto object-contain transition-transform duration-300 group-hover:scale-110" />
+        </a>
+        <a href="http://www.path2health.or.th/" target="_blank" rel="noopener" class="group transition-all">
+            <img src="./assets/images/partner/logo_path2health.png" alt="Path2Health" class="h-24 md:h-32 lg:h-36 w-auto object-contain transition-transform duration-300 group-hover:scale-110" />
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="border-t bg-white">
-    <div class="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-4 gap-8 text-sm">
-      <div>
-        <div class="font-semibold mb-2">คณะสาธารณสุขศาสตร์</div>
-        <p class="text-slate-600">ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์ มหาวิทยาลัย (ตัวอย่าง)</p>
+  <footer class="bg-mah-blue text-white pt-12 pb-8 border-t border-white/10 mt-auto">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10 text-sm">
+      <div class="md:col-span-1">
+        <div class="h-24 mb-5 p-2 bg-white rounded-lg inline-block">
+          <img src="./assets/images/logo-footer.webp" alt="Faculty Logo" class="h-full object-contain" />
+        </div>
+        <p class="text-blue-100 leading-relaxed font-light">
+          มุ่งมั่นผลิตบัณฑิตและสร้างสรรค์งานวิจัยด้านสุขศึกษาและพฤติกรรมศาสตร์ <br>เพื่อสุขภาวะที่ดีของสังคม
+        </p>
       </div>
       <div>
-        <div class="font-semibold mb-2">ลิงก์ด่วน</div>
-        <ul class="space-y-1 text-slate-600">
-          <li><a class="hover:text-[#1D4699]" href="#">คู่มือนิสิต</a></li>
-          <li><a class="hover:text-[#1D4699]" href="#">หน่วยงานภายใน</a></li>
-          <li><a class="hover:text-[#1D4699]" href="#">ติดต่อ/แผนที่</a></li>
+        <div class="font-bold text-white mb-4 text-base">ลิงก์ที่เกี่ยวข้อง</div>
+        <ul class="space-y-3">
+          <li>
+            <a class="text-blue-100 hover:text-mah-orange hover:no-underline transition-colors block" href="https://www.ph.mahidol.ac.th/" target="_blank">
+                คณะสาธารณสุขศาสตร์
+            </a>
+          </li>
+          <li>
+            <a class="text-blue-100 hover:text-mah-orange hover:no-underline transition-colors block" href="http://www.grad.mahidol.ac.th/" target="_blank">
+                บัณฑิตวิทยาลัย
+            </a>
+          </li>
         </ul>
       </div>
       <div>
-        <div class="font-semibold mb-2">ติดต่อเรา</div>
-        <ul class="space-y-1 text-slate-600">
-          <li>โทร 0-0000-0000</li>
-          <li>อีเมล info@ph.edu</li>
-          <li>เวลาทำการ จ.-ศ. 08:30–16:30 น.</li>
+        <div class="font-bold text-white mb-4 text-base">ติดต่อเรา</div>
+        <ul class="space-y-3 text-blue-100 font-light">
+          <li class="leading-relaxed">ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์<br>คณะสาธารณสุขศาสตร์ มหาวิทยาลัยมหิดล</li>
+          <li>420/1 ถนนราชวิถี เขตราชเทวี<br>กรุงเทพฯ 10400</li>
+          <li class="mt-2">0 2354 8543 ต่อ 3604</li>
         </ul>
       </div>
       <div>
-        <div class="font-semibold mb-2">ติดตามข่าวสาร</div>
-        <p class="text-slate-600">Facebook • YouTube • Line Official</p>
+        <div class="font-bold text-white mb-4 text-base">ติดตามข่าวสาร</div>
+        <a href="https://www.facebook.com/profile.php?id=100057184521181" target="_blank"
+           class="inline-flex items-center gap-3 px-4 py-3 bg-white/10 rounded-xl text-white hover:bg-white hover:text-mah-blue transition-all font-semibold group border border-white/20 hover:no-underline">
+          <i data-lucide="facebook" class="w-5 h-5 transition-transform group-hover:scale-110"></i>
+          <span>Facebook Page</span>
+        </a>
       </div>
     </div>
-    <div class="text-xs text-[#C9DAFF] text-center pb-6">© 2025 Faculty of Public Health — Demo Preview</div>
+    <div class="text-xs text-blue-200/60 text-center mt-12 pt-6 border-t border-white/10">
+      © 2025 Department of Health Education and Behavioral Sciences. All Rights Reserved.
+    </div>
   </footer>
 
-  <!-- Small keyframes for subtle entrance -->
-  <style>
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
+  <div id="news-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+    <div class="bg-white rounded-2xl max-w-3xl w-full p-6 md:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto animate-fade-in-up">
+      <button id="news-modal-close" class="absolute top-4 right-4 z-50 bg-white/80 backdrop-blur p-2 rounded-full hover:bg-slate-100 transition text-slate-500 hover:text-slate-800 shadow-sm">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      
+      <div class="mb-2">
+        <span class="text-xs font-bold text-mah-orange bg-orange-50 px-2 py-1 rounded-md" id="news-modal-tag"></span>
+      </div>
+      
+      <h3 class="text-xl md:text-2xl font-bold text-mah-dark leading-tight mb-2" id="news-modal-title"></h3>
+      
+      <div class="flex items-center gap-2 text-sm text-slate-400 mb-6 pb-4 border-b border-slate-100">
+        <i data-lucide="calendar" class="w-4 h-4"></i>
+        <span id="news-modal-date"></span>
+      </div>
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
-
-  <!-- News modal -->
-  <div id="news-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50">
-    <div class="bg-white rounded-xl max-w-3xl w-full mx-4 p-6 shadow-xl relative max-h-[90vh] overflow-y-auto">
-      <button id="news-modal-close" class="absolute top-3 right-3 text-slate-400 hover:text-slate-600"
-        aria-label="ปิดหน้าต่างข่าว">ปิด</button>
-      <div class="text-xs text-[#1D4699] mb-1" id="news-modal-tag"></div>
-      <h3 class="text-lg font-semibold" id="news-modal-title"></h3>
-      <div class="text-xs text-slate-500 mt-1 mb-3" id="news-modal-date"></div>
-      <div id="news-modal-gallery" class="hidden">
-        <div class="relative">
-          <div class="overflow-hidden rounded-lg bg-slate-100" data-gallery-viewport>
-            <div class="flex transition-transform duration-300 ease-in-out" data-gallery-track></div>
+      <div id="news-modal-gallery" class="hidden mb-6">
+        <div class="relative group">
+          <div class="overflow-hidden rounded-xl bg-slate-50 border border-slate-100" data-gallery-viewport>
+            <div class="flex transition-transform duration-500 ease-out" data-gallery-track></div>
           </div>
-          <button type="button" class="modal-gallery-nav" data-gallery-dir="prev" aria-label="ดูภาพก่อนหน้า">
-            <i data-lucide="arrow-left" class="w-5 h-5"></i>
-          </button>
-          <button type="button" class="modal-gallery-nav" data-gallery-dir="next" aria-label="ดูภาพถัดไป">
-            <i data-lucide="arrow-right" class="w-5 h-5"></i>
-          </button>
+          <button type="button" class="modal-gallery-nav opacity-0 group-hover:opacity-100 transition-opacity" data-gallery-dir="prev" aria-label="ดูภาพก่อนหน้า"><i data-lucide="arrow-left" class="w-5 h-5"></i></button>
+          <button type="button" class="modal-gallery-nav opacity-0 group-hover:opacity-100 transition-opacity" data-gallery-dir="next" aria-label="ดูภาพถัดไป"><i data-lucide="arrow-right" class="w-5 h-5"></i></button>
         </div>
       </div>
-      <div class="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap" id="news-modal-body"></div>
-      <div class="flex flex-wrap gap-2 mt-4 hidden" id="news-modal-links"></div>
+
+      <div class="text-base text-slate-600 leading-relaxed whitespace-pre-wrap font-light" id="news-modal-body"></div>
+      
+      <div class="flex flex-wrap gap-3 mt-8 pt-6 border-t border-slate-100 hidden" id="news-modal-links"></div>
     </div>
   </div>
 
-  <!-- Activate Lucide icons + news popup + news feed -->
   <script>
     window.addEventListener('DOMContentLoaded', () => {
-      if (window.lucide && typeof window.lucide.createIcons === 'function') {
-        window.lucide.createIcons();
-      }
+      if (window.lucide && typeof window.lucide.createIcons === 'function') window.lucide.createIcons();
 
+      // Mobile Nav
       const mobileToggle = document.getElementById('mobile-nav-toggle');
       const mobilePanel = document.getElementById('mobile-nav-panel');
       const mobileIconOpen = document.getElementById('mobile-icon-open');
       const mobileIconClose = document.getElementById('mobile-icon-close');
+      function closeMobileNav() { if(mobilePanel) { mobilePanel.classList.add('hidden'); mobileIconOpen.classList.remove('hidden'); mobileIconClose.classList.add('hidden'); } }
+      if(mobileToggle) mobileToggle.addEventListener('click', () => { const isOpen = !mobilePanel.classList.contains('hidden'); mobilePanel.classList.toggle('hidden'); mobileIconOpen.classList.toggle('hidden', !isOpen); mobileIconClose.classList.toggle('hidden', isOpen); });
 
-      function closeMobileNav() {
-        if (!mobilePanel) return;
-        mobilePanel.classList.add('hidden');
-        mobileIconOpen && mobileIconOpen.classList.remove('hidden');
-        mobileIconClose && mobileIconClose.classList.add('hidden');
-      }
-
-      if (mobileToggle && mobilePanel) {
-        mobileToggle.addEventListener('click', () => {
-          const willOpen = mobilePanel.classList.contains('hidden');
-          mobilePanel.classList.toggle('hidden');
-          if (willOpen) {
-            mobileIconOpen && mobileIconOpen.classList.add('hidden');
-            mobileIconClose && mobileIconClose.classList.remove('hidden');
-          } else {
-            mobileIconOpen && mobileIconOpen.classList.remove('hidden');
-            mobileIconClose && mobileIconClose.classList.add('hidden');
-          }
-        });
-
-        mobilePanel.querySelectorAll('a').forEach((link) => {
-          link.addEventListener('click', closeMobileNav);
-        });
-      }
-
-      document.querySelectorAll('[data-slider]').forEach((slider) => {
-        const track = slider.querySelector('[data-slider-track]');
-        const slides = Array.from(track.children);
-        if (!track || slides.length === 0) return;
-
-        let index = 0;
-        const update = () => {
-          track.style.transform = `translateX(-${index * 100}%)`;
-        };
-
-        slider.querySelectorAll('button[data-dir]').forEach((btn) => {
-          btn.addEventListener('click', () => {
-            index = btn.dataset.dir === 'next'
-              ? (index + 1) % slides.length
-              : (index - 1 + slides.length) % slides.length;
-            update();
-          });
-        });
-      });
-
+      // Modal Logic
       const modal = document.getElementById('news-modal');
+      const closeBtn = document.getElementById('news-modal-close');
       const modalTitle = document.getElementById('news-modal-title');
       const modalDate = document.getElementById('news-modal-date');
       const modalTag = document.getElementById('news-modal-tag');
       const modalBody = document.getElementById('news-modal-body');
       const modalGallery = document.getElementById('news-modal-gallery');
       const modalLinks = document.getElementById('news-modal-links');
-      const closeBtn = document.getElementById('news-modal-close');
-      const galleryViewport = document.querySelector('#news-modal-gallery [data-gallery-viewport]');
       const galleryTrack = document.querySelector('#news-modal-gallery [data-gallery-track]');
       const galleryButtons = document.querySelectorAll('#news-modal-gallery button[data-gallery-dir]');
-      let galleryIndex = 0;
-      let galleryTotal = 0;
+      let galleryIndex = 0, galleryTotal = 0;
 
-      function normalizeLinks(list = []) {
-        if (!Array.isArray(list)) return [];
-        return list
-          .map((item, idx) => {
-            if (!item) return null;
-            if (typeof item === 'string') {
-              return { label: `ลิงก์เพิ่มเติม ${idx + 1}`, url: item };
-            }
-            if (item.url) {
-              return { label: item.label || `ลิงก์เพิ่มเติม ${idx + 1}`, url: item.url };
-            }
-            return null;
-          })
-          .filter(Boolean);
-      }
+      function closeModal() { modal.classList.add('hidden'); modal.classList.remove('flex'); }
+      if(closeBtn) closeBtn.addEventListener('click', closeModal);
+      if(modal) modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
 
-      function updateGalleryPosition() {
-        if (!galleryTrack) return;
-        galleryTrack.style.transform = `translateX(-${galleryIndex * 100}%)`;
-        galleryButtons.forEach((btn) => {
-          if (galleryTotal <= 1) {
-            btn.classList.add('hidden');
-          } else {
-            btn.classList.remove('hidden');
-          }
-        });
-      }
-
-      function renderGallery(images = []) {
-        if (!modalGallery || !galleryTrack || !galleryViewport) return;
-        const list = Array.isArray(images) ? images.filter(Boolean) : [];
-        if (!list.length) {
-          modalGallery.classList.add('hidden');
-          galleryTrack.innerHTML = '';
-          galleryTotal = 0;
-          return;
-        }
+      function renderGallery(images) {
+        if(!modalGallery) return; const list = Array.isArray(images) ? images.filter(Boolean) : [];
+        if(!list.length) { modalGallery.classList.add('hidden'); return; }
         modalGallery.classList.remove('hidden');
-        galleryTrack.innerHTML = list
-          .map(
-            (src) => `
-            <div class="min-w-full flex justify-center">
-              <img src="${src}" alt="news image" class="w-full object-contain bg-slate-100 max-h-[60vh] rounded-lg"/>
-            </div>
-          `,
-          )
-          .join('');
-        galleryTotal = list.length;
-        galleryIndex = 0;
-        updateGalleryPosition();
+        galleryTrack.innerHTML = list.map(src => `<div class="min-w-full flex justify-center items-center bg-slate-50"><img src="${src}" class="max-w-full max-h-[60vh] object-contain"/></div>`).join('');
+        galleryTotal = list.length; galleryIndex = 0; updateGallery();
       }
+      function updateGallery() { if(galleryTrack) { galleryTrack.style.transform = `translateX(-${galleryIndex*100}%)`; galleryButtons.forEach(btn => btn.style.display = galleryTotal > 1 ? 'flex' : 'none'); } }
+      galleryButtons.forEach(btn => btn.addEventListener('click', () => { galleryIndex = (galleryIndex + (btn.dataset.galleryDir === 'next' ? 1 : -1) + galleryTotal) % galleryTotal; updateGallery(); }));
 
-      galleryButtons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          if (!galleryTotal) return;
-          const dir = btn.dataset.galleryDir === 'next' ? 1 : -1;
-          galleryIndex = (galleryIndex + dir + galleryTotal) % galleryTotal;
-          updateGalleryPosition();
-        });
-      });
-
-      function renderLinks(links = []) {
-        if (!modalLinks) return;
-        modalLinks.innerHTML = '';
-        const items = normalizeLinks(links);
-        if (!items.length) {
-          modalLinks.classList.add('hidden');
-          return;
-        }
+      function renderLinks(links) {
+        if(!modalLinks) return; modalLinks.innerHTML = ''; 
+        const list = (Array.isArray(links) ? links : []).filter(Boolean);
+        if(!list.length) { modalLinks.classList.add('hidden'); return; }
         modalLinks.classList.remove('hidden');
-        items.forEach((item) => {
-          const btn = document.createElement('a');
-          btn.href = item.url;
-          btn.target = '_blank';
-          btn.rel = 'noopener noreferrer';
-          btn.className = 'inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#1D4699] text-white text-sm font-semibold hover:bg-[#10254F] transition';
-          btn.innerHTML = `<span>${item.label}</span><i data-lucide="external-link" class="w-4 h-4"></i>`;
-          modalLinks.appendChild(btn);
+        list.forEach((item, idx) => {
+          const url = item.url || item; const label = item.label || `ลิงก์ ${idx+1}`;
+          const a = document.createElement('a'); a.href = url; a.target = '_blank';
+          a.className = 'inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-mah-blue text-white text-sm font-semibold hover:bg-mah-dark transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5';
+          a.innerHTML = `<span>${label}</span><i data-lucide="external-link" class="w-4 h-4"></i>`;
+          modalLinks.appendChild(a);
         });
-        if (window.lucide && typeof window.lucide.createIcons === 'function') {
-          window.lucide.createIcons({ root: modalLinks });
-        }
+        if(window.lucide) window.lucide.createIcons({root: modalLinks});
       }
 
-      function openModal({ title, date, tag, body, images = [], links = [] }) {
-        modalTitle.textContent = title || '';
-        modalDate.textContent = date || '';
-        modalTag.textContent = tag || '';
-        modalBody.textContent = body || '';
-        renderGallery(images);
-        renderLinks(links);
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
+      function openModal(data) {
+        modalTitle.textContent = data.title; modalDate.textContent = data.date; modalTag.textContent = data.tag; modalBody.textContent = data.body;
+        renderGallery(data.images); renderLinks(data.links);
+        modal.classList.remove('hidden'); modal.classList.add('flex');
       }
 
-      function closeModal() {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-      }
+      const parseList = (val) => { try { return JSON.parse(decodeURIComponent(val)); } catch { return []; } };
+      function wireNewsCards() { document.querySelectorAll('#home-news-list article').forEach(card => card.addEventListener('click', () => openModal({ title: card.dataset.title, date: card.dataset.date, tag: card.dataset.tag, body: card.dataset.body, images: parseList(card.dataset.images), links: parseList(card.dataset.links) }))); }
 
-      if (closeBtn) closeBtn.addEventListener('click', closeModal);
-      if (modal) {
-        modal.addEventListener('click', (e) => {
-          if (e.target === modal) closeModal();
-        });
-      }
+      // 🟢 CAROUSEL LOGIC (FIXED TIMING)
+      function initNewsCarousel(newsItems) {
+          const container = document.getElementById('news-featured-container');
+          const track = document.getElementById('news-slides-track');
+          const dotsContainer = document.getElementById('news-dots');
+          const prevBtn = document.getElementById('slide-prev');
+          const nextBtn = document.getElementById('slide-next');
+          
+          if (!newsItems || newsItems.length === 0) return;
+          
+          container.style.display = 'block';
+          container.querySelector('.animate-spin').parentElement.style.display = 'none';
 
-      const parseDatasetList = (value) => {
-        if (!value) return [];
-        try {
-          return JSON.parse(decodeURIComponent(value));
-        } catch (error) {
-          console.warn('เกิดข้อผิดพลาดระหว่างแปลงข้อมูลลิงก์', error);
-          return [];
-        }
-      };
+          const slides = newsItems.slice(0, 5);
+          let currentSlide = 0;
+          let autoPlayInterval = null; 
 
-      function wireNewsCards() {
-        document.querySelectorAll('#home-news-list article').forEach((card) => {
-          card.addEventListener('click', () => {
-            openModal({
-              title: card.dataset.title,
-              date: card.dataset.date,
-              tag: card.dataset.tag,
-              body: card.dataset.body,
-              images: parseDatasetList(card.dataset.images),
-              links: parseDatasetList(card.dataset.links),
-            });
+          // Render Slides
+          track.innerHTML = slides.map((item, index) => {
+              const imgUrl = (item.images && item.images.length) ? item.images[0] : (item.image || 'https://placehold.co/800x400/1D4699/FFFFFF?text=News');
+              return `
+                  <div class="news-slide w-full h-full ${index === 0 ? 'active' : ''}" data-index="${index}" style="cursor: pointer;">
+                      <img src="${imgUrl}" class="w-full h-full object-cover transition-transform duration-[2000ms] hover:scale-105">
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                      <div class="absolute bottom-0 left-0 p-6 md:p-10 text-white max-w-3xl">
+                          <span class="bg-mah-orange text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block shadow-sm">${item.tag || 'ข่าวประชาสัมพันธ์'}</span>
+                          <h2 class="text-2xl md:text-4xl font-bold leading-tight drop-shadow-md mb-2 line-clamp-2">${item.title}</h2>
+                          <div class="flex items-center gap-2 text-sm text-slate-200">
+                              <i data-lucide="calendar" class="w-4 h-4"></i> ${item.date || '-'}
+                          </div>
+                      </div>
+                  </div>
+              `;
+          }).join('');
+
+          track.querySelectorAll('.news-slide').forEach((slide, index) => {
+              slide.addEventListener('click', () => openModal(slides[index]));
           });
-        });
+
+          dotsContainer.innerHTML = slides.map((_, index) => 
+              `<button class="slide-indicator w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all ${index === 0 ? 'active' : ''}" data-index="${index}"></button>`
+          ).join('');
+
+          const updateCarousel = () => {
+              track.querySelectorAll('.news-slide').forEach((el, i) => el.classList.toggle('active', i === currentSlide));
+              dotsContainer.querySelectorAll('button').forEach((el, i) => el.className = `slide-indicator h-2 rounded-full transition-all ${i === currentSlide ? 'bg-mah-orange w-8' : 'bg-white/50 w-2 hover:bg-white'}`);
+          };
+
+          const nextSlide = () => { currentSlide = (currentSlide + 1) % slides.length; updateCarousel(); };
+          const prevSlide = () => { currentSlide = (currentSlide - 1 + slides.length) % slides.length; updateCarousel(); };
+
+          // 🔥 FIXED TIMER LOGIC
+          const stopTimer = () => {
+              if (autoPlayInterval) {
+                  clearInterval(autoPlayInterval);
+                  autoPlayInterval = null;
+              }
+          };
+
+          const startTimer = () => {
+              stopTimer(); 
+              autoPlayInterval = setInterval(nextSlide, 6000); 
+          };
+
+          const resetTimer = () => {
+              stopTimer();
+              startTimer();
+          };
+
+          // Listeners
+          nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextSlide(); resetTimer(); });
+          prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prevSlide(); resetTimer(); });
+          
+          dotsContainer.querySelectorAll('button').forEach(btn => {
+              btn.addEventListener('click', (e) => {
+                  e.stopPropagation();
+                  currentSlide = parseInt(e.target.dataset.index);
+                  updateCarousel();
+                  resetTimer();
+              });
+          });
+
+          const carouselContainer = document.getElementById('news-carousel');
+          carouselContainer.addEventListener('mouseenter', stopTimer);
+          carouselContainer.addEventListener('mouseleave', startTimer);
+
+          startTimer(); 
+          if (window.lucide) lucide.createIcons();
       }
 
+      // 🟢 RENDER NEWS
       function renderNews(items) {
         const container = document.getElementById('home-news-list');
         if (!container) return;
-        if (!items.length) {
-          container.innerHTML = '<p class="text-sm text-slate-500">ไม่พบข้อมูลข่าว/กิจกรรม กรุณาตรวจสอบไฟล์ news.json</p>';
-          return;
-        }
-
+        if (!items.length) { container.innerHTML = '<p class="text-sm text-slate-500">ไม่พบข้อมูล</p>'; return; }
+        
         const top3 = items.slice(0, 3);
         const safe = (s) => (s || '').replace(/"/g, '&quot;');
-        const encodeList = (value) => encodeURIComponent(JSON.stringify(value || []));
-        container.innerHTML = top3
-          .map((n) => {
-            const images = Array.isArray(n.images) && n.images.length
-              ? n.images.filter(Boolean)
-              : n.image
-                ? [n.image]
-                : [];
-            const primaryImage = images[0] || './assets/images/img/error_load_picture.jpg';
-            const links = Array.isArray(n.links)
-              ? n.links
-              : n.link
-                ? [{ label: n.linkLabel || 'ลิงก์เพิ่มเติม', url: n.link }]
-                : [];
-            return `
-            <article class="rounded-xl overflow-hidden shadow hover:shadow-xl transition-shadow bg-white cursor-pointer"
-              data-title="${safe(n.title || 'ยังไม่ระบุหัวข้อ')}"
-              data-date="${safe(n.date || '-')}"
-              data-tag="${safe(n.tag || 'ไม่ระบุหมวดหมู่')}"
-              data-body="${safe(n.body || n.summary || 'ไม่มีรายละเอียดเพิ่มเติม')}"
-              data-images="${encodeList(images)}"
-              data-links="${encodeList(links)}">
-              <img src="${primaryImage}" alt="news" class="h-44 w-full object-cover"/>
-              <div class="p-5">
-                <div class="flex items-center gap-2 text-xs text-[#C9DAFF]">
-                  <span class="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5">${n.tag || 'ไม่ระบุหมวดหมู่'}</span>
-                  <span class="flex items-center gap-1"><i data-lucide="calendar-days" class="w-3.5 h-3.5"></i>${n.date || '-'}</span>
+        const enc = (v) => encodeURIComponent(JSON.stringify(v || []));
+
+        container.innerHTML = top3.map((n, idx) => {
+          const imgs = Array.isArray(n.images) && n.images.length ? n.images : n.image ? [n.image] : [];
+          const links = Array.isArray(n.links) ? n.links : n.link ? [{url: n.link}] : [];
+          const fallbackImage = 'https://placehold.co/600x400/f1f5f9/94a3b8?text=News'; 
+          const coverImage = imgs[0] || fallbackImage;
+
+          return `
+            <article class="group rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:shadow-blue-900/10 transition-all duration-300 bg-white cursor-pointer border border-slate-100 flex flex-col h-full hover:-translate-y-1"
+              data-title="${safe(n.title)}" data-date="${safe(n.date)}" data-tag="${safe(n.tag)}" data-body="${safe(n.body||n.summary)}"
+              data-images="${enc(imgs)}" data-links="${enc(links)}">
+              <div class="h-48 w-full relative overflow-hidden bg-slate-50">
+                 <img src="${coverImage}" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" onerror="this.src='${fallbackImage}'"/>
+                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
+                 <span class="absolute top-3 left-3 bg-white/95 backdrop-blur text-mah-orange text-[10px] font-bold px-3 py-1 rounded-full shadow-sm tracking-wide uppercase">
+                    ${n.tag||'ข่าว'}
+                 </span>
+              </div>
+              <div class="p-6 flex flex-col flex-grow">
+                <div class="flex items-center gap-2 text-xs text-slate-400 mb-3 font-medium">
+                  <i data-lucide="calendar" class="w-3.5 h-3.5 text-mah-orange"></i>
+                  <span>${n.date||'-'}</span>
                 </div>
-                <h3 class="mt-2 font-semibold leading-snug">${n.title || 'ยังไม่ระบุหัวข้อ'}</h3>
-                <div class="mt-3 flex items-center justify-between">
-                  <span class="text-xs text-[#C9DAFF]">${n.by ? `โดย ${n.by}` : ''}</span>
-                  <span class="text-sm inline-flex items-center gap-1 text-[#1D4699] hover:text-[#10254F]">
-                    อ่านรายละเอียด <i data-lucide="external-link" class="w-4 h-4"></i>
-                  </span>
+                <h3 class="font-bold text-lg leading-snug text-mah-dark line-clamp-2 group-hover:text-mah-blue transition-colors mb-3">${n.title||''}</h3>
+                <p class="text-sm text-slate-500 leading-relaxed line-clamp-2 flex-grow font-light">${n.summary || n.body || ''}</p>
+                <div class="mt-5 pt-4 border-t border-slate-50 flex justify-end items-center">
+                  <span class="text-mah-blue text-xs font-bold flex items-center gap-1 group-hover:gap-2 transition-all">อ่านต่อ <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
                 </div>
               </div>
             </article>
           `;
-          })
-          .join('');
+        }).join('');
 
-        if (window.lucide && typeof window.lucide.createIcons === 'function') {
-          window.lucide.createIcons();
-        }
+        if(window.lucide) window.lucide.createIcons();
         wireNewsCards();
       }
-      fetch('./news.json')
-        .then((res) => res.json())
-        .then((data) => (Array.isArray(data) ? renderNews(data) : renderNews([])))
-        .catch(() => renderNews([]));
+
+      fetch('./news.json').then(r=>r.json()).then(d => {
+          const data = Array.isArray(d) ? d : [];
+          initNewsCarousel(data);
+          renderNews(data);
+      }).catch(() => renderNews([]));
     });
   </script>
 </body>
-
 </html>

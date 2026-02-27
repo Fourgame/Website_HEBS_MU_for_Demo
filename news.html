@@ -1,545 +1,492 @@
 <!DOCTYPE html>
-
 <html lang="th">
-<head> <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>ข่าว/ประกาศ | คณะสาธารณสุขศาสตร์</title>
-<meta content="ข่าวสารและประกาศจากคณะสาธารณสุขศาสตร์" name="description"/>
-<link href="./assets/favicon.png" rel="icon"/>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: [
-              "Inter",
-              "Noto Sans Thai",
-              "ui-sans-serif",
-              "system-ui",
-              "-apple-system",
-              "Segoe UI",
-              "Roboto",
-              "Helvetica",
-              "Arial",
-              "sans-serif"
-            ]
-          }
-        }
-      }
-    };
-  </script>
-<script src="https://unpkg.com/lucide@latest"></script>
-<style>
-    .primary-nav {
-      gap: 2rem;
-    }
-    .primary-nav .nav-item {
-      position: relative;
-    }
-    .primary-nav a {
-      position: relative;
-      padding-bottom: 2px;
-      color: rgba(255, 255, 255, 0.85);
-      transition: color 0.2s ease;
-      font-weight: 600;
-    }
-    .primary-nav a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -6px;
-      height: 2px;
-      background: #f97316;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.2s ease;
-    }
-    .primary-nav a:hover {
-      color: #fff;
-    }
-    .primary-nav a:hover::after,
-    .primary-nav a.active::after {
-      transform: scaleX(1);
-    }
-    .primary-nav a.active {
-      color: #fff;
-    }
-    .nav-dropdown {
-      position: absolute;
-      top: calc(100% + 0.5rem);
-      left: 0;
-      min-width: 11rem;
-      background: #fff;
-      color: #0f172a;
-      border-radius: 0.9rem;
-      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15);
-      padding: 0.5rem 0;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-8px);
-      transition: opacity 0.18s ease, transform 0.18s ease;
-      z-index: 50;
-    }
-    .primary-nav .nav-item:hover .nav-dropdown {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-    .nav-dropdown a {
-      display: flex;
-      align-items: center;
-      padding: 0.45rem 1rem;
-      color: #0f172a;
-      gap: 0.4rem;
-      opacity: 0.85;
-    }
-    .nav-dropdown a:hover {
-      background: rgba(15, 23, 42, 0.04);
-      opacity: 1;
-    }
+<head> 
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>ข่าว/ประกาศ | คณะสาธารณสุขศาสตร์</title>
+    <meta content="ข่าวสารและประกาศจากคณะสาธารณสุขศาสตร์" name="description"/>
+    <link href="./assets/favicon.png" rel="icon"/>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              fontFamily: {
+                sans: ["Inter", "Noto Sans Thai", "sans-serif"],
+              },
+              colors: {
+                // New Theme Colors
+                'mah-blue': '#1D4699',
+                'mah-dark': '#10254F',
+                'mah-orange': '#E89266',
+                'mah-orange-hover': '#d67848',
+                
+                // Legacy Mappings (เผื่อโค้ดเก่าเรียกใช้)
+                'ph': {
+                    blue: '#1D4699',
+                    dark: '#10254F',
+                    orange: '#E89266',
+                    light: '#F8FAFC'
+                }
+              },
+              keyframes: {
+                fadeInUp: {
+                  '0%': { opacity: '0', transform: 'translateY(20px)' },
+                  '100%': { opacity: '1', transform: 'translateY(0)' },
+                },
+                bounceSlow: {
+                  '0%, 100%': { transform: 'translateY(-25%)', animationTimingFunction: 'cubic-bezier(0.8,0,1,1)' },
+                  '50%': { transform: 'translateY(0)', animationTimingFunction: 'cubic-bezier(0,0,0.2,1)' },
+                }
+              },
+              animation: {
+                'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                'bounce-slow': 'bounceSlow 2s infinite',
+              }
+            },
+          },
+        };
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body { font-family: 'Inter', 'Noto Sans Thai', sans-serif; }
+        
+        /* --- General Styles --- */
+        .primary-nav { gap: 2rem; }
+        .primary-nav .nav-item { position: relative; }
+        .primary-nav a { position: relative; padding-bottom: 2px; color: rgba(255, 255, 255, 0.85); transition: color 0.2s ease; font-weight: 500; }
+        
+        .primary-nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 3px; background: #E89266; transform: scaleX(0); transform-origin: left; transition: transform 0.2s ease; border-radius: 2px; }
+        .primary-nav a:hover { color: #E89266; }
+        .primary-nav a:hover::after, .primary-nav a.active::after { transform: scaleX(1); }
+        .primary-nav a.active { color: #fff; font-weight: 600; }
+        
+        .nav-dropdown { position: absolute; top: 100%; margin-top: 0.5rem; left: 0; min-width: 11rem; background: #fff; color: #0f172a; border-radius: 1rem; box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15); padding: 0.5rem 0; opacity: 0; pointer-events: none; transform: translateY(-8px); transition: opacity 0.18s ease, transform 0.18s ease; z-index: 50; }
+        .nav-dropdown::before { content: ""; position: absolute; top: -1rem; left: 0; width: 100%; height: 1rem; background: transparent; }
+        .primary-nav .nav-item:hover .nav-dropdown { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .nav-dropdown a { display: flex; align-items: center; padding: 0.6rem 1.2rem; color: #334155; gap: 0.5rem; opacity: 1; font-weight: 400; transition: all 0.2s; }
+        .nav-dropdown a:hover { background: #f8fafc; color: #1D4699; }
 
-    .modal-gallery-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 999px;
-      width: 2.5rem;
-      height: 2.5rem;
-      border: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #1d4699;
-      box-shadow: 0 10px 25px rgba(16, 37, 79, 0.2);
-      opacity: 0.9;
-    }
-
-    .modal-gallery-nav:hover {
-      background: #fff;
-      opacity: 1;
-    }
-
-    .modal-gallery-nav[data-gallery-dir="prev"] {
-      left: 0.5rem;
-    }
-
-    .modal-gallery-nav[data-gallery-dir="next"] {
-      right: 0.5rem;
-    }
-  </style>
+        .modal-gallery-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.95); border-radius: 999px; width: 2.5rem; height: 2.5rem; border: none; display: inline-flex; align-items: center; justify-content: center; color: #1d4699; box-shadow: 0 10px 25px rgba(16, 37, 79, 0.2); opacity: 0.9; cursor: pointer; transition: all 0.2s; }
+        .modal-gallery-nav:hover { background: #fff; opacity: 1; transform: translateY(-50%) scale(1.1); }
+        .modal-gallery-nav[data-gallery-dir="prev"] { left: 0.5rem; }
+        .modal-gallery-nav[data-gallery-dir="next"] { right: 0.5rem; }
+    </style>
 </head>
-<body class="min-h-screen bg-white text-slate-900"> <!-- Navigation -->
+<body class="min-h-screen bg-slate-50 text-slate-600 flex flex-col"> 
+
 <header class="sticky top-0 z-50">
-<div class="bg-[#1D4699] text-white shadow">
-<div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="h-11 w-11 rounded-2xl bg-gradient-to-br from-orange-400 via-pink-500 to-purple-500 grid place-items-center text-lg font-semibold">
-            ส
-          </div>
-<div class="leading-tight">
-<div class="font-semibold text-lg">คณะสาธารณสุขศาสตร์</div>
-<div class="text-xs text-[#C9DAFF]">ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์</div>
-</div>
-</div>
-<button class="md:hidden inline-flex items-center justify-center rounded-xl border border-white/30 text-white h-10 w-12 transition hover:bg-white/10 focus:outline-none" id="mobile-nav-toggle">
-<i class="w-5 h-5" data-lucide="menu" id="mobile-icon-open"></i>
-<i class="w-5 h-5 hidden" data-lucide="x" id="mobile-icon-close"></i>
-</button>
-<nav class="hidden md:flex items-center text-sm tracking-wide primary-nav">
-<div class="nav-item">
-<a href="index.html">หน้าแรก</a>
-</div>
-<div class="nav-item">
-<a href="program.html">หลักสูตร</a>
-</div>
-<div class="nav-item">
-<a class="active" href="news.html">ข่าว/ประกาศ</a>
-</div>
-<div class="nav-item">
-<a href="staff.html">บุคลากร</a>
-</div>
-<div class="nav-item">
-<a href="student.html">นักศึกษา</a>
-<div class="nav-dropdown">
-<a href="student.html#current"><i class="w-4 h-4" data-lucide="user-round"></i>ศิษย์ปัจจุบัน</a>
-<a href="student.html#alumni"><i class="w-4 h-4" data-lucide="user-check"></i>ศิษย์เก่า</a>
-</div>
-</div>
-<div class="nav-item">
-<a href="about.html">เกี่ยวกับเรา</a>
-<div class="nav-dropdown">
-<a href="about.html#history"><i class="w-4 h-4" data-lucide="book-open"></i>ประวัติ</a>
-<a href="about.html#vision"><i class="w-4 h-4" data-lucide="eye"></i>วิสัยทัศน์</a>
-<a href="about.html#leadership"><i class="w-4 h-4" data-lucide="award"></i>ทำเนียบหัวหน้าภาควิชา</a>
-<a href="contact.html"><i class="w-4 h-4" data-lucide="phone"></i>ติดต่อเรา</a>
-</div>
-</div>
-<div class="nav-item">
-<a href="Services.html">บริการวิชาการ</a>
-<div class="nav-dropdown">
-<a href="Services.html#training"><i class="w-4 h-4" data-lucide="presentation"></i>ฝึกอบรม</a>
-<a href="Services.html#journal"><i class="w-4 h-4" data-lucide="newspaper"></i>วารสารสุขศึกษา</a>
-<a href="Services.html#consult"><i class="w-4 h-4" data-lucide="handshake"></i>ให้คำปรึกษา</a>
-</div>
-</div>
-<div class="nav-item">
-<a href="contact.html">ติดต่อ</a>
-</div>
-</nav>
-</div>
-</div>
-<div class="md:hidden bg-white text-[#1D4699] border-t border-white/10 shadow-lg hidden" id="mobile-nav-panel">
-<div class="px-6 py-4 space-y-4 text-sm font-semibold">
-<div class="space-y-1">
-<a class="flex items-center gap-2 py-1" href="index.html">หน้าแรก</a>
-<a class="flex items-center gap-2 py-1" href="program.html">หลักสูตร</a>
-<a class="flex items-center gap-2 py-1" href="news.html">ข่าว/ประกาศ</a>
-<a class="flex items-center gap-2 py-1" href="staff.html">บุคลากร</a>
-<a class="flex items-center gap-2 py-1" href="contact.html">ติดต่อ</a>
-</div>
-<div>
-<p class="text-xs uppercase tracking-widest text-slate-400">นักศึกษา</p>
-<div class="mt-1 space-y-1 pl-3 text-[0.9rem] font-normal text-slate-600">
-<a class="block py-1" href="student.html#current">ศิษย์ปัจจุบัน</a>
-<a class="block py-1" href="student.html#alumni">ศิษย์เก่า</a>
-</div>
-</div>
-<div>
-<p class="text-xs uppercase tracking-widest text-slate-400">เกี่ยวกับเรา</p>
-<div class="mt-1 space-y-1 pl-3 text-[0.9rem] font-normal text-slate-600">
-<a class="block py-1" href="about.html#history">ประวัติ</a>
-<a class="block py-1" href="about.html#vision">วิสัยทัศน์</a>
-<a class="block py-1" href="about.html#leadership">ทำเนียบหัวหน้าภาควิชา</a>
-<a class="block py-1" href="contact.html">ติดต่อเรา</a>
-</div>
-</div>
-<div>
-<p class="text-xs uppercase tracking-widest text-slate-400">บริการวิชาการ</p>
-<div class="mt-1 space-y-1 pl-3 text-[0.9rem] font-normal text-slate-600">
-<a class="block py-1" href="Services.html#training">ฝึกอบรม</a>
-<a class="block py-1" href="Services.html#journal">วารสารสุขศึกษา</a>
-<a class="block py-1" href="Services.html#consult">ให้คำปรึกษา</a>
-</div>
-</div>
-</div>
-</div>
-</header>
-<!-- Navigation -->
-<header class="relative overflow-hidden">
-<div class="absolute inset-0 -z-10 bg-gradient-to-br from-blue-600 via-indigo-500 to-sky-500 opacity-10"></div>
-<div class="max-w-7xl mx-auto px-6 py-12 md:py-16">
-<h1 class="text-2xl md:text-4xl font-extrabold">ข่าว / ประกาศ</h1>
-<p class="mt-2 text-slate-600">อัปเดตล่าสุดจากคณะ</p>
-</div>
-</header>
-<main class="max-w-7xl mx-auto px-6 py-10">
-<div class="grid md:grid-cols-3 gap-6" id="news-list-page"></div>
-</main>
-<!-- Footer -->
-<!-- Footer -->
-<footer class="border-t bg-white">
-<div class="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-4 gap-8 text-sm">
-<div>
-<div class="font-semibold mb-2">คณะสาธารณสุขศาสตร์</div>
-<p class="text-slate-600">ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์ มหาวิทยาลัย (ตัวอย่าง)</p>
-</div>
-<div>
-<div class="font-semibold mb-2">ลิงก์ด่วน</div>
-<ul class="space-y-1 text-slate-600">
-<li><a class="hover:text-[#1D4699]" href="#">คู่มือนิสิต</a></li>
-<li><a class="hover:text-[#1D4699]" href="#">หน่วยงานภายใน</a></li>
-<li><a class="hover:text-[#1D4699]" href="#">ติดต่อ/แผนที่</a></li>
-</ul>
-</div>
-<div>
-<div class="font-semibold mb-2">ติดต่อเรา</div>
-<ul class="space-y-1 text-slate-600">
-<li>โทร 0-0000-0000</li>
-<li>อีเมล info@ph.edu</li>
-<li>เวลาทำการ จ.-ศ. 08:30–16:30 น.</li>
-</ul>
-</div>
-<div>
-<div class="font-semibold mb-2">ติดตามข่าวสาร</div>
-<p class="text-slate-600">Facebook • YouTube • Line Official</p>
-</div>
-</div>
-<div class="text-xs text-[#C9DAFF] text-center pb-6">© 2025 Faculty of Public Health — Demo Preview</div>
-</footer>
-<!-- modal -->
-<div class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50" id="news-modal">
-<div class="bg-white rounded-xl max-w-3xl w-full mx-4 p-6 shadow-xl relative max-h-[90vh] overflow-y-auto">
-<button aria-label="ปิด" class="absolute top-3 right-3 text-slate-400 hover:text-slate-600" id="news-modal-close">✕</button>
-<div class="text-xs text-blue-500 mb-1" id="news-modal-tag"></div>
-<h3 class="text-lg font-semibold" id="news-modal-title"></h3>
-<div class="text-xs text-slate-500 mt-1 mb-3" id="news-modal-date"></div>
-<div class="hidden" id="news-modal-gallery">
-  <div class="relative">
-    <div class="overflow-hidden rounded-lg bg-slate-100" data-gallery-viewport>
-      <div class="flex transition-transform duration-300 ease-in-out" data-gallery-track></div>
-    </div>
-    <button type="button" class="modal-gallery-nav" data-gallery-dir="prev" aria-label="ภาพก่อนหน้า">
-      <i data-lucide="arrow-left" class="w-5 h-5"></i>
-    </button>
-    <button type="button" class="modal-gallery-nav" data-gallery-dir="next" aria-label="ภาพถัดไป">
-      <i data-lucide="arrow-right" class="w-5 h-5"></i>
-    </button>
-  </div>
-</div>
-<div class="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap" id="news-modal-body"></div>
-<div class="flex flex-wrap gap-2 mt-4 hidden" id="news-modal-links"></div>
-</div>
-</div>
-<script>
-    window.addEventListener('DOMContentLoaded', () => {
-      const modal = document.getElementById('news-modal');
-      const modalTitle = document.getElementById('news-modal-title');
-      const modalDate = document.getElementById('news-modal-date');
-      const modalTag = document.getElementById('news-modal-tag');
-      const modalBody = document.getElementById('news-modal-body');
-      const modalGallery = document.getElementById('news-modal-gallery');
-      const modalLinks = document.getElementById('news-modal-links');
-      const closeBtn = document.getElementById('news-modal-close');
-      const galleryViewport = modalGallery ? modalGallery.querySelector('[data-gallery-viewport]') : null;
-      const galleryTrack = modalGallery ? modalGallery.querySelector('[data-gallery-track]') : null;
-      const galleryButtons = modalGallery ? modalGallery.querySelectorAll('button[data-gallery-dir]') : [];
-      let galleryIndex = 0;
-      let galleryTotal = 0;
-
-      function normalizeLinks(list = []) {
-        if (!Array.isArray(list)) return [];
-        return list
-          .map((item, idx) => {
-            if (!item) return null;
-            if (typeof item === 'string') {
-              return { label: `ดูเพิ่มเติม ${idx + 1}`, url: item };
-            }
-            if (item.url) {
-              return { label: item.label || `ดูเพิ่มเติม ${idx + 1}`, url: item.url };
-            }
-            return null;
-          })
-          .filter(Boolean);
-      }
-
-      function updateGalleryPosition() {
-        if (!galleryTrack) return;
-        galleryTrack.style.transform = `translateX(-${galleryIndex * 100}%)`;
-        galleryButtons.forEach((btn) => {
-          if (galleryTotal <= 1) {
-            btn.classList.add('hidden');
-          } else {
-            btn.classList.remove('hidden');
-          }
-        });
-      }
-
-      function renderGallery(images = []) {
-        if (!modalGallery || !galleryTrack || !galleryViewport) return;
-        const list = Array.isArray(images) ? images.filter(Boolean) : [];
-        if (!list.length) {
-          modalGallery.classList.add('hidden');
-          galleryTrack.innerHTML = '';
-          galleryTotal = 0;
-          return;
-        }
-        modalGallery.classList.remove('hidden');
-        galleryTrack.innerHTML = list
-          .map(
-            (src) => `
-            <div class="min-w-full flex justify-center">
-              <img src="${src}" alt="news image" class="w-full object-contain bg-slate-100 max-h-[60vh] rounded-lg"/>
+    <div class="bg-mah-blue text-white shadow-lg shadow-blue-900/10">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="h-11 w-11">
+                    <img src="./assets/Mahidol_Logo.png" alt="Mahidol Logo" class="h-full w-full object-cover" />
+                </div>
+                <div class="leading-tight">
+                    <div class="font-semibold text-lg tracking-tight">คณะสาธารณสุขศาสตร์</div>
+                    <div class="text-xs text-blue-200 font-light">ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์</div>
+                </div>
             </div>
-          `,
-          )
-          .join('');
-        galleryTotal = list.length;
-        galleryIndex = 0;
-        updateGalleryPosition();
-      }
-
-      galleryButtons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          if (!galleryTotal) return;
-          const dir = btn.dataset.galleryDir === 'next' ? 1 : -1;
-          galleryIndex = (galleryIndex + dir + galleryTotal) % galleryTotal;
-          updateGalleryPosition();
-        });
-      });
-
-      function renderLinks(links = []) {
-        if (!modalLinks) return;
-        modalLinks.innerHTML = '';
-        const items = normalizeLinks(links);
-        if (!items.length) {
-          modalLinks.classList.add('hidden');
-          return;
-        }
-        modalLinks.classList.remove('hidden');
-        items.forEach((item) => {
-          const btn = document.createElement('a');
-          btn.href = item.url;
-          btn.target = '_blank';
-          btn.rel = 'noopener noreferrer';
-          btn.className = 'inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition';
-          btn.innerHTML = `<span>${item.label}</span><i data-lucide="external-link" class="w-4 h-4"></i>`;
-          modalLinks.appendChild(btn);
-        });
-        if (window.lucide && typeof window.lucide.createIcons === 'function') {
-          window.lucide.createIcons({ root: modalLinks });
-        }
-      }
-
-      function openModal({ title, date, tag, body, images = [], links = [] }) {
-        if (modalTitle) modalTitle.textContent = title || '';
-        if (modalDate) modalDate.textContent = date || '';
-        if (modalTag) modalTag.textContent = tag || '';
-        if (modalBody) modalBody.textContent = body || '';
-        renderGallery(images);
-        renderLinks(links);
-        if (modal) {
-          modal.classList.remove('hidden');
-          modal.classList.add('flex');
-        }
-      }
-
-      function closeModal() {
-        if (!modal) return;
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-      }
-
-      if (closeBtn) closeBtn.addEventListener('click', closeModal);
-      if (modal) {
-        modal.addEventListener('click', (e) => {
-          if (e.target === modal) closeModal();
-        });
-      }
-
-      const parseDatasetList = (value) => {
-        if (!value) return [];
-        try {
-          return JSON.parse(decodeURIComponent(value));
-        } catch (error) {
-          console.warn('ไม่สามารถอ่านข้อมูลเพิ่มเติมของข่าวได้', error);
-          return [];
-        }
-      };
-
-      function wireCards() {
-        document.querySelectorAll('#news-list-page article').forEach((card) => {
-          card.addEventListener('click', () => {
-            openModal({
-              title: card.dataset.title,
-              date: card.dataset.date,
-              tag: card.dataset.tag,
-              body: card.dataset.body,
-              images: parseDatasetList(card.dataset.images),
-              links: parseDatasetList(card.dataset.links),
-            });
-          });
-        });
-      }
-
-      function renderNews(items) {
-        const container = document.getElementById('news-list-page');
-        if (!container) return;
-        if (!items.length) {
-          container.innerHTML = '<p class="text-sm text-slate-500">??????????????????/?????? ????????????? news.json</p>';
-          return;
-        }
-        const safe = (s) => (s || '').replace(/"/g, '&quot;');
-        const encodeList = (value) => encodeURIComponent(JSON.stringify(value || []));
-        container.innerHTML = items
-          .map((n) => {
-            const images = Array.isArray(n.images) && n.images.length
-              ? n.images.filter(Boolean)
-              : n.image
-              ? [n.image]
-              : [];
-            const primaryImage = images[0] || './assets/images/img/error_load_picture.jpg';
-            const links = Array.isArray(n.links)
-              ? n.links
-              : n.link
-              ? [{ label: n.linkLabel || '???????????', url: n.link }]
-              : [];
-            return `
-            <article class="rounded-xl overflow-hidden shadow hover:shadow-xl transition-shadow bg-white cursor-pointer"
-              data-title="${safe(n.title || '????/??????')}"
-              data-date="${safe(n.date || '-')}"
-              data-tag="${safe(n.tag || '????/??????')}"
-              data-body="${safe(n.body || n.summary || '???????????????????????????')}"
-              data-images="${encodeList(images)}"
-              data-links="${encodeList(links)}">
-              <img src="${primaryImage}" alt="news" class="h-44 w-full object-cover"/>
-              <div class="p-5">
-                <div class="flex items-center gap-2 text-xs text-blue-200">
-                  <span class="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5">${n.tag || '????/??????'}</span>
-                  <span class="flex items-center gap-1"><i data-lucide="calendar-days" class="w-3.5 h-3.5"></i>${n.date || '-'}</span>
+            <button class="md:hidden inline-flex items-center justify-center rounded-xl border border-white/30 text-white h-10 w-12 transition hover:bg-white/10 focus:outline-none" id="mobile-nav-toggle">
+                <i class="w-5 h-5" data-lucide="menu" id="mobile-icon-open"></i>
+                <i class="w-5 h-5 hidden" data-lucide="x" id="mobile-icon-close"></i>
+            </button>
+            <nav class="hidden md:flex items-center text-sm tracking-wide primary-nav">
+                <div class="nav-item"><a href="index.html">หน้าแรก</a></div>
+                <div class="nav-item">
+                    <a href="about.html">เกี่ยวกับเรา</a>
+                    <div class="nav-dropdown">
+                        <a href="about.html#history"><i data-lucide="book-open" class="w-4 h-4 text-mah-orange"></i>ประวัติ</a>
+                        <a href="about.html#vision"><i data-lucide="eye" class="w-4 h-4 text-mah-orange"></i>วิสัยทัศน์</a>
+                        <a href="about.html#leadership" class="items-start py-2"><i data-lucide="award" class="w-4 h-4 mt-1 shrink-0 text-mah-orange"></i><span class="leading-tight">ทำเนียบ<br>หัวหน้าภาควิชา</span></a>
+                    </div>
                 </div>
-                <h3 class="mt-2 font-semibold leading-snug">${n.title || '????/??????'}</h3>
-                <p class="text-sm text-slate-600 mt-2">${n.summary || ''}</p>
-                <div class="mt-3 flex items-center justify-between">
-                  <span class="text-xs text-blue-200">${n.by ? `??? ${n.by}` : ''}</span>
-                  <span class="text-sm inline-flex items-center gap-1 text-blue-700 hover:text-blue-900">
-                    ?????????????? <i data-lucide="external-link" class="w-4 h-4"></i>
-                  </span>
+                <div class="nav-item"><a href="staff.html">บุคลากร</a></div>
+                <div class="nav-item"><a class="active" href="news.html">ข่าว/ประกาศ</a></div>
+                <div class="nav-item">
+                    <a href="Services.html">บริการวิชาการ</a>
+                    <div class="nav-dropdown">
+                        <a href="Services.html#training"><i data-lucide="presentation" class="w-4 h-4 text-mah-orange"></i>ฝึกอบรม</a>
+                        <a href="https://he01.tci-thaijo.org/index.php/muhed/issue/archive" target="_blank"><i data-lucide="newspaper" class="w-4 h-4 text-mah-orange"></i>วารสารสุขศึกษา</a>
+                    </div>
                 </div>
-              </div>
-            </article>
-          `;
-          })
-          .join('');
-        if (window.lucide && typeof window.lucide.createIcons === 'function') {
-          window.lucide.createIcons();
-        }
-        wireCards();
-      }
+                <div class="nav-item"><a href="contact.html">ติดต่อ</a></div>
+            </nav>
+        </div>
+    </div>
+    
+    <div class="md:hidden bg-white text-mah-blue border-t border-white/10 shadow-lg hidden" id="mobile-nav-panel">
+        <div class="px-6 py-4 space-y-4 text-sm font-semibold">
+            <div class="space-y-1">
+                <a class="flex items-center gap-2 py-2 border-b border-slate-50" href="index.html">หน้าแรก</a>
+                <a class="flex items-center gap-2 py-2 border-b border-slate-50" href="about.html">เกี่ยวกับเรา</a>
+                <a class="flex items-center gap-2 py-2 border-b border-slate-50" href="staff.html">บุคลากร</a>
+                <a class="flex items-center gap-2 py-2 border-b border-slate-50 text-mah-orange" href="news.html">ข่าว/ประกาศ</a>
+                <a class="flex items-center gap-2 py-2 border-b border-slate-50" href="Services.html">บริการวิชาการ</a>
+                <a class="flex items-center gap-2 py-2" href="contact.html">ติดต่อ</a>
+            </div>
+        </div>
+    </div>
+</header>
 
-      fetch('./news.json')
-        .then((res) => res.json())
-        .then((data) => (Array.isArray(data) ? renderNews(data) : renderNews([])))
-        .catch(() => renderNews([]));
-    });
-  </script>
+<header class="relative overflow-hidden bg-slate-50 border-b border-slate-200">
+    <div class="absolute inset-0 -z-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-50"></div>
+    <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 text-center">
+        <h1 class="text-3xl md:text-5xl font-extrabold text-mah-dark mb-4 animate-fade-in-up">ข่าว / ประกาศ</h1>
+        <p class="text-slate-500 text-lg font-light animate-fade-in-up delay-100">อัปเดตข่าวสารและกิจกรรมล่าสุดจากทางคณะฯ</p>
+        <div class="w-16 h-1.5 bg-mah-orange rounded-full mx-auto mt-6 animate-fade-in-up delay-200"></div>
+    </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-6 py-16 flex-grow">
+    <div class="grid md:grid-cols-3 gap-8" id="news-list-page">
+        <div class="col-span-full text-center py-20 text-slate-400">
+            <i class="animate-spin" data-lucide="loader-2"></i> กำลังโหลดข้อมูล...
+        </div>
+    </div>
+</main>
+
+<footer class="bg-mah-blue text-white pt-12 pb-8 border-t border-white/10 mt-auto">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10 text-sm">
+      <div class="md:col-span-1">
+        <div class="h-14 mb-5 p-2 bg-white rounded-lg inline-block">
+          <img src="./assets/images/logo-footer.png" alt="Faculty Logo" class="h-full object-contain" />
+        </div>
+        <p class="text-blue-100 leading-relaxed font-light">
+          มุ่งมั่นผลิตบัณฑิตและสร้างสรรค์งานวิจัยด้านสุขศึกษาและพฤติกรรมศาสตร์ เพื่อสุขภาวะที่ดีของสังคม
+        </p>
+      </div>
+      <div>
+        <div class="font-bold text-white mb-4 text-base">ลิงก์ที่เกี่ยวข้อง</div>
+        <ul class="space-y-3">
+          <li>
+            <a class="text-blue-100 hover:text-mah-orange hover:no-underline transition-colors block" href="https://www.ph.mahidol.ac.th/" target="_blank">
+                คณะสาธารณสุขศาสตร์
+            </a>
+          </li>
+          <li>
+            <a class="text-blue-100 hover:text-mah-orange hover:no-underline transition-colors block" href="http://www.grad.mahidol.ac.th/" target="_blank">
+                บัณฑิตวิทยาลัย
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-bold text-white mb-4 text-base">ติดต่อเรา</div>
+        <ul class="space-y-3 text-blue-100 font-light">
+          <li class="leading-relaxed">ภาควิชาสุขศึกษาและพฤติกรรมศาสตร์<br>คณะสาธารณสุขศาสตร์ มหาวิทยาลัยมหิดล</li>
+          <li>420/1 ถนนราชวิถี เขตราชเทวี<br>กรุงเทพฯ 10400</li>
+          <li class="mt-2">0 2354 8543 ต่อ 3604</li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-bold text-white mb-4 text-base">ติดตามข่าวสาร</div>
+        <a href="https://www.facebook.com/profile.php?id=100057184521181" target="_blank"
+           class="inline-flex items-center gap-3 px-4 py-3 bg-white/10 rounded-xl text-white hover:bg-white hover:text-mah-blue transition-all font-semibold group border border-white/20 hover:no-underline">
+          <i data-lucide="facebook" class="w-5 h-5 transition-transform group-hover:scale-110"></i>
+          <span>Facebook Page</span>
+        </a>
+      </div>
+    </div>
+    <div class="text-xs text-blue-200/60 text-center mt-12 pt-6 border-t border-white/10">
+      © 2025 Department of Health Education and Behavioral Sciences. All Rights Reserved.
+    </div>
+</footer>
+
+<div class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm px-4" id="news-modal">
+    <div class="bg-white rounded-2xl max-w-3xl w-full p-6 md:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto animate-fade-in-up">
+        <button aria-label="ปิด" class="absolute top-4 right-4 z-50 bg-white/80 backdrop-blur p-2 rounded-full hover:bg-slate-100 transition text-slate-500 hover:text-slate-800 shadow-sm" id="news-modal-close">
+            <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+        
+        <div class="mb-2">
+            <span class="text-xs font-bold text-mah-orange bg-orange-50 px-2 py-1 rounded-md" id="news-modal-tag"></span>
+        </div>
+        
+        <h3 class="text-xl md:text-2xl font-bold text-mah-dark leading-tight mb-2" id="news-modal-title"></h3>
+        
+        <div class="flex items-center gap-2 text-sm text-slate-400 mb-6 pb-4 border-b border-slate-100">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+            <span id="news-modal-date"></span>
+        </div>
+
+        <div class="hidden mb-6" id="news-modal-gallery">
+            <div class="relative group">
+                <div class="overflow-hidden rounded-xl bg-slate-50 border border-slate-100" data-gallery-viewport>
+                    <div class="flex transition-transform duration-500 ease-out" data-gallery-track></div>
+                </div>
+                <button type="button" class="modal-gallery-nav opacity-0 group-hover:opacity-100 transition-opacity" data-gallery-dir="prev" aria-label="ภาพก่อนหน้า">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                </button>
+                <button type="button" class="modal-gallery-nav opacity-0 group-hover:opacity-100 transition-opacity" data-gallery-dir="next" aria-label="ภาพถัดไป">
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="text-base text-slate-600 leading-relaxed whitespace-pre-wrap font-light" id="news-modal-body"></div>
+        
+        <div class="flex flex-wrap gap-3 mt-8 pt-6 border-t border-slate-100 hidden" id="news-modal-links"></div>
+    </div>
+</div>
+
 <script>
     window.addEventListener('DOMContentLoaded', () => {
-      if (window.lucide && typeof window.lucide.createIcons === 'function') {
-        window.lucide.createIcons();
-      }
-      const mobileToggle = document.getElementById('mobile-nav-toggle');
-      const mobilePanel = document.getElementById('mobile-nav-panel');
-      const mobileIconOpen = document.getElementById('mobile-icon-open');
-      const mobileIconClose = document.getElementById('mobile-icon-close');
+        // --- 1. จัดการ Mobile Menu ---
+        if (window.lucide && typeof window.lucide.createIcons === 'function') {
+            window.lucide.createIcons();
+        }
+        const mobileToggle = document.getElementById('mobile-nav-toggle');
+        const mobilePanel = document.getElementById('mobile-nav-panel');
+        const mobileIconOpen = document.getElementById('mobile-icon-open');
+        const mobileIconClose = document.getElementById('mobile-icon-close');
 
-      function closeMobileNav() {
-        if (!mobilePanel) return;
-        mobilePanel.classList.add('hidden');
-        if (mobileIconOpen) mobileIconOpen.classList.remove('hidden');
-        if (mobileIconClose) mobileIconClose.classList.add('hidden');
-      }
-
-      if (mobileToggle && mobilePanel) {
-        mobileToggle.addEventListener('click', () => {
-          const willOpen = mobilePanel.classList.contains('hidden');
-          mobilePanel.classList.toggle('hidden');
-          if (willOpen) {
-            if (mobileIconOpen) mobileIconOpen.classList.add('hidden');
-            if (mobileIconClose) mobileIconClose.classList.remove('hidden');
-          } else {
+        function closeMobileNav() {
+            if (!mobilePanel) return;
+            mobilePanel.classList.add('hidden');
             if (mobileIconOpen) mobileIconOpen.classList.remove('hidden');
             if (mobileIconClose) mobileIconClose.classList.add('hidden');
-          }
+        }
+
+        if (mobileToggle && mobilePanel) {
+            mobileToggle.addEventListener('click', () => {
+                const willOpen = mobilePanel.classList.contains('hidden');
+                mobilePanel.classList.toggle('hidden');
+                if (willOpen) {
+                    if (mobileIconOpen) mobileIconOpen.classList.add('hidden');
+                    if (mobileIconClose) mobileIconClose.classList.remove('hidden');
+                } else {
+                    if (mobileIconOpen) mobileIconOpen.classList.remove('hidden');
+                    if (mobileIconClose) mobileIconClose.classList.add('hidden');
+                }
+            });
+            mobilePanel.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', closeMobileNav);
+            });
+        }
+
+        // --- 2. จัดการ Modal & News ---
+        const modal = document.getElementById('news-modal');
+        const modalTitle = document.getElementById('news-modal-title');
+        const modalDate = document.getElementById('news-modal-date');
+        const modalTag = document.getElementById('news-modal-tag');
+        const modalBody = document.getElementById('news-modal-body');
+        const modalGallery = document.getElementById('news-modal-gallery');
+        const modalLinks = document.getElementById('news-modal-links');
+        const closeBtn = document.getElementById('news-modal-close');
+        
+        const galleryViewport = modalGallery ? modalGallery.querySelector('[data-gallery-viewport]') : null;
+        const galleryTrack = modalGallery ? modalGallery.querySelector('[data-gallery-track]') : null;
+        const galleryButtons = modalGallery ? modalGallery.querySelectorAll('button[data-gallery-dir]') : [];
+        let galleryIndex = 0;
+        let galleryTotal = 0;
+
+        function normalizeLinks(list = []) {
+            if (!Array.isArray(list)) return [];
+            return list.map((item, idx) => {
+                if (!item) return null;
+                if (typeof item === 'string') return { label: `ดูเพิ่มเติม ${idx + 1}`, url: item };
+                if (item.url) return { label: item.label || `ดูเพิ่มเติม ${idx + 1}`, url: item.url };
+                return null;
+            }).filter(Boolean);
+        }
+
+        function updateGalleryPosition() {
+            if (!galleryTrack) return;
+            galleryTrack.style.transform = `translateX(-${galleryIndex * 100}%)`;
+            galleryButtons.forEach((btn) => {
+                if (galleryTotal <= 1) btn.classList.add('hidden');
+                else btn.classList.remove('hidden');
+            });
+        }
+
+        function renderGallery(images = []) {
+            if (!modalGallery || !galleryTrack || !galleryViewport) return;
+            const list = Array.isArray(images) ? images.filter(Boolean) : [];
+            if (!list.length) {
+                modalGallery.classList.add('hidden');
+                galleryTrack.innerHTML = '';
+                galleryTotal = 0;
+                return;
+            }
+            modalGallery.classList.remove('hidden');
+            galleryTrack.innerHTML = list.map(src => `
+                <div class="min-w-full flex justify-center items-center bg-slate-50">
+                    <img src="${src}" alt="news image" class="w-full h-auto max-h-[60vh] object-contain"/>
+                </div>
+            `).join('');
+            galleryTotal = list.length;
+            galleryIndex = 0;
+            updateGalleryPosition();
+        }
+
+        galleryButtons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                if (!galleryTotal) return;
+                const dir = btn.dataset.galleryDir === 'next' ? 1 : -1;
+                galleryIndex = (galleryIndex + dir + galleryTotal) % galleryTotal;
+                updateGalleryPosition();
+            });
         });
 
-        mobilePanel.querySelectorAll('a').forEach((link) => {
-          link.addEventListener('click', closeMobileNav);
-        });
-      }
+        function renderLinks(links = []) {
+            if (!modalLinks) return;
+            modalLinks.innerHTML = '';
+            const items = normalizeLinks(links);
+            if (!items.length) {
+                modalLinks.classList.add('hidden');
+                return;
+            }
+            modalLinks.classList.remove('hidden');
+            items.forEach((item) => {
+                const btn = document.createElement('a');
+                btn.href = item.url;
+                btn.target = '_blank';
+                btn.rel = 'noopener noreferrer';
+                btn.className = 'inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-mah-blue text-white text-sm font-semibold hover:bg-mah-dark transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 no-underline';
+                btn.innerHTML = `<span>${item.label}</span><i data-lucide="external-link" class="w-4 h-4"></i>`;
+                modalLinks.appendChild(btn);
+            });
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                window.lucide.createIcons({ root: modalLinks });
+            }
+        }
+
+        function openModal({ title, date, tag, body, images = [], links = [] }) {
+            if (modalTitle) modalTitle.textContent = title || '';
+            if (modalDate) modalDate.textContent = date || '';
+            if (modalTag) modalTag.textContent = tag || '';
+            if (modalBody) modalBody.textContent = body || '';
+            renderGallery(images);
+            renderLinks(links);
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                document.body.style.overflow = 'hidden'; 
+            }
+        }
+
+        function closeModal() {
+            if (!modal) return;
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = ''; 
+        }
+
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+        }
+
+        const parseDatasetList = (value) => {
+            if (!value) return [];
+            try {
+                return JSON.parse(decodeURIComponent(value));
+            } catch (error) {
+                return [];
+            }
+        };
+
+        function wireCards() {
+            document.querySelectorAll('#news-list-page article').forEach((card) => {
+                card.addEventListener('click', () => {
+                    openModal({
+                        title: card.dataset.title,
+                        date: card.dataset.date,
+                        tag: card.dataset.tag,
+                        body: card.dataset.body,
+                        images: parseDatasetList(card.dataset.images),
+                        links: parseDatasetList(card.dataset.links),
+                    });
+                });
+            });
+        }
+
+        function renderNews(items) {
+            const container = document.getElementById('news-list-page');
+            if (!container) return;
+            if (!items.length) {
+                container.innerHTML = '<div class="col-span-3 text-center py-20 text-slate-400">ยังไม่มีข่าวประชาสัมพันธ์</div>';
+                return;
+            }
+            
+            const safe = (s) => (s || '').replace(/"/g, '&quot;');
+            const encodeList = (value) => encodeURIComponent(JSON.stringify(value || []));
+            
+            container.innerHTML = items.map((n) => {
+                const images = Array.isArray(n.images) && n.images.length ? n.images.filter(Boolean) : (n.image ? [n.image] : []);
+                const fallbackImage = 'https://placehold.co/600x400/f1f5f9/94a3b8?text=News'; 
+                const primaryImage = images[0] || fallbackImage;
+                
+                const links = Array.isArray(n.links) ? n.links : (n.link ? [{ label: n.linkLabel || 'อ่านเพิ่มเติม', url: n.link }] : []);
+                
+                return `
+                <article class="group rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:shadow-blue-900/10 transition-all duration-300 bg-white cursor-pointer border border-slate-100 flex flex-col h-full hover:-translate-y-1"
+                    data-title="${safe(n.title || 'ข่าวประชาสัมพันธ์')}"
+                    data-date="${safe(n.date || '-')}"
+                    data-tag="${safe(n.tag || 'ข่าว/ประกาศ')}"
+                    data-body="${safe(n.body || n.summary || 'ไม่มีรายละเอียด')}"
+                    data-images="${encodeList(images)}"
+                    data-links="${encodeList(links)}">
+                    
+                    <div class="h-48 w-full overflow-hidden relative bg-slate-50">
+                        <img src="${primaryImage}" alt="news cover" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" onerror="this.src='${fallbackImage}'"/>
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
+                        <span class="absolute top-3 left-3 bg-white/95 backdrop-blur text-mah-orange text-[10px] font-bold px-3 py-1 rounded-full shadow-sm tracking-wide uppercase">
+                            ${n.tag || 'ข่าว'}
+                        </span>
+                    </div>
+                    
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex items-center gap-2 text-xs text-slate-400 mb-3 font-medium">
+                            <i data-lucide="calendar-days" class="w-3.5 h-3.5 text-mah-orange"></i>
+                            <span>${n.date || '-'}</span>
+                        </div>
+                        
+                        <h3 class="font-bold text-lg leading-snug text-mah-dark group-hover:text-mah-blue transition-colors mb-3 line-clamp-2">
+                            ${n.title || 'ไม่มีหัวข้อข่าว'}
+                        </h3>
+                        
+                        <p class="text-sm text-slate-500 font-light leading-relaxed line-clamp-3 mb-4 flex-grow">
+                            ${n.summary || n.body || ''}
+                        </p>
+                        
+                        <div class="pt-4 border-t border-slate-50 flex items-center justify-between mt-auto">
+                            <span class="text-xs text-slate-400 truncate max-w-[50%]">
+                                ${n.by ? `โดย ${n.by}` : ''}
+                            </span>
+                            <span class="text-xs text-mah-blue font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
+                                อ่านรายละเอียด <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+                `;
+            }).join('');
+            
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                window.lucide.createIcons();
+            }
+            wireCards();
+        }
+
+        // ดึงข้อมูลจากไฟล์ news.json
+        fetch('./news.json')
+            .then((res) => res.json())
+            .then((data) => (Array.isArray(data) ? renderNews(data) : renderNews([])))
+            .catch((err) => {
+                console.error("Error loading news:", err);
+                renderNews([]);
+            });
     });
-  </script>
+</script>
 </body>
 </html>

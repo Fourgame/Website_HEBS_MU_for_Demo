@@ -1,0 +1,181 @@
+[
+  {
+    "type": "header",
+    "title": "บุคลากร"
+  },
+  {
+    "type": "staff",
+    "id": "staff_4",
+    "name": "ดร.มลินี สมภพเจริญ",
+    "position": "หัวหน้าภาควิชา",
+    "education": [
+      {
+        "degree": "ปริญญาเอก ปรัชญาดุษฎีบัณฑิต สื่อสารมวลชน",
+        "institute": "มหาวิทยาลัยธรรมศาสตร์",
+        "year": ""
+      },
+      {
+        "degree": "ปริญญาโท นศ.ม. วารสารสนเทศ",
+        "institute": "",
+        "year": ""
+      },
+      {
+        "degree": "ปริญญาตรี วส.บ. การหนังสือพิมพ์",
+        "institute": "",
+        "year": ""
+      }
+    ],
+    "expertise": [
+      "การสื่อสารสุขภาพ",
+      "การรณรงค์ด้านสุขภาพ",
+      "การผลิตสื่อรูปแบบต่างๆ"
+    ],
+    "research": [],
+    "email": "",
+    "phone": "",
+    "image": "./assets/images/staff/3.webp",
+    "cv": "",
+    "title": "รองศาสตราจารย์"
+  },
+  {
+    "type": "staff",
+    "id": "new_3",
+    "name": "ดร.สุภา เพ่งพิศ",
+    "position": "",
+    "image": "./assets/images/staff/5.webp",
+    "cv": "./assets/CV/CV ภาควิชา(1).pdf",
+    "education": [
+      {
+        "degree": "ปริญญาเอก ดุษฎีบัณฑิต สาธารณสุขศาสตร์",
+        "institute": "มหาวิทยาลัยมหิดล",
+        "year": ""
+      },
+      {
+        "degree": "ปริญญาโท วิทยาศาสตรมหาบัณฑิต สุขศึกษาและพฤติกรรมศาสตร์",
+        "institute": "มหาวิทยาลัยมหิดล",
+        "year": ""
+      },
+      {
+        "degree": "ปริญญาตรี วิทยาศาสตรบัณฑิต สุขศึกษา",
+        "institute": "มหาวิทยาลัยรามคำแหง",
+        "year": ""
+      }
+    ],
+    "expertise": [
+      "Doctor of Public Health",
+      "Master of Sciences (Public Health)",
+      "Master of Business Administration (MBA)",
+      "Bachelor of Education",
+      "Nursing and midwifery"
+    ],
+    "research": [
+      "Kahenya, G. (2009), Degree Doctor of Public Health (Dr.PH). Supervisor Thesis?s Title: The challenges of scaling up laboratory services for monitoring HIV/AIDS patients on anti-retroviral therapy in Zambia (University of Limpopo).",
+      "Skaal, L. (2010) Doctor of Public Health (Dr.PH). Role: Major Supervisor Thesis?s title: The predictive validity of using the transtheorethical model in increasing physical activities amongst health workers (University of Limpopo).",
+      "Maseko, B.P. (2012) Doctor of Public Health (Dr.PH). Role: Major Supervisor Thesis?s title:? ARV Treatment outcome scenarios of in the next two decades: An ethnographic Delphi Future Research. (University of Limpopo). Role: Major Supervisor."
+    ],
+    "email": "supa.pen@mahidol.ac.th",
+    "phone": "0935515154",
+    "title": "ศาสตราจารย์"
+  },
+  {
+    "type": "staff",
+    "id": "staff_3",
+    "name": "ชื่อ-นามสกุล",
+    "position": "อาจารย์",
+    "education": [],
+    "expertise": [],
+    "research": [],
+    "email": "",
+    "phone": "",
+    "image": "./assets/images/staff/2.webp",
+    "cv": "",
+    "title": ""
+  },
+  {
+    "type": "staff",
+    "id": "staff_5",
+    "name": "นางสาว ศิริพร แสนตรี",
+    "position": "อาจารย์",
+    "education": [
+      {
+        "degree": "ปริญญาเอก สาธารณสุขศาสตรดุษฎีบัณฑิต สาธารณสุขศาสตร์",
+        "institute": "จุฬาลงกรณ์มหาวิทยาลัย",
+        "year": ""
+      },
+      {
+        "degree": "ปริญญาโท สาธารณสุขศาสตรมหาบัณฑิต สาธารณสุขศาสตร์",
+        "institute": "จุฬาลงกรณ์มหาวิทยาลัย",
+        "year": ""
+      },
+      {
+        "degree": "ปริญญาตรี วิทยาศาสตรบัณฑิต (สาธารณสุขศาสตร์) สาธารณสุขศาสตร์",
+        "institute": "มหาวิทยาลัยนเรศวร",
+        "year": ""
+      }
+    ],
+    "expertise": [
+      "Sexual Harassment",
+      "Cyberbullying",
+      "Adolescent Health",
+      "Mental Health",
+      "Health Promotion"
+    ],
+    "research": [],
+    "email": "siriporn.sar@mahidol.ac.th",
+    "phone": "",
+    "image": "./assets/images/staff/4.webp",
+    "cv": "./assets/CV/CV_sirporn santre_PHHE.pdf",
+    "title": ""
+  },
+  {
+    "type": "staff",
+    "id": "staff_6",
+    "name": "นาย ภาสกร สวนเรือง",
+    "position": "อาจารย์",
+    "education": [
+      {
+        "degree": "ปริญญาเอก ดุษฏีบัณฑิต Healthcare Administration (Specialty in Psychology))",
+        "institute": "Asia University, Taichung",
+        "year": ""
+      },
+      {
+        "degree": "ปริญญาโท M.Sc. Clinical and Community Psychology",
+        "institute": "Ramkhamhaeng University",
+        "year": ""
+      },
+      {
+        "degree": "ปริญญาโท M.A. Human and Social Development",
+        "institute": "Prince of Songkla University",
+        "year": ""
+      },
+      {
+        "degree": "ปริญญาตรี B.Com.Art Communication Art",
+        "institute": "Sukhothai Thammathirat Open University",
+        "year": ""
+      },
+      {
+        "degree": "ปริญญาตรี B.Sc. Agriculture",
+        "institute": "",
+        "year": ""
+      }
+    ],
+    "expertise": [
+      "Healthcare research",
+      "Health psychology",
+      "Community mental health",
+      "Gender differences",
+      "Mental and psychological health research",
+      "Health promotion"
+    ],
+    "research": [
+      "Suanrueang, P., Peltzer, K., Lkhamsuren, Z., & Yap, L. K. (2023). The association between psychosocial factors, protective factors, and its associated triggers with psychological distress among Bolivian adolescents. Scientific Reports, 13(1), 12589.",
+      "Suanrueang, P., & Wongsin, U. (2023). Cost Analysis of Outpatient Care for Mental and Behavioral Disorders due to Psychoactive Substance Use: A Study of Four Community and Two General Hospitals in Thailand. Asia Pacific Journal of Health Management, 18(1), 1-9.",
+      "Geraldina, A. M., Suen, M. W., & Suanrueang, P. (2023). Online mental health services during COVID-19 pandemic in Indonesia: Challenges from psychologist perspective. PLOS ONE, 18(6), e0285490."
+    ],
+    "email": "passakorn.sua@mahidol.edu",
+    "phone": "",
+    "image": "./assets/images/staff/1.webp",
+    "cv": "./assets/CV/CV_TEMPLATE_PHHE - Passa-5 Feb 26.pdf",
+    "title": ""
+  }
+]
