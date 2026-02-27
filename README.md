@@ -21,10 +21,26 @@
 
 ## 📂 Project Architecture
 ```bash
-├── 📁 assets             # Media, Images, and Graphical Models
-├── 📄 index.html         # Landing Page (The Entrance)
-├── 📄 about.html         # History & Vision
-├── 📄 staff.html         # Personnel Directory
-├── 📄 news.html          # Press Release & Updates
-├── 📄 Services.html      # Academic Services & Journal
-└── 📄 contact.html       # Contact Hub & Location
+WEBSITE_HEALTH_EDUCATION_MU/
+├── 📁 .vscode/               # VS Code configuration files
+├── 📁 assets/                 # ทรัพยากรหลักของเว็บไซต์
+│   ├── 📁 CV/                # เอกสารประวัติบุคลากร
+│   ├── 📁 images/            # รูปภาพประกอบทั่วไป
+│   ├── 📁 news/              # รูปภาพสำหรับข่าวสาร
+│   ├── 📁 stand_model/       # รูปภาพโมเดลกราฟิก/ตัวการ์ตูน
+│   ├── 📄 banner1.jpg        # ภาพแบนเนอร์หลัก
+│   ├── 📄 Mahidol_Logo.png   # โลโก้มหาวิทยาลัยมหิดล
+│   └── 📄 video_web.mp4      # วิดีโอพื้นหลังหรือวิดีโอแนะนำ
+├── 📁 tools/                  # เครื่องมืออัตโนมัติ (Python & Automation)
+│   ├── 📄 news_editor_gui.py  # โปรแกรมจัดการข่าว (Python GUI)
+│   ├── 📄 update_news.py      # สคริปต์สำหรับอัปเดตข้อมูลข่าว
+│   └── 📄 *.exe               # ไฟล์โปรแกรมสำเร็จรูปสำหรับจัดการ Staff/News/Service
+├── 📄 index.html              # หน้าแรก (Landing Page)
+├── 📄 about.html              # ข้อมูลภาควิชาและประวัติ
+├── 📄 staff.html              # รายชื่อและข้อมูลบุคลากร
+├── 📄 news.html               # ศูนย์รวมข่าวประชาสัมพันธ์
+├── 📄 Services.html           # ข่าวสารบริการวิชาการ
+├── 📄 contact.html            # ข้อมูลการติดต่อและแผนที่
+├── 📄 profile.html            # หน้าแสดงรายละเอียดโปรไฟล์รายบุคคล
+├── 📁 *.json                  # ไฟล์ฐานข้อมูล (Data Storage) สำหรับ News, Staff, Services
+└── 📄 README.md               # เอกสารแนะนำโปรเจกต์
